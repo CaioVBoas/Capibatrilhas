@@ -19,13 +19,13 @@ jobs:
       - name: Get droplet IP
         run: |
           DROPLET_IP=$(cat droplet_ip.txt) && echo "DROPLET_IP=$DROPLET_IP" >> $GITHUB_ENV
-      - name: Dokku deploy
-        uses: vitalyliber/dokku-github-action@v7.1
-        env:
-          PRIVATE_KEY: ${{ secrets.DS_PRIVATE_KEY }}
-          HOST: ${{ env.DROPLET_IP }}
-          PROJECT: server
-          BRANCH: main
+      # - name: Dokku deploy
+      #   uses: vitalyliber/dokku-github-action@v7.1
+      #   env:
+      #     PRIVATE_KEY: ${{ secrets.DS_PRIVATE_KEY }}
+      #     HOST: ${{ env.DROPLET_IP }}
+      #     PROJECT: server
+      #     BRANCH: main
   migrate:
     runs-on: ubuntu-latest
     steps:
@@ -40,5 +40,5 @@ jobs:
         run: yarn install
       - name: Run migrations
         run: yarn migration:deploy
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        # env:
+          # DATABASE_URL: ${{ secrets.DATABASE_URL }}

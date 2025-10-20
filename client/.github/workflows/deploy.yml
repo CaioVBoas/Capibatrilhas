@@ -13,10 +13,10 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Dokku deploy
-      uses: vitalyliber/dokku-github-action@v7.1
-      env:
-        PRIVATE_KEY: ${{ secrets.DS_PRIVATE_KEY }}
-        HOST: ${{ secrets.HOST }}
-        PROJECT: client
-        BRANCH: main
+    # - name: Dokku deploy
+    #   uses: vitalyliber/dokku-github-action@v7.1
+    #   env:
+    #     PRIVATE_KEY: ${{ secrets.DS_PRIVATE_KEY }}
+    #     HOST: ${{ secrets.HOST }}
+    #     PROJECT: client
+    #     BRANCH: main
