@@ -51,8 +51,8 @@ export default function HomePage() {
         </div>
 
         <h3 className="text-gray-600 mb-5 ml-8">
-          Explore os bairros em destaque do mês e descubra o que cada um tem a
-          oferecer!
+          Descubra os bairros em destaque do mês! Complete desafios neles e 
+          ganhe moedas Capibas com um bônus especial.
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
