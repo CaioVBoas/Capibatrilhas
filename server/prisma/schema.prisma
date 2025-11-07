@@ -13,9 +13,57 @@ generator dbml {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  phone    String?
-  email    String  @unique
-  password String
+  id          String   @id @default(uuid())
+  name        String
+  phone       String?
+  email       String   @unique
+  password    String
+  level       Int      @default(1)
+  cpf         String   @unique
+  rg          String   @unique
+  urlImage    String?
+  birthdate   String?
+  cep         String?
+  estado      String?
+  municipio   String?
+  bairro      String?
+  logradouro  String?
+  complemento String?
+  numero      String?
+  createdAt   DateTime @default(now())
+  isAdmin     Boolean? @default(false)
+  //trilha      Trilha?  @relation(fields: [trilhaId], references: [id])
+  trilhaId    String?
+}
+
+model Desafio {
+  id          String  @id @default(uuid())
+  title       String
+  description String
+  type       String
+  location    String
+  rewards     Int
+  isFinished  Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  //trilha      Trilha?  @relation(fields: [trilhaId], references: [id])
+  trilhaId    String?
+}
+
+model Trilha {
+  id            String   @id @default(uuid())
+  title         String
+  description   String
+  theme         String
+  endingDate    DateTime
+  rewards       Int
+  progress      Int      @default(0)
+  isCompleted   Boolean  @default(false)
+  isActive      Boolean  @default(true)
+  isHighlighted Boolean  @default(false)
+  //users         User[]   @relation("UserTrilhas", references: [id])
+
+  //desafios     Desafio[] @relation("TrilhaDesafios", references: [id])
+
+  createdAt    DateTime @default(now())
 }
