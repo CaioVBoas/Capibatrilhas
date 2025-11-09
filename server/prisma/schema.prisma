@@ -67,3 +67,13 @@ model Trilha {
 
   createdAt    DateTime @default(now())
 }
+
+model BairroDestacado {
+  id          String   @id @default(uuid())
+  name        String
+  location    String
+  bonusScore  String
+  description String
+  tags       String[]
+  createdAt   DateTime @default(now())
+}
