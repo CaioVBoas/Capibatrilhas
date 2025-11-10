@@ -53,6 +53,7 @@ const mockTrails = [
   time: "5 dias",
   prize: 500,
   challengesCompleted: "3",
+  buttonText: "Continuar",
   tag: "Cultura",
 },
 {
@@ -65,6 +66,7 @@ const mockTrails = [
   time: "7 dias",
   prize: 350,
   challengesCompleted: "0",
+  buttonText: "Iniciar Trilha",
   tag: "Natureza",
 },
 ];

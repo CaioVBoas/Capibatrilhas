@@ -12,6 +12,7 @@ interface Trails {
   prize: number; 
   challengesCompleted: string; 
   tag: string; 
+  buttonText: string;
   id: number;
 }
 
@@ -77,7 +78,7 @@ const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
       </div>
 
       <button className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 hover:bg-blue-700 mt-auto">
-        Continuar
+        {trail.buttonText}
       </button>
     </div>
   );
