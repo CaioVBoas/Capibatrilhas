@@ -42,6 +42,37 @@ const mockBoroughs = [
   },
 ];
 
+const mockEvents = [
+  {
+    type: "Música",
+    costType: "Gratuito",
+    name: "Show de Verão no Parador",
+    date: "15 de Dezembro, 20:00",
+    location: "Recife Antigo",
+  },
+  {
+    type: "Arte",
+    costType: "Pago" ,
+    name: "Exposição 'Novas Cores'",
+    date: "10 a 20 de Dezembro",
+    location: "Museu Cais do Sertão",
+  },
+  {
+    type: "Gastronomia",
+    costType: "Pago",
+    name: "Festival do Hambúrguer",
+    date: "12 de Dezembro, 17:00",
+    location: "Parque Dona Lindu",
+  },
+  {
+    type: "Esporte",
+    costType: "Gratuito",
+    name: "Corrida de Rua 'Recife Corre'",
+    date: "22 de Dezembro, 07:00",
+    location: "Marco Zero",
+  },
+];
+
 export default function HomePage() {
   return (
     <div>
@@ -61,10 +92,10 @@ export default function HomePage() {
             <BoroughCard key={borough.id} borough={borough} />
           ))}
         </div>
-
-         <EventsCard></EventsCard>
-
-      </div>
+          {mockEvents.map((eventItem, index) => (
+          <EventsCard key={index} event={eventItem} />
+  ))}
+        </div>
     </div>
   );
 }

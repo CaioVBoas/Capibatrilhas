@@ -1,8 +1,10 @@
 import React from "react"
+import { CalendarImg } from "assets"
+import Image from "next/image"
 
 interface Events {
     type:  string,
-    hasCost: boolean,
+    costType: string,
     name: string,
     date: string,
     location: string
@@ -14,12 +16,21 @@ interface EventsCardProps {
 
 const EventsCard: React.FC<EventsCardProps> = ({ event }) => {
   return (
-    <div>
-      <h2>{event.name}</h2>
-      <p>Data: {event.date}</p>
-      <p>Local: {event.location}</p>
-      <p>Tipo: {event.type}</p>
-      <p>Custo: {event.hasCost ? "Pago" : "Gratuito"}</p>
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1 w-72">
+       <div className="self-center">
+        <Image src={ CalendarImg } alt="" />
+       </div>
+
+       <div className="p-4 flex flex-row justify-between items-center font-bold">
+        <h3 className=" bg-yellow-400 rounded-2xl px-3 py-1">{event.type}</h3>
+        <h3 className="rounded-2xl px-3 py-1 border border-black">{event.costType}</h3>
+       </div>
+
+       <div>
+        <h3 className="font-bold">{event.name}</h3>
+        <h4>{event.date}</h4>
+        <h4>{event.location}</h4>
+       </div>
     </div>
   );
 };
