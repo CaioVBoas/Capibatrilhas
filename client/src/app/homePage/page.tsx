@@ -76,6 +76,11 @@ const mockEvents = [
 export default function HomePage() {
   return (
     <div>
+      <div className="flex flex-row gap-5">
+        {mockEvents.map((eventItem, index) => (
+          <EventsCard key={index} event={eventItem} />
+        ))}
+      </div>
       <div className="p-10">
         <div className="flex items-center gap-2 mb-1">
           <MapPin className="h-8 w-8 text-accent text-red-500"></MapPin>
@@ -90,11 +95,6 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {mockBoroughs.map((borough) => (
             <BoroughCard key={borough.id} borough={borough} />
-          ))}
-        </div>
-        <div className="flex flex-row gap-5">
-          {mockEvents.map((eventItem, index) => (
-            <EventsCard key={index} event={eventItem} />
           ))}
         </div>
       </div>
