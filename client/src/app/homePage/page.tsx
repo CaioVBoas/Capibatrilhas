@@ -47,7 +47,7 @@ const mockTrails = [
   id: 1,
   title: "Capibatrilha de Carnaval",
   subtitle: "Explore os melhores blocos e pontos culturais do Carnaval da cidade",
-  progress: 42, // (3/7 é aprox. 42.8%)
+  progress: 42, 
   type: "Destaque",
   challengesQuantity: "7",
   time: "5 dias",

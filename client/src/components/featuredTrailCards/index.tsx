@@ -71,7 +71,6 @@ const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
           <span>{trail.time}</span>
         </div>
         <div className="flex items-center text-yellow-600 font-medium">
-          {/* Ícone do troféu com preenchimento (fill) amarelo */}
           <Trophy className="h-5 w-5 text-yellow-500 fill-yellow-500 mr-1.5" />
           <span>{trail.prize}</span>
         </div>
