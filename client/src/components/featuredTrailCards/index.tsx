@@ -23,8 +23,8 @@ interface TrailCardProps {
 const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
   return (
     
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      
+    <div className="h-full bg-white rounded-2xl shadow-sm border border-gray-200 p-5 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1"> 
+       
       <div className="flex justify-between items-start mb-1.5">
         <h2 className="text-xl font-semibold text-gray-900">{trail.title}</h2>
         
@@ -51,9 +51,7 @@ const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
           </span>
         </div>
         
-        {/* A barra de progresso usa a cor amarela do design como fundo */}
         <div className="w-full bg-yellow-400 rounded-full h-2.5 overflow-hidden">
-          {/* E a cor azul para o progresso atual, usando 'trail.progress' */}
           <div
             className="bg-blue-600 h-2.5 rounded-full"
             style={{ width: `${trail.progress}%` }}
