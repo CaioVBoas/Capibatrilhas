@@ -1,5 +1,6 @@
 import BoroughCard from "components/featuredBoroughCards"; // Importa o novo componente de card único
-import { MapPin } from "lucide-react";
+import TrailCard from "components/featuredTrailCards";
+import { MapPin, TrendingUp, Star } from "lucide-react";
 import React from "react";
 
 const mockBoroughs = [
@@ -41,9 +42,52 @@ const mockBoroughs = [
   },
 ];
 
+const mockTrails = [
+{
+  id: 1,
+  title: "Capibatrilha de Carnaval",
+  subtitle: "Explore os melhores blocos e pontos culturais do Carnaval da cidade",
+  progress: 42, // (3/7 é aprox. 42.8%)
+  type: "Destaque",
+  challengesQuantity: "7",
+  time: "5 dias",
+  prize: 500,
+  challengesCompleted: "3",
+  tag: "Cultura",
+},
+{
+  id: 2,
+  title: "7 Dias de Verão",
+  subtitle: "Desafios diários em praias e pontos turísticos da cidade",
+  progress: 0, 
+  type: "Destaque",
+  challengesQuantity: "7",
+  time: "7 dias",
+  prize: 350,
+  challengesCompleted: "0",
+  tag: "Natureza",
+},
+];
+
 export default function HomePage() {
   return (
     <div>
+      <div className="p-10">
+        <div className="flex items-center gap-2 mb-3">
+          <TrendingUp className="h-8 w-8 text-accent text-blue-600"></TrendingUp>
+          <h1 className="text-3xl font-bold">Trilha em Andamento</h1>
+        </div>
+        <div className="max-w-lg mx-auto sm:mx-0 mb-10">
+          <TrailCard trail={mockTrails[0]} />
+        </div>
+        <div className="flex items-center gap-2 mb-3">
+          <Star className="h-8 w-8 text-accent text-yellow-300"></Star>
+          <h1 className="text-3xl font-bold">Trilha em Destaque</h1>
+        </div>
+        <div className="max-w-lg mx-auto sm:mx-0">
+          <TrailCard trail={mockTrails[1]} />
+        </div> 
+      </div>
       <div className="p-10">
         <div className="flex items-center gap-2 mb-1">
           <MapPin className="h-8 w-8 text-accent text-red-500"></MapPin>
@@ -64,4 +108,4 @@ export default function HomePage() {
       </div>
     </div>
   );
-}
+} 
