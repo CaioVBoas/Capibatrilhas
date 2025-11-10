@@ -83,7 +83,7 @@ export default function HomePage() {
         </div>
 
         <h3 className="text-gray-600 mb-5 ml-8">
-          Descubra os bairros em destaque do mês! Complete desafios neles e 
+          Descubra os bairros em destaque do mês! Complete desafios neles e
           ganhe moedas Capibas com um bônus especial.
         </h3>
 
@@ -92,10 +92,12 @@ export default function HomePage() {
             <BoroughCard key={borough.id} borough={borough} />
           ))}
         </div>
+        <div className="flex flex-row gap-5">
           {mockEvents.map((eventItem, index) => (
-          <EventsCard key={index} event={eventItem} />
-  ))}
+            <EventsCard key={index} event={eventItem} />
+          ))}
         </div>
+      </div>
     </div>
   );
 }

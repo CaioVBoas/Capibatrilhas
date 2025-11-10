@@ -1,6 +1,7 @@
 import React from "react"
 import { CalendarImg } from "assets"
 import Image from "next/image"
+import { MapPin } from "lucide-react";
 
 interface Events {
     type:  string,
@@ -21,15 +22,15 @@ const EventsCard: React.FC<EventsCardProps> = ({ event }) => {
         <Image src={ CalendarImg } alt="" />
        </div>
 
-       <div className="p-4 flex flex-row justify-between items-center font-bold">
+       <div className="px-1 py-3 flex flex-row justify-between items-center font-bold">
         <h3 className=" bg-yellow-400 rounded-2xl px-3 py-1">{event.type}</h3>
         <h3 className="rounded-2xl px-3 py-1 border border-black">{event.costType}</h3>
        </div>
 
-       <div>
+       <div className="py-2">
         <h3 className="font-bold">{event.name}</h3>
         <h4>{event.date}</h4>
-        <h4>{event.location}</h4>
+        <h4 className="flex gap-1 py-1"><MapPin></MapPin>{event.location}</h4>
        </div>
     </div>
   );
