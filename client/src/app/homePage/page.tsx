@@ -1,6 +1,7 @@
 import BoroughCard from "components/featuredBoroughCards"; // Importa o novo componente de card único
 import { MapPin } from "lucide-react";
 import React from "react";
+import EventsCard from "components/eventsCard";
 
 const mockBoroughs = [
   {
@@ -60,6 +61,8 @@ export default function HomePage() {
             <BoroughCard key={borough.id} borough={borough} />
           ))}
         </div>
+
+         <EventsCard></EventsCard>
 
       </div>
     </div>
