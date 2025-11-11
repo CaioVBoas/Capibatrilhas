@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Badge } from "../ui/badge";
-// Calendar / Popover imports
+
 import { Calendar } from "../ui/calendar";
 import { DateRange } from "react-day-picker";
 import { CalendarIcon } from "lucide-react";
@@ -36,7 +36,7 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
 
       {/* Título */}
       <div className="flex flex-col gap-2">
-        <label className="font-medium">Título da Trilha *</label>
+        <label className="font-medium">Título da Trilha <span className="text-red-500">*</span></label>
         <input
           type="text"
           className="border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -46,7 +46,7 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
 
       {/* Descrição */}
       <div className="flex flex-col gap-2">
-        <label className="font-medium tex">Descrição *</label>
+        <label className="font-medium">Descrição <span className="text-red-500">*</span></label>
         <textarea
           className="border border-gray-200 rounded-xl p-3 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Descreva o objetivo e o que torna sua trilha especial..."
@@ -55,7 +55,7 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
 
       {/* Tema */}
       <div className="flex flex-col gap-2">
-        <label className="font-medium">Tags</label>
+        <label className="font-medium">Tema</label>
         <div className="flex flex-wrap gap-3">
           {topic.map((t) => {
             const isSelected = t === selectedTopic;

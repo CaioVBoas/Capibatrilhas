@@ -71,7 +71,7 @@ const mockTrails = [
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="bg-gray-50">
       <div className="p-10">
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp className="h-8 w-8 text-accent text-blue-600"></TrendingUp>
