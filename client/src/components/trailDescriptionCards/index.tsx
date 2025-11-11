@@ -5,7 +5,7 @@ import { Badge } from "../ui/badge";
 
 import { Calendar } from "../ui/calendar";
 import { DateRange } from "react-day-picker";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, BadgeInfo } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 interface TrailDescriptionCardProps {
@@ -32,7 +32,10 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col gap-6">
-      <h2 className="text-2xl font-semibold">Informações da Trilha</h2>
+      <h2 className="text-2xl font-semibold flex items-center gap-1">
+        <BadgeInfo className="h-5 w-5 text-gray-600" aria-hidden="true" />
+        Informações da Trilha
+      </h2>
 
       {/* Título */}
       <div className="flex flex-col gap-2">
