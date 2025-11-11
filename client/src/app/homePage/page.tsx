@@ -76,7 +76,7 @@ const mockEvents = [
 export default function HomePage() {
   return (
     <div>
-      <div className="flex flex-row gap-5">
+      <div className="flex flex-row gap-7.5 justify-center py-5">
         {mockEvents.map((eventItem, index) => (
           <EventsCard key={index} event={eventItem} />
         ))}
