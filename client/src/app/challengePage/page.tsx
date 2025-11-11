@@ -5,35 +5,48 @@ import TrailHeader from "components/headerChallengePage";
 const mockChallenges = [
   {
     id: "1",
-    title: "Visite o Marco Zero",
+    title: "Visita ao Bloco da Alegria",
     description:
-      "Tire uma foto no Marco Zero e compartilhe nas redes sociais com a hashtag #Capibatrilhas.",
-    place: "Marco Zero, Recife Antigo",
-    prize: "+ 100",
+      "Faça check-in no famoso Bloco da Alegria e tire uma foto com a fantasia típica",
+    place: "Praça Central",
+    prize: "+100",
     completed: true,
   },
   {
     id: "2",
-    title: "Explore a Praia de Boa Viagem",
-    description:
-      "Faça uma caminhada pela orla da Praia de Boa Viagem e registre sua experiência.",
-    place: "Praia de Boa Viagem, Recife",
-    prize: "+ 150",
-    completed: false,
+    title: "Museu do Samba",
+    description: "Escaneie o QR Code na entrada do Museu do Samba",
+    place: "Av. Cultural, 123",
+    prize: "+80",
+    completed: true,
   },
   {
     id: "3",
-    title: "Visite o Instituto Ricardo Brennand",
-    description:
-      "Conheça o acervo do Instituto Ricardo Brennand e compartilhe uma foto.",
-    place: "Instituto Ricardo Brennand, Recife",
-    prize: "+ 200",
+    title: "Ensaio de Bateria",
+    description: "Participe de um ensaio de bateria e registre o momento",
+    place: "Quadra da Escola de Samba",
+    prize: "+120",
+    completed: true,
+  },
+  {
+    id: "4",
+    title: "Quiz Carnavalesco",
+    description: "Responda perguntas sobre a história do Carnaval local",
+    place: "Online",
+    prize: "+60",
+    completed: false,
+  },
+  {
+    id: "5",
+    title: "Rota dos Blocos",
+    description: "Visite 3 blocos diferentes em um único dia",
+    place: "Centro Histórico",
+    prize: "+150",
     completed: false,
   },
 ];
 
-const mockTrails = 
-{
+const mockTrails = {
   id: 1,
   title: "Capibatrilha de Carnaval",
   subtitle: "Explore os melhores blocos e pontos culturais do Carnaval da cidade",
