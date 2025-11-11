@@ -10,12 +10,17 @@ import { cn } from "../../lib/utils";
 
 interface TrailDescriptionCardProps {
   topic: string[];
+  onTitleChange?: (title: string) => void;
+  onDescriptionChange?: (description: string) => void;
+  onDateRangeChange?: (range: DateRange | undefined) => void;
 }
 
-const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) => {
+const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange }) => {
   // Estado para gerenciar o tema selecionado. 
   // Inicializamos com o primeiro tópico da lista, se houver, para replicar a imagem.
   const [selectedTopic, setSelectedTopic] = useState<string>(topic[0] || "");
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
 
   const handleTopicSelect = (t: string) => {
     setSelectedTopic(t);
@@ -60,6 +65,11 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
         <label className="font-medium">Título da Trilha <span className="text-red-500">*</span></label>
         <input
           type="text"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+            onTitleChange?.(e.target.value);
+          }}
           className="border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Ex: Minha Aventura na Cidade"
         />
@@ -69,6 +79,11 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
       <div className="flex flex-col gap-2">
         <label className="font-medium">Descrição <span className="text-red-500">*</span></label>
         <textarea
+          value={desc}
+          onChange={(e) => {
+            setDesc(e.target.value);
+            onDescriptionChange?.(e.target.value);
+          }}
           className="border border-gray-200 rounded-xl p-3 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Descreva o objetivo e o que torna sua trilha especial..."
         />
@@ -134,6 +149,7 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
                   selected={range}
                   onSelect={(r) => {
                     setRange(r);
+                    onDateRangeChange?.(r);
                   }}
                   className="rounded-2xl"
                 />

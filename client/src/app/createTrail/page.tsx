@@ -10,40 +10,61 @@ import { ListTodo, Plus, ArrowLeft } from "lucide-react";
 const mockTags = ["Mista", "Aventura", "Cultura", "Natureza", "Gastronomia", "História", "Natal", "São João", "Carnaval", "Páscoa"];
 const mockLink = "https://capibatrilhas.com/invite/abc123";
 const mockChallenges = [
-  {
+{
     id: "c1",
-    name: "Marco Zero Selfie",
+    name: "Visita ao Paço do Frevo",
     location: "Recife Antigo",
     score: 900,
-    description: "Tire uma selfie criativa no Marco Zero e marque a localização.",
+    // Ação: Visitar e validar a presença
+    description: "Visite a área de exposição principal do Paço do Frevo para validar sua presença.",
   },
   {
     id: "c2",
-    name: "Busca pelo Beco",
+    name: "Maratona EU AMO RECIFE",
     location: "Bairro do Recife",
     score: 150,
-    description: "Encontre e fotografe o Beco da Fome, um local famoso por sua culinária local.",
+    // Descrição ajustada para refletir uma "maratona" de pontos a serem encontrados
+    description: "Conclua a sequência de três checkpoints turísticos da trilha e confirme a última localização no letreiro 'EU AMO RECIFE'.",
   },
   {
     id: "c3",
-    name: "Tradição em Movimento",
-    location: "Casa Amarela",
+    name: "Um Dia no Recém-Inaugurado Parque da Tamarineira",
+    location: "Tamarineira",
     score: 100,
-    description: "Grave um vídeo de 10 segundos tentando dançar o Frevo no Sítio Trindade.",
+    // Ação: Checar um painel informativo
+    description: "Confirme sua visita checando o painel informativo próximo à entrada principal do Parque da Tamarineira.",
   },
   {
     id: "c4",
-    name: "O Tesouro do Mercado",
+    name: "O Tesouro do Mercado de São José",
     location: "Mercado de São José",
     score: 200,
-    description: "Compre e fotografe uma fruta exótica que você nunca provou antes no mercado.",
+    // Ação: Compra/Interação com parceiro
+    description: "Realize uma compra em uma das lojas parceiras identificadas dentro do Mercado de São José.",
   },
   {
     id: "c5",
-    name: "Recifes de Boa Viagem",
-    location: "Praia de Boa Viagem",
+    name: "Mirante da Boa Vista",
+    location: "Rua da Aurora",
     score: 75,
-    description: "Faça uma foto panorâmica da orla e das piscinas naturais na maré baixa.",
+    // Ação: Confirmação de ponto turístico
+    description: "Confirme sua presença no Mirante da Boa Vista, desfrutando da vista panorâmica da Rua da Aurora.",
+  },
+  {
+    id: "c6",
+    name: "Ato de Solidariedade",
+    location: "Hemope",
+    score: 300,
+    // Ação: Ação social (doação)
+    description: "Complete uma doação de sangue em um hemocentro parceiro e valide sua ação.",
+  },
+  {
+    id: "c7",
+    name: "Conhecendo a Cervejaria",
+    location: "Pina",
+    score: 300,
+    // Ação: Interação no local parceiro
+    description: "Visite a Cervejaria X (parceira) e valide sua presença no balcão de atendimento após o consumo de qualquer produto.",
   },
 ];
 
@@ -51,6 +72,11 @@ const CreateTrailPage: React.FC = () => {
   const [selectedChallenges, setSelectedChallenges] = useState<string[]>([]);
   const [showCapibaWarning, setShowCapibaWarning] = useState(false);
   const [warningVisible, setWarningVisible] = useState(false);
+  
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({});
 
   const handleToggleChallenge = (id: string, selected: boolean) => {
     if (selected) {
@@ -84,12 +110,26 @@ const CreateTrailPage: React.FC = () => {
     });
   };
 
+  const handleDateRangeChange = (range: { from?: Date; to?: Date } | undefined) => {
+    if (range) {
+      setDateRange(range);
+    }
+  };
+
   const selectedCount = selectedChallenges.length;
   const totalRewardValue = selectedChallenges.reduce((sum, id) => {
     const found = mockChallenges.find((c) => c.id === id);
     return sum + (found?.score ?? 0);
   }, 0);
   const remainingCapibaValue = 1000 - totalRewardValue;
+
+  // Validação: todos os campos preenchidos?
+  const isFormValid = 
+    title.trim() !== "" && 
+    description.trim() !== "" && 
+    dateRange.from && 
+    dateRange.to && 
+    selectedChallenges.length > 0;
 
   return (
   
@@ -117,7 +157,12 @@ const CreateTrailPage: React.FC = () => {
       </div>
       
       <div className="grid grid-cols-1 gap-6 p-6">
-        <TrailDescriptionCard topic={mockTags} />
+        <TrailDescriptionCard 
+          topic={mockTags}
+          onTitleChange={setTitle}
+          onDescriptionChange={setDescription}
+          onDateRangeChange={handleDateRangeChange}
+        />
       </div>
 
       <div className="grid grid-cols-1 gap-6 p-6">
@@ -161,6 +206,26 @@ const CreateTrailPage: React.FC = () => {
           <span className="text-sm font-medium">Quantidade máxima por Trilha atingida! Não há capibas disponíveis para adicionar este desafio.</span>
         </div>
       )}
+
+      <div className="flex justify-center p-6">
+        <button
+          onClick={() => {
+            if (isFormValid) {
+              console.log("Trilha criada:", { title, description, dateRange, selectedChallenges });
+              alert("Trilha criada com sucesso!"); //MUDAR ISSO PARA LEVAR PRA PÁGINA DAS SUAS TRILHAS
+              // SUBSTITUINDO CONSOLE POR POP UP
+            }
+          }}
+          disabled={!isFormValid}
+          className={`w-1/2 flex justify-center  py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${
+            isFormValid
+              ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer justify-center flex items-center gap-2"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed justify-center flex items-center gap-2"
+          }`}
+        >
+          Criar minha Trilha
+        </button>
+      </div>
     </div>
   );
 };
