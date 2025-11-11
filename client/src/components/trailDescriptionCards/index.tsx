@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Badge } from "../ui/badge";
 
 import { Calendar } from "../ui/calendar";
@@ -27,8 +27,26 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
     to: undefined,
   });
 
-  // Estado local para abrir/fechar o calendário (simula um popover)
+
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+ 
+  const calendarContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Fecha o calendário ao clicar fora
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        isCalendarOpen &&
+        calendarContainerRef.current &&
+        !calendarContainerRef.current.contains(event.target as Node)
+      ) {
+        setIsCalendarOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isCalendarOpen]);
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col gap-6">
@@ -88,7 +106,7 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
       <div className="flex flex-col gap-2 w-full">
         <label className="font-medium">Duração Estimada</label>
 
-        <div className="relative w-full">
+  <div className="relative w-full" ref={calendarContainerRef}>
           <button
             type="button"
             onClick={() => setIsCalendarOpen((v) => !v)}
@@ -111,6 +129,8 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic }) =>
                 <Calendar
                   mode="range"
                   numberOfMonths={2}
+                  disabled={{ before: new Date() }}
+                  defaultMonth={range?.from ?? new Date()}
                   selected={range}
                   onSelect={(r) => {
                     setRange(r);
