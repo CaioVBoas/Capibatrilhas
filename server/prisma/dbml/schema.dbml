@@ -8,4 +8,177 @@ Table User {
   phone String
   email String [unique, not null]
   password String [not null]
+  level Int [not null, default: 1]
+  cpf String [unique, not null]
+  urlImage String
+  birthdate String
+  cep String
+  estado String
+  municipio String
+  bairro String
+  logradouro String
+  complemento String
+  numero String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  isAdmin Boolean [not null, default: false]
+  trilhasCriadas Trilha [not null]
+  participacoes ParticipacaoTrilha [not null]
+  desafiosConcluidos DesafioConcluido [not null]
+  convitesEnviados ConviteTrilha [not null]
+  convitesRecebidos ConviteTrilha [not null]
 }
+
+Table Desafio {
+  id Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  theme String [not null]
+  conclusionCriteria String [not null]
+  location String [not null]
+  rewards Int [not null]
+  isActive Boolean [not null, default: true]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  trilhaDesafios TrilhaDesafio [not null]
+  desafiosConcluidos DesafioConcluido [not null]
+}
+
+Table Trilha {
+  id Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  theme String [not null]
+  startDate DateTime [not null]
+  endDate DateTime [not null]
+  totalRewards Int [not null]
+  isActive Boolean [not null, default: true]
+  isHighlighted Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  criadorId String [not null]
+  criador User [not null]
+  desafios TrilhaDesafio [not null]
+  participantes ParticipacaoTrilha [not null]
+  convites ConviteTrilha [not null]
+}
+
+Table TrilhaDesafio {
+  id Int [pk, increment]
+  trilhaId Int [not null]
+  desafioId Int [not null]
+  ordem Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  trilha Trilha [not null]
+  desafio Desafio [not null]
+
+  indexes {
+    (trilhaId, desafioId) [unique]
+  }
+}
+
+Table ParticipacaoTrilha {
+  id Int [pk, increment]
+  userId String [not null]
+  trilhaId Int [not null]
+  progress Float [not null, default: 0]
+  isCompleted Boolean [not null, default: false]
+  joinedAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user User [not null]
+  trilha Trilha [not null]
+
+  indexes {
+    (userId, trilhaId) [unique]
+  }
+}
+
+Table DesafioConcluido {
+  id Int [pk, increment]
+  userId String [not null]
+  desafioId Int [not null]
+  completedAt DateTime [default: `now()`, not null]
+  rewardsEarned Int [not null]
+  user User [not null]
+  desafio Desafio [not null]
+
+  indexes {
+    (userId, desafioId) [unique]
+  }
+}
+
+Table ConviteTrilha {
+  id Int [pk, increment]
+  trilhaId Int [not null]
+  remetenteId String [not null]
+  destinatarioId String [not null]
+  status ConviteStatus [not null, default: 'PENDENTE']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  trilha Trilha [not null]
+  remetente User [not null]
+  destinatario User [not null]
+
+  indexes {
+    (trilhaId, destinatarioId) [unique]
+  }
+}
+
+Table BairroDestacado {
+  id Int [pk, increment]
+  name String [not null]
+  location String [not null]
+  bonusScore Int [not null]
+  description String [not null]
+  tags String[] [not null]
+  isActive Boolean [not null, default: true]
+  urlImage String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table EventoAgenda {
+  id Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  location String [not null]
+  eventDate DateTime [not null]
+  endDate DateTime
+  category String [not null]
+  urlImage String
+  urlExternal String
+  isActive Boolean [not null, default: true]
+  isFeatured Boolean [not null, default: false]
+  tags String[] [not null]
+  organizador String
+  preco String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Enum ConviteStatus {
+  PENDENTE
+  ACEITO
+  RECUSADO
+}
+
+Ref: Trilha.criadorId > User.id [delete: Cascade]
+
+Ref: TrilhaDesafio.trilhaId > Trilha.id [delete: Cascade]
+
+Ref: TrilhaDesafio.desafioId > Desafio.id [delete: Cascade]
+
+Ref: ParticipacaoTrilha.userId > User.id [delete: Cascade]
+
+Ref: ParticipacaoTrilha.trilhaId > Trilha.id [delete: Cascade]
+
+Ref: DesafioConcluido.userId > User.id [delete: Cascade]
+
+Ref: DesafioConcluido.desafioId > Desafio.id [delete: Cascade]
+
+Ref: ConviteTrilha.trilhaId > Trilha.id [delete: Cascade]
+
+Ref: ConviteTrilha.remetenteId > User.id [delete: Cascade]
+
+Ref: ConviteTrilha.destinatarioId > User.id [delete: Cascade]

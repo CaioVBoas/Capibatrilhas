@@ -13,58 +13,58 @@ generator dbml {
 }
 
 model User {
-  id          String   @id @default(uuid())
+  id          Int      @id @default(autoincrement())
   name        String
   phone       String?
   email       String   @unique
   password    String
   level       Int      @default(1)
   cpf         String   @unique
-  urlImage    String?
+  urlImage    String? 
   birthdate   String?
-  cep         String?
-  estado      String?
-  municipio   String?
-  bairro      String?
-  logradouro  String?
-  complemento String?
-  numero      String?
+  zipCode     String?
+  state       String?
+  city        String?
+  district    String?
+  street      String?
+  complement  String?
+  number      String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   isAdmin     Boolean  @default(false)
 
   // Relacionamentos
-  trilhasCriadas      Trilha[]              @relation("TrilhaCriador")
-  participacoes       ParticipacaoTrilha[]  
-  desafiosConcluidos  DesafioConcluido[]
-  convitesEnviados    ConviteTrilha[]       @relation("ConviteRemetente")
-  convitesRecebidos   ConviteTrilha[]       @relation("ConviteDestinatario")
+  createdTrails          Trail[]                 @relation("TrailOwner")
+  participations         TrailParticipation[]  
+  completedChallenges    CompletedChallenge[]
+  sentInvitations        TrailInvitation[]       @relation("Inviter")
+  receivedInvitations    TrailInvitation[]       @relation("Invitee")
   
   @@index([email])
   @@index([cpf])
 }
 
-model Desafio {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  theme       String
+model Challenge {
+  id                 Int      @id @default(autoincrement())
+  title              String
+  description        String
+  theme              String
   conclusionCriteria String
-  location    String
-  rewards     Int
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  location           String
+  rewards            Int
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
   
   // Relacionamentos
-  trilhaDesafios      TrilhaDesafio[]
-  desafiosConcluidos  DesafioConcluido[]
+  TrailChallenges       TrailChallenge[]
+  completedChallenges   CompletedChallenge[]
   
   @@index([theme])
   @@index([isActive])
 }
 
-model Trilha {
+model Trail {
   id            Int      @id @default(autoincrement())
   title         String
   description   String
@@ -78,97 +78,97 @@ model Trilha {
   updatedAt     DateTime @updatedAt
   
   // Criador da trilha
-  criadorId     String
-  criador       User     @relation("TrilhaCriador", fields: [criadorId], references: [id], onDelete: Cascade)
+  ownerId       String
+  owner         User     @relation("TrailOwner", fields: [ownerId], references: [id], onDelete: Cascade)
   
   // Relacionamentos
-  desafios      TrilhaDesafio[]
-  participantes ParticipacaoTrilha[]
-  convites      ConviteTrilha[]
+  challenges      TrailChallenge[]
+  participants    TrailParticipation[]
+  invites         TrailInvitation[]
   
-  @@index([criadorId])
+  @@index([ownerId])
   @@index([theme])
   @@index([isActive])
   @@index([isHighlighted])
 }
 
 // Tabela intermediária para desafios na trilha
-model TrilhaDesafio {
-  id         Int      @id @default(autoincrement())
-  trilhaId   Int
-  desafioId  Int
-  ordem      Int      // Ordem do desafio na trilha
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+model TrailChallenge {
+  id              Int        @id @default(autoincrement())
+  trailId         Int
+  challengeId     Int
+  challengeOrder  Int        // Ordem do desafio na trilha
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
   
-  trilha     Trilha   @relation(fields: [trilhaId], references: [id], onDelete: Cascade)
-  desafio    Desafio  @relation(fields: [desafioId], references: [id], onDelete: Cascade)
+  trail           Trail      @relation(fields: [trailId], references: [id], onDelete: Cascade)
+  challenge       Challenge  @relation(fields: [challengeId], references: [id], onDelete: Cascade)
   
-  @@unique([trilhaId, desafioId])
-  @@index([trilhaId])
-  @@index([desafioId])
+  @@unique([trailId, challengeId])
+  @@index([trailId])
+  @@index([challengeId])
 }
 
 // Participação de usuários em trilhas
-model ParticipacaoTrilha {
-  id         Int      @id @default(autoincrement())
-  userId     String
-  trilhaId   Int
-  progress   Float      @default(0) // Progresso do usuário na trilha (%)
-  isCompleted Boolean   @default(false)
-  joinedAt   DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+model TrailParticipation {
+  id          Int        @id @default(autoincrement())
+  userId      String
+  trailId     Int
+  progress    Float      @default(0) // Progresso do usuário na trilha (%)
+  isCompleted Boolean    @default(false)
+  joinedAt    DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  trilha     Trilha   @relation(fields: [trilhaId], references: [id], onDelete: Cascade)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trail       Trail      @relation(fields: [trailId], references: [id], onDelete: Cascade)
   
-  @@unique([userId, trilhaId])
+  @@unique([userId, trailId])
   @@index([userId])
-  @@index([trilhaId])
+  @@index([trailId])
 }
 
 // Desafios concluídos por usuários
-model DesafioConcluido {
-  id              Int      @id @default(autoincrement())
+model CompletedChallenge {
+  id              Int        @id @default(autoincrement())
   userId          String
-  desafioId       Int
-  completedAt     DateTime @default(now())
-  rewardsEarned   Int      // Recompensas ganhas ao completar
+  challengeId     Int
+  completedAt     DateTime   @default(now())
+  rewardsEarned   Int        // Recompensas ganhas ao completar
   
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  desafio         Desafio  @relation(fields: [desafioId], references: [id], onDelete: Cascade)
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge       Challenge  @relation(fields: [challengeId], references: [id], onDelete: Cascade)
   
-  @@unique([userId, desafioId])
+  @@unique([userId, challengeId])
   @@index([userId])
-  @@index([desafioId])
+  @@index([challengeId])
 }
 
 // Sistema de convites para trilhas
-model ConviteTrilha {
-  id              Int             @id @default(autoincrement())
-  trilhaId        Int
-  remetenteId     String
-  destinatarioId  String
-  status          ConviteStatus   @default(PENDENTE)
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime @updatedAt
+model TrailInvitation {
+  id              Int                @id @default(autoincrement())
+  trailId         Int
+  senderId        String
+  inviteeId       String
+  status          InvitationStatus   @default(PENDENTE)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
   
-  trilha          Trilha          @relation(fields: [trilhaId], references: [id], onDelete: Cascade)
-  remetente       User            @relation("ConviteRemetente", fields: [remetenteId], references: [id], onDelete: Cascade)
-  destinatario    User            @relation("ConviteDestinatario", fields: [destinatarioId], references: [id], onDelete: Cascade)
+  trail           Trail              @relation(fields: [trailId], references: [id], onDelete: Cascade)
+  sender          User               @relation("Inviter", fields: [senderId], references: [id], onDelete: Cascade)
+  invitee         User               @relation("Invitee", fields: [inviteeId], references: [id], onDelete: Cascade)
   
-  @@unique([trilhaId, destinatarioId])
-  @@index([destinatarioId, status])
-  @@index([trilhaId])
+  @@unique([trailId, inviteeId])
+  @@index([inviteeId, status])
+  @@index([trailId])
 }
 
-enum ConviteStatus {
+enum InvitationStatus {
   PENDENTE
   ACEITO
   RECUSADO
 }
 
-model BairroDestacado {
+model HighlightedDistrict {
   id          Int      @id @default(autoincrement())
   name        String
   location    String
@@ -184,23 +184,23 @@ model BairroDestacado {
   @@index([name])
 }
 
-model EventoAgenda {
-  id              Int      @id @default(autoincrement())
+model EventAgenda {
+  id              Int       @id @default(autoincrement())
   title           String
   description     String
   location        String
-  eventDate       DateTime // Data do evento
+  eventDate       DateTime  // Data do evento
   endDate         DateTime? // Data de término (para eventos de múltiplos dias)
-  category        String   // Categoria do evento (música, teatro, exposição, etc)
-  urlImage        String?  // Imagem do evento
-  urlExternal     String?  // Link externo para mais informações
-  isActive        Boolean  @default(true)
-  isFeatured      Boolean  @default(false) // Evento em destaque
-  tags            String[] // Tags para facilitar busca
-  organizador     String?  // Nome do organizador
-  preco           String?  // Informação sobre preço (gratuito, valor, etc)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  category        String    // Categoria do evento (música, teatro, exposição, etc)
+  urlImage        String?   // Imagem do evento
+  urlExternal     String?   // Link externo para mais informações
+  isActive        Boolean   @default(true)
+  isFeatured      Boolean   @default(false) // Evento em destaque
+  tags            String[]  // Tags para facilitar busca
+  organizer       String?   // Nome do organizador
+  value           String?   // Informação sobre preço (gratuito, valor, etc)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
   
   @@index([eventDate])
   @@index([category])
