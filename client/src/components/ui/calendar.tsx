@@ -8,6 +8,9 @@ import {
 } from "lucide-react"
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker"
 
+// 1. IMPORTAR O LOCALE PORTUGUÊS
+import { pt } from "date-fns/locale"
+
 import { cn } from "/lib/utils"
 import { Button, buttonVariants } from "components/ui/button"
 
@@ -27,6 +30,8 @@ function Calendar({
 
   return (
     <DayPicker
+      // 2. ADICIONAR A PROPRIEDADE locale
+      locale={pt}
       showOutsideDays={showOutsideDays}
       className={cn(
         "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
@@ -36,6 +41,7 @@ function Calendar({
       )}
       captionLayout={captionLayout}
       formatters={{
+        // Este formatador talvez não seja mais necessário com o 'locale', mas foi mantido:
         formatMonthDropdown: (date) =>
           date.toLocaleString("default", { month: "short" }),
         ...formatters,
@@ -117,7 +123,8 @@ function Calendar({
           defaultClassNames.today
         ),
         outside: cn(
-          "text-muted-foreground aria-selected:text-muted-foreground",
+          // dias fora do mês mais claros (mais sutis)
+          "text-gray-100 dark:text-gray-300 aria-selected:text-muted-foreground",
           defaultClassNames.outside
         ),
         disabled: cn(
