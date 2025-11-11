@@ -66,7 +66,7 @@ export default function ChallengePage() {
       <TrailHeader trail={mockTrails} />
 
       <div className="p-8">
-        <div className="flex flex-col gap-6 max-w-3xl mx-auto">
+        <div className="flex flex-col gap-6 max-w-4xl mx-auto">
           {mockChallenges.map((challenge) => (
             <ChallengeCard key={challenge.id} challenge={challenge} />
           ))}

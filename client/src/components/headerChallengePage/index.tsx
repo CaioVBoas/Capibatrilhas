@@ -1,5 +1,5 @@
 import React from "react";
-import { Clock, Trophy } from "lucide-react";
+import { Clock, Trophy, ArrowLeft } from "lucide-react";
 
 export interface Trails {
   title: string;
@@ -22,12 +22,20 @@ interface TrailHeaderProps {
 const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
   return (
     <div className="bg-blue-700 text-white p-8 rounded-b-lg">  
-      <button className="text-blue-100 opacity-80 text-sm mb-4">
-        &larr; Voltar
-      </button>
+      <div className="mb-3">
+        <button 
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            aria-label="Voltar"
+          >
+            <ArrowLeft className="h-6 w-6" />
+            <span className="text-lg font-medium">Voltar</span>
+        </button>
+      </div>
+        
+
 
       <div className="flex justify-between items-start mb-2">
-        <h1 className="text-3xl font-bold">{trail.title}</h1>
+        <h1 className="text-4xl font-bold">{trail.title}</h1>
         {trail.type === "Destaque" && (
           <span className="px-3 py-1 bg-yellow-400 rounded-full text-sm font-semibold text-gray-900 shadow-sm shrink-0">
             Destaque
