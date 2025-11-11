@@ -1,76 +1,80 @@
-import BoroughCard from "components/featuredBoroughCards"; // Importa o novo componente de card único
-import { MapPin } from "lucide-react";
-import React from "react";
-import EventsCard from "components/eventsCard";
+import BoroughCard from 'components/featuredBoroughCards'; // Importa o novo componente de card único
+import { MapPin } from 'lucide-react';
+import React from 'react';
+import EventsCard from 'components/eventsCard';
 
 const mockBoroughs = [
   {
-    name: "Recife Antigo",
-    location: "Centro da Cidade",
-    bonusScore: "2.5x",
+    name: 'Recife Antigo',
+    location: 'Centro da Cidade',
+    bonusScore: '2.5x',
     description:
-      "Coração histórico da cidade, onde tudo começou. Arquitetura colonial, museus e o famoso Marco Zero.",
-    tags: ["Marco Zero", "Passo Alfândega", "Cais do Porto"],
-    id: "1",
+      'Coração histórico da cidade, onde tudo começou. Arquitetura colonial, museus e o famoso Marco Zero.',
+    tags: ['Marco Zero', 'Passo Alfândega', 'Cais do Porto'],
+    id: '1'
   },
   {
-    name: "Boa Viagem",
-    location: "Zona Sul",
-    bonusScore: "5.0x",
+    name: 'Boa Viagem',
+    location: 'Zona Sul',
+    bonusScore: '5.0x',
     description:
-      "Bairro mais famoso e cartão-postal da cidade, conhecido pela sua longa praia urbana, piscinas naturais formadas por recifes e o calçadão movimentado.",
-    tags: ["Praia de Boa Viagem", "Parque Dona Lindu", "Feirinha de Boa Viagem"],
-    id: "5",
+      'Bairro mais famoso e cartão-postal da cidade, conhecido pela sua longa praia urbana, piscinas naturais formadas por recifes e o calçadão movimentado.',
+    tags: [
+      'Praia de Boa Viagem',
+      'Parque Dona Lindu',
+      'Feirinha de Boa Viagem'
+    ],
+    id: '5'
   },
   {
-    name: "Casa Amarela",
-    location: "Zona Norte",
-    bonusScore: "3.5x",
+    name: 'Casa Amarela',
+    location: 'Zona Norte',
+    bonusScore: '3.5x',
     description:
-      "Um dos bairros mais populosos e tradicionais, famoso pelo seu mercado centenário, a maior feira livre da cidade e o Sítio Trindade.",
-    tags: ["Mercado de Casa Amarela", "Sítio Trindade", "Feira Livre"],
-    id: "4",
+      'Um dos bairros mais populosos e tradicionais, famoso pelo seu mercado centenário, a maior feira livre da cidade e o Sítio Trindade.',
+    tags: ['Mercado de Casa Amarela', 'Sítio Trindade', 'Feira Livre'],
+    id: '4'
   },
   {
-    name: "Poço da Panela",
-    location: "Zona Norte",
-    bonusScore: "3.0x",
+    name: 'Poço da Panela',
+    location: 'Zona Norte',
+    bonusScore: '3.0x',
     description:
-      "Bairro bucólico e histórico, conhecido por suas ruas arborizadas, antigos casarões preservados e a tranquilidade às margens do Rio Capibaribe.",
-    tags: ["Casarões Antigos", "Rio Capibaribe", "Igreja da Saúde"],
-    id: "6",
-  },
+      'Bairro bucólico e histórico, conhecido por suas ruas arborizadas, antigos casarões preservados e a tranquilidade às margens do Rio Capibaribe.',
+    tags: ['Casarões Antigos', 'Rio Capibaribe', 'Igreja da Saúde'],
+    id: '6'
+  }
 ];
 
 const mockEvents = [
   {
-    type: "Música",
-    costType: "Gratuito",
-    name: "Show de Verão no Parador",
-    date: "15 de Dezembro, 20:00",
-    location: "Recife Antigo",
+    type: 'Música',
+    costType: 'Gratuito',
+    name: 'Show de Verão no Parador',
+    date: '15 de Dezembro, 20:00',
+    location: 'Recife Antigo'
   },
   {
-    type: "Arte",
-    costType: "Pago" ,
+    type: 'Arte',
+    costType: 'Pago',
     name: "Exposição 'Novas Cores'",
-    date: "10 a 20 de Dezembro",
-    location: "Museu Cais do Sertão",
+    date: '10 a 20 de Dezembro',
+    location: 'Museu Cais do Sertão'
   },
   {
-    type: "Gastronomia",
-    costType: "Pago",
-    name: "Festival do Hambúrguer",
-    date: "12 de Dezembro, 17:00",
-    location: "Parque Dona Lindu",
+    type: 'Gastronomia',
+    costType: 'Pago',
+    name: 'Festival do Hambúrguer',
+    date: '12 de Dezembro, 17:00',
+    location: 'Parque Dona Lindu'
   },
   {
-    type: "Esporte",
-    costType: "Gratuito",
+    type: 'Esporte',
+    costType: 'Gratuito',
     name: "Corrida de Rua 'Recife Corre'",
-    date: "22 de Dezembro, 07:00",
-    location: "Marco Zero",
-  },
+    date: '22 de Dezembro, 07:00',
+    location: 'Marco Zero'
+  }
 ];
 
 export default function HomePage() {
