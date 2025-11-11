@@ -1,47 +1,83 @@
-import BoroughCard from "components/featuredBoroughCards"; // Importa o novo componente de card único
+import BoroughCard from 'components/featuredBoroughCards'; // Importa o novo componente de card único
 import TrailCard from "components/featuredTrailCards";
-import { MapPin, TrendingUp, Star } from "lucide-react";
-import React from "react";
+import { MapPin, TrendingUp, Star } from 'lucide-react';
+import React from 'react';
+import EventsCard from 'components/eventsCard';
+
 
 const mockBoroughs = [
   {
-    name: "Recife Antigo",
-    location: "Centro da Cidade",
-    bonusScore: "2.5x",
+    name: 'Recife Antigo',
+    location: 'Centro da Cidade',
+    bonusScore: '2.5x',
     description:
-      "Coração histórico da cidade, onde tudo começou. Arquitetura colonial, museus e o famoso Marco Zero.",
-    tags: ["Marco Zero", "Passo Alfândega", "Cais do Porto"],
-    id: "1",
+      'Coração histórico da cidade, onde tudo começou. Arquitetura colonial, museus e o famoso Marco Zero.',
+    tags: ['Marco Zero', 'Passo Alfândega', 'Cais do Porto'],
+    id: '1'
   },
   {
-    name: "Boa Viagem",
-    location: "Zona Sul",
-    bonusScore: "5.0x",
+    name: 'Boa Viagem',
+    location: 'Zona Sul',
+    bonusScore: '5.0x',
     description:
-      "Bairro mais famoso e cartão-postal da cidade, conhecido pela sua longa praia urbana, piscinas naturais formadas por recifes e o calçadão movimentado.",
-    tags: ["Praia de Boa Viagem", "Parque Dona Lindu", "Feirinha de Boa Viagem"],
-    id: "5",
+      'Bairro mais famoso e cartão-postal da cidade, conhecido pela sua longa praia urbana, piscinas naturais formadas por recifes e o calçadão movimentado.',
+    tags: [
+      'Praia de Boa Viagem',
+      'Parque Dona Lindu',
+      'Feirinha de Boa Viagem'
+    ],
+    id: '5'
   },
   {
-    name: "Casa Amarela",
-    location: "Zona Norte",
-    bonusScore: "3.5x",
+    name: 'Casa Amarela',
+    location: 'Zona Norte',
+    bonusScore: '3.5x',
     description:
-      "Um dos bairros mais populosos e tradicionais, famoso pelo seu mercado centenário, a maior feira livre da cidade e o Sítio Trindade.",
-    tags: ["Mercado de Casa Amarela", "Sítio Trindade", "Feira Livre"],
-    id: "4",
+      'Um dos bairros mais populosos e tradicionais, famoso pelo seu mercado centenário, a maior feira livre da cidade e o Sítio Trindade.',
+    tags: ['Mercado de Casa Amarela', 'Sítio Trindade', 'Feira Livre'],
+    id: '4'
   },
   {
-    name: "Poço da Panela",
-    location: "Zona Norte",
-    bonusScore: "3.0x",
+    name: 'Poço da Panela',
+    location: 'Zona Norte',
+    bonusScore: '3.0x',
     description:
-      "Bairro bucólico e histórico, conhecido por suas ruas arborizadas, antigos casarões preservados e a tranquilidade às margens do Rio Capibaribe.",
-    tags: ["Casarões Antigos", "Rio Capibaribe", "Igreja da Saúde"],
-    id: "6",
-  },
+      'Bairro bucólico e histórico, conhecido por suas ruas arborizadas, antigos casarões preservados e a tranquilidade às margens do Rio Capibaribe.',
+    tags: ['Casarões Antigos', 'Rio Capibaribe', 'Igreja da Saúde'],
+    id: '6'
+  }
 ];
 
+const mockEvents = [
+  {
+    type: 'Música',
+    costType: 'Gratuito',
+    name: 'Show de Verão no Parador',
+    date: '15 de Dezembro, 20:00',
+    location: 'Recife Antigo'
+  },
+  {
+    type: 'Arte',
+    costType: 'Pago',
+    name: "Exposição 'Novas Cores'",
+    date: '10 a 20 de Dezembro',
+    location: 'Museu Cais do Sertão'
+  },
+  {
+    type: 'Gastronomia',
+    costType: 'Pago',
+    name: 'Festival do Hambúrguer',
+    date: '12 de Dezembro, 17:00',
+    location: 'Parque Dona Lindu'
+  },
+  {
+    type: 'Esporte',
+    costType: 'Gratuito',
+    name: "Corrida de Rua 'Recife Corre'",
+    date: '22 de Dezembro, 07:00',
+    location: 'Marco Zero'
+  }
+];
 const mockTrails = [
 {
   id: 1,
@@ -142,6 +178,11 @@ export default function HomePage() {
 
   return (
     <div>
+      <div className="flex flex-row gap-7.5 justify-center py-5">
+        {mockEvents.map((eventItem, index) => (
+          <EventsCard key={index} event={eventItem} />
+        ))}
+      </div>
       <div className="p-10">
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp className="h-8 w-8 text-accent text-blue-600"></TrendingUp>
@@ -174,7 +215,7 @@ export default function HomePage() {
         </div>
 
         <h3 className="text-gray-600 mb-5 ml-8">
-          Descubra os bairros em destaque do mês! Complete desafios neles e 
+          Descubra os bairros em destaque do mês! Complete desafios neles e
           ganhe moedas Capibas com um bônus especial.
         </h3>
 
@@ -183,8 +224,7 @@ export default function HomePage() {
             <BoroughCard key={borough.id} borough={borough} />
           ))}
         </div>
-
       </div>
     </div>
   );
-} 
+}
