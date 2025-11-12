@@ -1,5 +1,6 @@
 import React from "react";
 import { MapPin, Clock, Trophy } from "lucide-react";
+import Link from "next/link";
 
 //Interface de Props do TrailCard
 interface Trails {
@@ -74,9 +75,11 @@ const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
         </div>
       </div>
 
-      <button className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 hover:bg-blue-700 mt-auto">
-        {trail.buttonText}
-      </button>
+      <Link href={`/trilhas/${trail.id}`} passHref className="mt-auto">
+        <button className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 hover:bg-blue-700">
+          {trail.buttonText}
+        </button>
+      </Link>
     </div>
   );
 };

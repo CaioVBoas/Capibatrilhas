@@ -1,5 +1,7 @@
+'use client';
 import React from "react";
 import { Clock, Trophy, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export interface Trails {
   title: string;
@@ -20,12 +22,14 @@ interface TrailHeaderProps {
 }
 
 const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
+    const router = useRouter();
   return (
     <div className="bg-blue-700 text-white p-8 rounded-b-lg">  
       <div className="mb-3">
         <button 
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             aria-label="Voltar"
+            onClick={() => router.back()}
           >
             <ArrowLeft className="h-6 w-6" />
             <span className="text-lg font-medium">Voltar</span>
