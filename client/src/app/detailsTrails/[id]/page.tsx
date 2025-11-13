@@ -1,7 +1,5 @@
-// src/app/trilhas/[id]/page.tsx
-
 import React from "react";
-import ChallengeCard from "components/featuredChallengeCard";
+import ChallengeCard from "components/challengeCard";
 import TrailHeader from "components/headerChallengePage";
 
 

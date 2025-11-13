@@ -75,7 +75,7 @@ const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
         </div>
       </div>
 
-      <Link href={`/trilhas/${trail.id}`} passHref className="mt-auto">
+      <Link href={`/detailsTrails/${trail.id}`} passHref className="mt-auto">
         <button className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 hover:bg-blue-700">
           {trail.buttonText}
         </button>
