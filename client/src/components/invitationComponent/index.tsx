@@ -5,11 +5,11 @@ import { Link, Copy, QrCode } from "lucide-react";
 import { Users } from "lucide-react";
 import Image from "next/image";
 
-interface TrailInvitationCardProps {
+interface TrailInvitationProps {
   link: string;
 }
 
-const TrailInvitationCard: React.FC<TrailInvitationCardProps> = ({ link }) => {
+const TrailInvitationComponent: React.FC<TrailInvitationProps> = ({ link }) => {
   
   const [copied, setCopied] = useState(false);
   const [qrModalOpen, setQrModalOpen] = useState(false);
@@ -130,4 +130,4 @@ const TrailInvitationCard: React.FC<TrailInvitationCardProps> = ({ link }) => {
   );
 };
 
-export default TrailInvitationCard;
+export default TrailInvitationComponent;

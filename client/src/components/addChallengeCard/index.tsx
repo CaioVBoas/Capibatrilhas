@@ -18,7 +18,7 @@ interface ChallengeCardProps {
   onToggle?: (id: string, selected: boolean) => void;
 }
 
-const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: selectedProp, onToggle }) => {
+const AddChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: selectedProp, onToggle }) => {
   const [selectedInternal, setSelectedInternal] = useState<boolean>(Boolean(selectedProp));
   const isControlled = typeof selectedProp === "boolean";
   const selected = isControlled ? selectedProp! : selectedInternal;
@@ -91,4 +91,4 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: sele
   );
 };
 
-export default ChallengeCard;
+export default AddChallengeCard;

@@ -1,9 +1,9 @@
 "use client";
 
-import TrailDescriptionCard from "components/trailDescriptionCards";
-import TrailInvitationCard from "components/invitationCards";
+import TrailDescriptionInput from "components/trailDescriptionInput";
+import TrailInvitationComponent from "components/invitationComponent";
 import SummaryCard from "components/summaryCard";
-import ChallengeCard from "components/addChallengeCard";
+import AddChallengeCard from "components/addChallengeCard";
 import React, { useState } from "react";
 import { ListTodo, Plus, ArrowLeft } from "lucide-react";
 
@@ -157,7 +157,7 @@ const CreateTrailPage: React.FC = () => {
       </div>
       
       <div className="grid grid-cols-1 gap-6 p-6">
-        <TrailDescriptionCard 
+        <TrailDescriptionInput 
           topic={mockTags}
           onTitleChange={setTitle}
           onDescriptionChange={setDescription}
@@ -166,7 +166,7 @@ const CreateTrailPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 p-6">
-        <TrailInvitationCard link={mockLink} />
+        <TrailInvitationComponent link={mockLink} />
       </div>
 
       <div className="grid grid-cols-1 gap-6 p-6">
@@ -188,7 +188,7 @@ const CreateTrailPage: React.FC = () => {
 
           <div className="mt-4 grid grid-cols-1 gap-4">
             {mockChallenges.map((c) => (
-              <ChallengeCard
+              <AddChallengeCard
                 key={c.id}
                 challenge={c}
                 selected={selectedChallenges.includes(c.id)}

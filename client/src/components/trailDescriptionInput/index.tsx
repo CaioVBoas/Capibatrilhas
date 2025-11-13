@@ -8,14 +8,14 @@ import { DateRange } from "react-day-picker";
 import { CalendarIcon, BadgeInfo } from "lucide-react";
 import { cn } from "../../lib/utils";
 
-interface TrailDescriptionCardProps {
+interface TrailDescriptionProps {
   topic: string[];
   onTitleChange?: (title: string) => void;
   onDescriptionChange?: (description: string) => void;
   onDateRangeChange?: (range: DateRange | undefined) => void;
 }
 
-const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange }) => {
+const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange }) => {
   // Estado para gerenciar o tema selecionado. 
   // Inicializamos com o primeiro tópico da lista, se houver, para replicar a imagem.
   const [selectedTopic, setSelectedTopic] = useState<string>(topic[0] || "");
@@ -179,4 +179,4 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic, onTi
   );
 };
 
-export default TrailDescriptionCard;
+export default TrailDescriptionInput;
