@@ -32,10 +32,28 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic, onTi
     to: undefined,
   });
 
-
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
  
   const calendarContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Validar se o intervalo não ultrapassa 2 meses
+  const handleSelectDateRange = (r: DateRange | undefined) => {
+    if (!r || !r.from || !r.to) {
+      setRange(r);
+      onDateRangeChange?.(r);
+      return;
+    }
+
+    // Calcular diferença em dias
+    const daysDiff = Math.floor((r.to.getTime() - r.from.getTime()) / (1000 * 60 * 60 * 24));
+    
+    // 2 meses = ~60 dias
+    if (daysDiff <= 60) {
+      setRange(r);
+      onDateRangeChange?.(r);
+    }
+    // Se ultrapassar 2 meses, ignora a seleção
+  };
 
   // Fecha o calendário ao clicar fora
   useEffect(() => {
@@ -147,10 +165,7 @@ const TrailDescriptionCard: React.FC<TrailDescriptionCardProps> = ({ topic, onTi
                   disabled={{ before: new Date() }}
                   defaultMonth={range?.from ?? new Date()}
                   selected={range}
-                  onSelect={(r) => {
-                    setRange(r);
-                    onDateRangeChange?.(r);
-                  }}
+                  onSelect={handleSelectDateRange}
                   className="rounded-2xl"
                 />
               </div>
