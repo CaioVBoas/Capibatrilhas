@@ -1,5 +1,7 @@
+'use client';
 import ExploreTrailsCard from 'components/exploreTrailsCard';
 import TrailCard from 'components/featuredTrailCards';
+import { useState } from 'react';
 
 const mockTrails = [
   {
@@ -42,7 +44,7 @@ const mockTrails = [
     prize: 300,
     challengesCompleted: '0',
     buttonText: 'Iniciar Trilha',
-    tag: 'Natal'
+    tag: 'Cultura'
   },
   {
     id: 4,
@@ -55,7 +57,7 @@ const mockTrails = [
     prize: 350,
     challengesCompleted: '0',
     buttonText: 'Iniciar Trilha',
-    tag: 'Verão'
+    tag: 'Natureza'
   },
   {
     id: 5,
@@ -98,18 +100,36 @@ const mockTrails = [
   }
 ];
 
-export default function exploreTrails() {
+export default function ExploreTrails() {
+  const [selectedType, setSelectedType] = useState('Todas');
+
+  const filteredTrails = mockTrails.filter((trail) => {
+    if (selectedType === 'Todas') {
+      return true;
+    }
+    return trail.tag === selectedType;
+  });
+
   return (
     <div className="w-full bg-[#e8ebf095] min-h-screen">
-      <ExploreTrailsCard />
+      <ExploreTrailsCard
+        selectedType={selectedType}
+        setSelectedType={setSelectedType}
+      />
       <div className="p-8">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center">
           Trilhas Disponíveis
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {mockTrails.map((trail) => (
-            <TrailCard key={trail.id} trail={trail} />
-          ))}
+          {filteredTrails.length > 0 ? (
+            filteredTrails.map((trail) => (
+              <TrailCard key={trail.id} trail={trail} />
+            ))
+          ) : (
+            <p className="text-gray-600 text-center col-span-2">
+              Nenhuma trilha encontrada para {selectedType}.
+            </p>
+          )}
         </div>
       </div>
     </div>

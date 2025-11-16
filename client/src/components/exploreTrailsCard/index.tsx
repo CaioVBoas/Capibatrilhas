@@ -11,9 +11,16 @@ const trailsTypes = [
   'História'
 ];
 
-export default function ExploreTrailsCard() {
+interface ExploreTrailsCardProps {
+  selectedType: string;
+  setSelectedType: (type: string) => void;
+}
+
+export default function ExploreTrailsCard({
+  selectedType,
+  setSelectedType
+}: ExploreTrailsCardProps) {
   const [userInput, setUserInput] = useState('');
-  const [selectedType, setSelectedType] = useState('Todas');
 
   return (
     <div className="w-full flex justify-center py-4 bg-zinc-50 border-b border-zinc-300">
