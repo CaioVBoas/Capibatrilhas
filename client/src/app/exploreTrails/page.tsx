@@ -116,11 +116,8 @@ export default function ExploreTrails() {
         selectedType={selectedType}
         setSelectedType={setSelectedType}
       />
-      <div className="p-8">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center">
-          Trilhas Disponíveis
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div className="p-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
           {filteredTrails.length > 0 ? (
             filteredTrails.map((trail) => (
               <TrailCard key={trail.id} trail={trail} />
