@@ -1,5 +1,4 @@
 'use client';
-// 1. Importei o ícone "Search"
 import { Funnel, Search } from 'lucide-react';
 import { useState } from 'react';
 
@@ -40,7 +39,7 @@ export default function ExploreTrailsCard() {
           />
         </div>
 
-        <div className="flex px-2 py-1 items-center flex-wrap gap-y-2">
+        <div className="flex  py-1 items-center flex-wrap gap-y-2">
           {' '}
           {/* Adicionei items-center, flex-wrap, gap-y-2 */}
           <Funnel className="text-[#6c7d94] mx-1" size={19} />{' '}
