@@ -102,12 +102,16 @@ const mockTrails = [
 
 export default function ExploreTrails() {
   const [selectedType, setSelectedType] = useState('Todas');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const filteredTrails = mockTrails.filter((trail) => {
-    if (selectedType === 'Todas') {
-      return true;
-    }
-    return trail.tag === selectedType;
+    const matchesType = selectedType === 'Todas' || trail.tag === selectedType;
+
+    const matchesSearch = trail.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    return matchesType && matchesSearch;
   });
 
   return (
@@ -115,6 +119,8 @@ export default function ExploreTrails() {
       <ExploreTrailsCard
         selectedType={selectedType}
         setSelectedType={setSelectedType}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
       <div className="p-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">

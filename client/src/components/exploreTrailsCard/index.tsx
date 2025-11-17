@@ -1,6 +1,5 @@
 'use client';
 import { Funnel, Search } from 'lucide-react';
-import { useState } from 'react';
 
 const trailsTypes = [
   'Todas',
@@ -14,14 +13,16 @@ const trailsTypes = [
 interface ExploreTrailsCardProps {
   selectedType: string;
   setSelectedType: (type: string) => void;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 }
 
 export default function ExploreTrailsCard({
   selectedType,
-  setSelectedType
+  setSelectedType,
+  searchTerm,
+  setSearchTerm
 }: ExploreTrailsCardProps) {
-  const [userInput, setUserInput] = useState('');
-
   return (
     <div className="w-full flex justify-center py-4 bg-zinc-50 border-b border-zinc-300">
       <div className="flex flex-col gap-4">
@@ -39,18 +40,15 @@ export default function ExploreTrailsCard({
             type="text"
             name=""
             id=""
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-[#e8ebf095] p-2 pl-9 rounded-2xl border border-zinc-400 w-full text-sm text-[#5e6d83]"
             placeholder="Buscar trilhas..."
           />
         </div>
 
         <div className="flex  py-1 items-center flex-wrap gap-y-2">
-          {' '}
-          {/* Adicionei items-center, flex-wrap, gap-y-2 */}
           <Funnel className="text-[#6c7d94] mx-1" size={19} />{' '}
-          {/* Removi my-1 */}
           {trailsTypes.map((type) => (
             <button
               onClick={() => setSelectedType(type)}
