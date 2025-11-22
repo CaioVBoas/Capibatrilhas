@@ -3,6 +3,7 @@ import TrailCard from "components/featuredTrailCards";
 import { MapPin, TrendingUp, Star } from 'lucide-react';
 import React from 'react';
 import EventsCard from 'components/eventsCard';
+import NavBar from 'components/navBar';
 
 
 const mockBoroughs = [
@@ -178,6 +179,9 @@ export default function HomePage() {
 
   return (
     <div className="bg-gray-50">
+      
+        <NavBar />
+      
       <div className="flex flex-row gap-7.5 justify-center py-5">
         {mockEvents.map((eventItem, index) => (
           <EventsCard key={index} event={eventItem} />
