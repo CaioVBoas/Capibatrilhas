@@ -6,7 +6,7 @@ export const User = z.object({
       invalid_type_error: 'O nome deve ser uma string',
       required_error: 'O nome é obrigatório' })
     .min(2, { message: 'O nome deve ter no mínimo 2 caracteres' })
-    .regex(/^[\p{L}\s]+$/u, { message: 'O nome deve conter apenas letras' }),
+    .regex(/^[\p{L}\s'-]+$/u, { message: 'O nome contém caracteres inválidos' }),
 
   phone: z
     .string({ invalid_type_error: 'O número de telefone deve ser uma string' })
@@ -27,9 +27,10 @@ export const User = z.object({
 
   cpf: z
     .string({ invalid_type_error: 'O CPF deve ser uma string' })
-    .regex(/^\d{11}$/, { message: 'O CPF deve conter exatamente 11 dígitos numéricos' }),                                                                 //Valida se o CPF possui exatamente 11 dígitos numéricos 
-                                                          
-  urlImage: z
+    .regex(/^\d{11}$/, { message: 'O CPF deve conter exatamente 11 dígitos numéricos' })                                                                  //Valida se o CPF possui exatamente 11 dígitos numéricos 
+    .transform((val) => val.replace(/\D/g, '')),                                                          
+  
+    urlImage: z
     .string({ invalid_type_error: 'A URL da imagem deve ser uma string' })
     .url({ message: 'URL da imagem inválida' })
     .optional(),
@@ -65,7 +66,6 @@ export const User = z.object({
   street: z
     .string({ invalid_type_error: 'A rua deve ser uma string' })
     .min(2, { message: 'A rua deve ter no mínimo 2 caracteres' })
-    .regex(/^[\p{L}\s]+$/u, { message: 'A rua deve conter apenas letras' })
     .optional(),
 
   number: z
