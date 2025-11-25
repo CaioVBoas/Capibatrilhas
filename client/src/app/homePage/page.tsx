@@ -5,6 +5,7 @@ import React from 'react';
 import EventsCard from 'components/eventsCard';
 import NavBar from 'components/navBar';
 import UserCardHomepage from 'components/userCardHomepage';
+import AddMyTrail from 'components/addMyTrail';
 
 const mockUserCard ={
 
@@ -190,8 +191,11 @@ export default function HomePage() {
     <div className="bg-gray-50">
       
       <NavBar />
-      
+
       <UserCardHomepage userCardProp={mockUserCard}/>
+
+      <AddMyTrail />
+
 
       <div className="flex flex-row gap-7.5 justify-center py-5">
         {mockEvents.map((eventItem, index) => (
