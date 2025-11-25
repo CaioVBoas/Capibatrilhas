@@ -4,6 +4,15 @@ import { MapPin, TrendingUp, Star } from 'lucide-react';
 import React from 'react';
 import EventsCard from 'components/eventsCard';
 import NavBar from 'components/navBar';
+import UserCardHomepage from 'components/userCardHomepage';
+
+const mockUserCard ={
+
+    userName: "Guilherme",
+    level: 5,
+    qtyCapibas: 450,
+    sequenceOfDays: 7,
+  }
 
 
 const mockBoroughs = [
@@ -180,8 +189,10 @@ export default function HomePage() {
   return (
     <div className="bg-gray-50">
       
-        <NavBar />
+      <NavBar />
       
+      <UserCardHomepage userCardProp={mockUserCard}/>
+
       <div className="flex flex-row gap-7.5 justify-center py-5">
         {mockEvents.map((eventItem, index) => (
           <EventsCard key={index} event={eventItem} />
