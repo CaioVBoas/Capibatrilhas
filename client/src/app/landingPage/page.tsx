@@ -3,6 +3,7 @@ import { Header } from 'components/landingPageHeader';
 import { HeroSection } from 'components/heroSection';
 import { AboutSection } from 'components/aboutSection';
 import { TutorialSection } from 'components/tutorialSection';
+import { FaqSection } from 'components/faqSection';
 
 export default function LandingPage() {
   return (
@@ -11,6 +12,7 @@ export default function LandingPage() {
       <HeroSection />
       <AboutSection />
       <TutorialSection />
+      <FaqSection />
       
     </main>
   );

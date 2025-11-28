@@ -1,46 +1,75 @@
-"use client";
+'use client';
 
 import Image from "next/image";
 import { aboutRight, blueRiverMiddle } from "assets";
-
+import { motion, Variants } from "framer-motion";
 
 export function AboutSection() {
+
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: "easeOut" } 
+    },
+  };
+
   return (
-      // ADICIONANDO overflow-hidden AQUI
-      <div id="sobre" className="h-screen w-full flex bg-[#ffc107] relative overflow-hidden"> 
-        
-
-        <div className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative">
-    
-          {/* Palavra "Sobre" no canto superior esquerdo */}
-          <h1 className="text-[#2563EB] text-8xl font-thin leading-tight">
-            Sobre
-          </h1>
-
-          {/* Parágrafo maior */}
-          <p className="text-2xl leading-relaxed mt-1 max-w-lg ml-7 text-justify font-medium">
-            Um desejo. <br />
-            Foi disso que nasceu o Capibatrilhas: do desejo por mais vida. 
-            A cidade é o lugar onde tudo pulsa. Cultura, natureza... <span className="text-[#2563EB] font-semibold">gente</span>. 
-            Onde suor e sangue se misturam no caldeirão sagrado da <span className="text-[#2563EB] font-semibold">cidadania</span>.<br /><br />
-
-            O que o Capibatrilhas quer é simples: mais <span className="bg-[#2563EB] text-yellow-400 px-2 py-1 rounded font-extrabold">
-              VIDA VIVIDA.
-            </span><br /> <br /><br />
-
-            <span className="text-[#2563EB] font-semibold">Recife</span> é sua matéria-prima. <br />
-            Ouça os sons da sua cidade. <br />
-            Abra os olhos para o que ainda não viu. <br />
-
-            {/* Aqui o destaque em caixa azul com letras amarelas */}
-            <span className="bg-[#2563EB] text-yellow-400 px-2 py-1 rounded font-extrabold">
-              VIVA RECIFE. VIVA VOCÊ.
-            </span><br />
-          </p>
-
-
-        </div>
+    <div id="sobre" className="h-screen w-full flex bg-[#ffc107] relative overflow-hidden">
+      
+      <motion.div 
+        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.1  }}
+      >
   
+        <motion.h1 
+          className="text-[#2563EB] text-8xl font-thin leading-tight"
+          variants={itemVariants}
+        >
+          Sobre
+        </motion.h1>
+
+        <motion.p 
+          className="text-2xl leading-relaxed max-w-lg ml-7 text-justify font-medium -mt-1"
+          variants={itemVariants}
+        >
+          Um desejo. <br />
+          Foi disso que nasceu o Capibatrilhas: do desejo por mais vida. 
+          A cidade é o lugar onde tudo pulsa. Cultura, natureza... <span className="text-[#2563EB] font-semibold">gente</span>. 
+          Onde suor e sangue se misturam no caldeirão sagrado da <span className="text-[#2563EB] font-semibold">cidadania</span>.<br /><br />
+
+          O que o Capibatrilhas quer é simples: mais <span className="bg-[#2563EB] text-yellow-400 px-2 py-1 rounded font-extrabold">
+            VIDA VIVIDA.
+          </span><br /> <br />
+
+          <span className="text-[#2563EB] font-semibold">Recife</span> é sua matéria-prima. <br />
+          Ouça os sons da sua cidade. <br />
+          Abra os olhos para o que ainda não viu. <br />
+
+          <span className="bg-[#2563EB] text-yellow-400 px-2 py-1 rounded font-extrabold inline-block mt-2">
+            VIVA RECIFE. VIVA VOCÊ.
+          </span><br />
+        </motion.p>
+
+      </motion.div>
+    
         <Image
           src={blueRiverMiddle}
           alt="Elemento do rio azul Capibatrilhas"
@@ -50,18 +79,25 @@ export function AboutSection() {
           draggable={false}
           />
   
-        {/* LADO DIREITO: Ilustração Principal */}
-        <div className="relative w-1/2 h-full overflow-hidden">
-          <Image
+      <div className="relative w-1/2 h-full overflow-hidden">
+        <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.5 }}
+            viewport={{ once: true }}
+            className="absolute bottom-0 right-0 h-auto w-auto"
+        >
+            <Image
             src={aboutRight}
             alt="Foto do Recife Antigo"
             width={495}
             height={495}
-            className="absolute bottom-0 right-0 object-contain select-none pointer-events-none p-0"
+            className="object-contain select-none pointer-events-none p-0"
             draggable={false}
             priority
-          />
-        </div>
+            />
+        </motion.div>
       </div>
-    );
-  }
+    </div>
+  );
+}

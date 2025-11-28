@@ -10,6 +10,8 @@ import yellowRiverTutorial from "./yellowRiverTutorial.png";
 import trilhasValemCapibas from "./trilhasValemCapibas.png";
 import crieRoles from "./crieRoles.png";
 import premioNaMao from "./premioNaMao.png";
+import blueRiverFaq from "./blueRiverFaq.png";
+import mapaRecife from "./mapaRecife.png";
 
 
 export { CalendarImg };
@@ -24,3 +26,5 @@ export { yellowRiverTutorial };
 export { trilhasValemCapibas };
 export { crieRoles };
 export { premioNaMao };
+export { blueRiverFaq };
+export { mapaRecife };
