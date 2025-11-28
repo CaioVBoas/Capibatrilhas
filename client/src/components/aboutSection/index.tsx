@@ -4,7 +4,7 @@ import { aboutRight, blueRiverMiddle } from "assets";
 export function AboutSection() {
   return (
       // ADICIONANDO overflow-hidden AQUI
-      <div className="h-screen w-full flex bg-[#ffc107] relative overflow-hidden"> 
+      <div id="sobre" className="h-screen w-full flex bg-[#ffc107] relative overflow-hidden"> 
         
         {/* LADO ESQUERDO: Logo e Botão */}
         <div className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative">

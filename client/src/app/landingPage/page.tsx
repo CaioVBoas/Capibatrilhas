@@ -2,6 +2,7 @@
 import { Header } from 'components/landingPageHeader';
 import { HeroSection } from 'components/heroSection';
 import { AboutSection } from 'components/aboutSection';
+import { TutorialSection } from 'components/tutorialSection';
 
 export default function LandingPage() {
   return (
@@ -9,6 +10,7 @@ export default function LandingPage() {
       <Header />
       <HeroSection />
       <AboutSection />
+      <TutorialSection />
       
     </main>
   );
