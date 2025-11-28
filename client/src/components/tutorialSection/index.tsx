@@ -1,6 +1,10 @@
+"use client";
+
 import { yellowRiverTutorial, trilhasValemCapibas, crieRoles, premioNaMao } from "assets";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
+const MotionImage = motion(Image);
 
 export function TutorialSection() {
   return (
@@ -19,30 +23,45 @@ export function TutorialSection() {
           draggable={false}
       />
     
-      <Image
-          src={trilhasValemCapibas}
-          alt="Img#1 TUTORIAL"
-          width={600}
-          height={600}
-          className="absolute top-[250px] ml-[15px] left-[3px] object-contain select-none pointer-events-none fade-up"
-          draggable={false}
+      <MotionImage
+        src={trilhasValemCapibas}
+        alt="Img#1 TUTORIAL"
+        width={600}
+        height={600}
+        className="absolute top-[250px] ml-[15px] left-[3px] object-contain select-none pointer-events-none"
+        draggable={false}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       />
-        <Image
-            src={crieRoles}
-            alt="Img#2 TUTORIAL"
-            width={600}
-            height={600}
-            className="absolute top-[900px] ml-[750px] left-[3px] object-contain select-none pointer-events-none fade-up"
-            draggable={false}
-        />
-        <Image
-            src={premioNaMao}
-            alt="Img#3 TUTORIAL"
-            width={600}
-            height={600}
-            className="absolute top-[1500px] ml-[15px] left-[3px] object-contain select-none pointer-events-none"
-            draggable={false}
-        />
+
+      <MotionImage
+        src={crieRoles}
+        alt="Img#2 TUTORIAL"
+        width={600}
+        height={600}
+        className="absolute top-[900px] ml-[750px] left-[3px] object-contain select-none pointer-events-none"
+        draggable={false}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
+
+      <MotionImage
+        src={premioNaMao}
+        alt="Img#3 TUTORIAL"
+        width={600}
+        height={600}
+        className="absolute top-[1500px] ml-[15px] left-[3px] object-contain select-none pointer-events-none"
+        draggable={false}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
+
 
 
     </div>
