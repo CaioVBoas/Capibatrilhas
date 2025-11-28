@@ -6,6 +6,10 @@ import partners from "./partners.png";
 import yellowRiverRight from "./yellowRiverRight.png";
 import aboutRight from "./aboutRight.png";
 import blueRiverMiddle from "./blueRiverMiddle.png";
+import yellowRiverTutorial from "./yellowRiverTutorial.png";
+import trilhasValemCapibas from "./trilhasValemCapibas.png";
+import crieRoles from "./crieRoles.png";
+import premioNaMao from "./premioNaMao.png";
 
 
 export { CalendarImg };
@@ -16,3 +20,7 @@ export { partners };
 export { yellowRiverRight };
 export { aboutRight };
 export { blueRiverMiddle };
+export { yellowRiverTutorial };
+export { trilhasValemCapibas };
+export { crieRoles };
+export { premioNaMao };

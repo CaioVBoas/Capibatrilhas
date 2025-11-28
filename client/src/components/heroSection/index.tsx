@@ -26,7 +26,7 @@ export function HeroSection() {
           <span className="pl-2.5">trilhas</span>
         </h1>
 
-        <button className="z-50 mt-16 ml-43 bg-[#ffc107] hover:bg-[#FFFFFF] hover:shadow-2xl hover:scale-105 transition text-black hover:text-[#2563EB] text-3xl font-bold py-7 px-16 rounded-full shadow-xl w-[400px]">
+        <button className="z-50 mt-13 ml-34 bg-[#ffc107] hover:bg-[#FFFFFF] hover:shadow-2xl hover:scale-105 transition text-black hover:text-[#2563EB] text-3xl font-bold py-7 px-16 rounded-full shadow-xl w-[450px] h-[100px]">
         CRIE SUA CONTA
         </button>
       </div>
@@ -36,7 +36,7 @@ export function HeroSection() {
         alt="Ilustração do rio amarelo Capibatrilhas"
         width={290}
         height={115}
-        className="absolute top-[550px] left-80px ml-145 object-contain select-none pointer-events-none"
+        className="absolute top-[540px] left-80px ml-145 object-contain select-none pointer-events-none"
         draggable={false}
         />
 

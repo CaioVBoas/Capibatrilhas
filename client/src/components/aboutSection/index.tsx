@@ -18,7 +18,7 @@ export function AboutSection() {
           <p className="text-2xl leading-relaxed mt-1 max-w-lg ml-7 text-justify font-medium">
             Um desejo. <br />
             Foi disso que nasceu o Capibatrilhas: do desejo por mais vida. 
-            A cidade é o lugar onde tudo pulsa. Cultura, natureza, <span className="text-[#2563EB] font-semibold">gente</span>. 
+            A cidade é o lugar onde tudo pulsa. Cultura, natureza... <span className="text-[#2563EB] font-semibold">gente</span>. 
             Onde suor e sangue se misturam no caldeirão sagrado da <span className="text-[#2563EB] font-semibold">cidadania</span>.<br /><br />
 
             O que o Capibatrilhas quer é simples: mais <span className="bg-[#2563EB] text-yellow-400 px-2 py-1 rounded font-extrabold">
@@ -43,7 +43,7 @@ export function AboutSection() {
           alt="Elemento do rio azul Capibatrilhas"
           width={176}
           height={200}
-          className="absolute top-[-50px] left-[51px] ml-[685px] object-contain select-none pointer-events-none"
+          className="absolute top-[-15px] left-10 ml-[682px] translate-y-2 object-contain select-none pointer-events-none"
           draggable={false}
           />
   
