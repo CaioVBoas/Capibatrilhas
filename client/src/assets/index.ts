@@ -12,6 +12,8 @@ import crieRoles from "./crieRoles.png";
 import premioNaMao from "./premioNaMao.png";
 import blueRiverFaq from "./blueRiverFaq.png";
 import mapaRecife from "./mapaRecife.png";
+import contactLeft from './contactLeft.png';
+import contactRight from './contactRight.png';
 
 
 export { CalendarImg };
@@ -28,3 +30,5 @@ export { crieRoles };
 export { premioNaMao };
 export { blueRiverFaq };
 export { mapaRecife };
+export { contactLeft };
+export { contactRight };
