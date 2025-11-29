@@ -14,6 +14,7 @@ import blueRiverFaq from "./blueRiverFaq.png";
 import mapaRecife from "./mapaRecife.png";
 import contactLeft from './contactLeft.png';
 import contactRight from './contactRight.png';
+import endingRight from './endingRight.png';
 
 
 export { CalendarImg };
@@ -32,3 +33,4 @@ export { blueRiverFaq };
 export { mapaRecife };
 export { contactLeft };
 export { contactRight };
+export { endingRight };

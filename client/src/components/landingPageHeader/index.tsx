@@ -1,17 +1,16 @@
-// components/Header/index.tsx
+
 import { Inter } from "next/font/google";
 import Image from "next/image";
-import { partners } from "assets"; // Importe a imagem de parceiros
+import { partners } from "assets"; 
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-export function Header() {
+export function LandingHeader() {
   return (
     <div>
-      {/* Logos (Partners) - Posicionado no canto superior esquerdo */}
       <Image
         src={partners}
         alt="Parceiros Capibatrilhas"
@@ -23,7 +22,7 @@ export function Header() {
 
       <header className={`${inter.className} absolute top-8 right-8 z-50 font-light`}> 
         <div className="bg-white/10 backdrop-blur-sm rounded-full py-3 px-6 shadow-lg"> 
-          <nav className="flex space-x-8 text-xl text-white"> {/* Ajustado gap-20 para space-x-8 e text-2xl para text-xl */}
+          <nav className="flex space-x-8 text-xl text-white"> 
             <a href="#sobre" className="cursor-pointer hover:text-yellow-400 transition">Sobre</a>
             <a href="#tutorial" className="cursor-pointer hover:text-yellow-400 transition">Tutorial</a>
             <a href="#faq" className="cursor-pointer hover:text-yellow-400 transition">FAQ</a>

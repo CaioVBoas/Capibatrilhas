@@ -2,8 +2,8 @@
 
 import { Poppins } from "next/font/google";
 import Image from "next/image";
-import { landingRight } from "assets"; // Ilustração da direita
-import { yellowRiverRight } from "assets"; // Ilustração do rio/forma orgânica
+import { landingRight } from "assets";
+import { yellowRiverRight } from "assets";
 import { motion } from "framer-motion";
 
 const poppins = Poppins({
@@ -17,15 +17,14 @@ export function HeroSection() {
       
       <div className="flex flex-col justify-start pl-16 pt-40 w-1/2">
         <motion.h1
-          className={`${poppins.className} text-[#ffc107] leading-[0.9] relative`} // Adicionei 'relative' por segurança
+          className={`${poppins.className} text-[#ffc107] leading-[0.9] relative`} 
           style={{ fontSize: "180px" }}
-          
-          // AQUI ESTÁ A MÁGICA DE FLUTUAR:
-          animate={{ y: [0, -20, 0] }} // Sobe 20px e desce
+
+          animate={{ y: [0, -20, 0] }} 
           transition={{
-            duration: 3.5,      // Demora 3.5s para fazer o ciclo (suave)
-            repeat: Infinity,   // Repete para sempre
-            ease: "easeInOut",  // Movimento natural (não robótico)
+            duration: 3.5,     
+            repeat: Infinity,   
+            ease: "easeInOut", 
           }}
         >
 
@@ -49,11 +48,11 @@ export function HeroSection() {
         draggable={false}
         />
 
-      {/* LADO DIREITO: Ilustração Principal */}
+
       <div className="relative w-1/2 h-full overflow-hidden">
         <Image
           src={landingRight}
-          alt="Ilustrações do Capibatrilhas"
+          alt="Elementos Abstratos do Capibatrilhas"
           width={540}
           height={540}
           className="absolute bottom-0 right-0 object-contain select-none pointer-events-none"

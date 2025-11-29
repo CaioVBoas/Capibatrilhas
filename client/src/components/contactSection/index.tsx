@@ -30,7 +30,6 @@ export function ContactSection() {
   return (
     <div id="contato" className="h-screen w-full flex bg-[#fff3ef] relative overflow-hidden">
 
-      {/* LADO ESQUERDO (Texto e Form) */}
       <motion.div 
         className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 gap-10"
         variants={containerVariants}
@@ -68,9 +67,6 @@ export function ContactSection() {
         </motion.form>
       </motion.div>
 
-      {/* BOTÃO NO CANTO DIREITO DA TELA */}
-      {/* 1. Transformei em motion.button */}
-      {/* 2. Apliquei itemVariants para ele subir suavemente igual ao texto */}
       <motion.button
         type="submit"
         variants={itemVariants} 
@@ -84,25 +80,23 @@ export function ContactSection() {
         Enviar mensagem
       </motion.button>
 
-      {/* RIO AZUL (Direita Superior) */}
+
       <Image
         src={contactRight}
-        alt="Elemento do rio azul Capibatrilhas"
+        alt="Elemento do rio azul/amarelo Capibatrilhas"
         width={850}
         height={850}
         className="absolute top-[-25px] left-10 ml-[427px] translate-y-2 object-contain select-none pointer-events-none"
         draggable={false}
       />
 
-      {/* IMAGEM ESQUERDA INFERIOR */}
       <motion.div
-        // 3. Apliquei itemVariants aqui também. 
-        // Agora ela sobe (y: 50 -> 0) em vez de vir do lado. Fica mais elegante.
+
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
-        transition={{ duration: 1.5 }} // Mantive um pouquinho mais lento que o resto pra dar charme
+        transition={{ duration: 1.5 }}
         className="absolute bottom-0 left-0 z-0 pointer-events-none"
       >
         <Image
