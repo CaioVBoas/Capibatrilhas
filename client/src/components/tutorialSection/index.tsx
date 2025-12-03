@@ -59,7 +59,7 @@ export function TutorialSection() {
           draggable={false}
       /> */}
     
-    <div className="absolute top-[250px] ml-[15px] left-[3px] flex flex-col w-[600px]">
+    <div className="absolute top-[250px] ml-[15px] left-[3px] flex flex-col w-[600px] z-20">
       
       <MotionImage
         src={trilhasValemCapibas}
@@ -75,7 +75,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#ffc107] self-start pl-2 pr-4 text-justify"
+        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start pl-2 pr-4 text-justify bg-[#ffc107] p-4 rounded-lg"
         
         variants={itemVariants}
         initial="hidden"
@@ -94,7 +94,7 @@ export function TutorialSection() {
 
     </div>
 
-    <div className="absolute top-[900px] ml-[750px] left-[3px] flex flex-col w-[600px]">
+    <div className="absolute top-[900px] ml-[750px] left-[3px] flex flex-col w-[600px] z-20">
       
       {/* IMAGEM: Removemos o absolute daqui */}
       <MotionImage
@@ -111,7 +111,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#ffc107] self-start text-justify pl-2 pr-4"
+        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#ffc107] p-4 rounded-lg"
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
@@ -129,7 +129,7 @@ export function TutorialSection() {
       
     </div>
 
-    <div className="absolute top-[1500px] ml-[15px] left-[3px] flex flex-col w-[600px]">
+    <div className="absolute top-[1500px] ml-[15px] left-[3px] flex flex-col w-[600px] z-20">
       
       <MotionImage
         src={premioNaMao}
@@ -146,7 +146,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#ffc107] self-start text-justify pl-2 pr-4"
+        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#ffc107] p-4 rounded-lg"
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
