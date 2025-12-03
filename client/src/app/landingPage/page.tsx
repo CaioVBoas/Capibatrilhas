@@ -7,11 +7,13 @@ import { FaqSection } from 'components/faqSection';
 import { ContactSection } from 'components/contactSection';
 import { EndingSection } from 'components/endingSection';
 import { LandingFooter } from 'components/landingPageFooter';
+import { RiverLayer } from 'components/riverLayer';
 
 
 export default function LandingPage() {
   return (
     <main>
+      <RiverLayer />
       <LandingHeader />
       <HeroSection />
       <AboutSection />
