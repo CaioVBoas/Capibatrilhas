@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { blueRiverFaq, mapaRecife } from "assets";
+import { mapaRecife } from "assets";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -96,14 +96,14 @@ export function FaqSection() {
         </motion.div>
       )}
 
-      <Image
+      {/* <Image
         src={blueRiverFaq}
         alt="Elemento do rio azul Capibatrilhas"
         width={560}
         height={600}
         className="absolute top-[-250px] left-10 ml-[832px] translate-y-2 object-contain"
         draggable={false}
-      />
+      /> */}
 
     </div>
   );

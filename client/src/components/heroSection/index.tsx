@@ -3,7 +3,7 @@
 import { Poppins } from "next/font/google";
 import Image from "next/image";
 import { landingRight } from "assets";
-import { yellowRiverRight } from "assets";
+// import { yellowRiverRight } from "assets";
 import { motion } from "framer-motion";
 
 const poppins = Poppins({
@@ -38,7 +38,7 @@ export function HeroSection() {
         CRIE SUA CONTA
         </button>
       </div>
-
+{/* 
       <Image
         src={yellowRiverRight}
         alt="Ilustração do rio amarelo Capibatrilhas"
@@ -46,7 +46,7 @@ export function HeroSection() {
         height={115}
         className="absolute top-[540px] left-80px ml-145 object-contain select-none pointer-events-none"
         draggable={false}
-        />
+        /> */}
 
 
       <div className="relative w-1/2 h-full overflow-hidden">

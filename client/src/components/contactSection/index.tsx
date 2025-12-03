@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { contactLeft, contactRight } from "assets";
+import { contactLeft } from "assets";
 import { motion, Variants } from "framer-motion";
 
 export function ContactSection() {
@@ -42,7 +42,7 @@ export function ContactSection() {
           variants={itemVariants}
         >
           <span className="whitespace-nowrap">Ainda em dúvida?</span><br />
-          <span className="whitespace-nowrap">Entre em contato conosco!</span>
+          <span className="whitespace-nowrap">Entre em contato!</span>
         </motion.h1>
 
         <motion.form 
@@ -81,14 +81,14 @@ export function ContactSection() {
       </motion.button>
 
 
-      <Image
+      {/* <Image
         src={contactRight}
         alt="Elemento do rio azul/amarelo Capibatrilhas"
         width={850}
         height={850}
         className="absolute top-[-25px] left-10 ml-[427px] translate-y-2 object-contain select-none pointer-events-none"
         draggable={false}
-      />
+      /> */}
 
       <motion.div
 

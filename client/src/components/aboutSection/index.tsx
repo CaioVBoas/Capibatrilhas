@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { aboutRight, blueRiverMiddle } from "assets";
+import { aboutRight } from "assets";
 import { motion, Variants } from "framer-motion";
 
 export function AboutSection() {
@@ -70,14 +70,14 @@ export function AboutSection() {
 
       </motion.div>
     
-        <Image
+        {/* <Image
           src={blueRiverMiddle}
           alt="Elemento do rio azul Capibatrilhas"
           width={176}
           height={200}
           className="absolute top-[-15px] left-10 ml-[682px] translate-y-2 object-contain select-none pointer-events-none"
           draggable={false}
-          />
+          /> */}
   
       <div className="relative w-1/2 h-full overflow-hidden">
         <motion.div

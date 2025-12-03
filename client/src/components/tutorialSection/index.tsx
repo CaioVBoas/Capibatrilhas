@@ -1,6 +1,6 @@
 "use client";
 
-import { yellowRiverTutorial, trilhasValemCapibas, crieRoles, premioNaMao } from "assets";
+import { trilhasValemCapibas, crieRoles, premioNaMao } from "assets";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 
@@ -50,14 +50,14 @@ export function TutorialSection() {
 
       
       
-      <Image
+      {/* <Image
           src={yellowRiverTutorial}
           alt="Elemento do rio amarelo TUTORIAL"
           width={3000}
           height={4000}
           className="absolute top-[-23px] ml-[15px] left-[3px] object-contain select-none pointer-events-none fade-up"
           draggable={false}
-      />
+      /> */}
     
     <div className="absolute top-[250px] ml-[15px] left-[3px] flex flex-col w-[600px]">
       

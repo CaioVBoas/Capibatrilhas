@@ -7,11 +7,14 @@ import { FaqSection } from 'components/faqSection';
 import { ContactSection } from 'components/contactSection';
 import { EndingSection } from 'components/endingSection';
 import { LandingFooter } from 'components/landingPageFooter';
+import { RiverLayer } from 'components/riverLayer';
 
 
 export default function LandingPage() {
   return (
-    <main>
+    <main className="relative">
+      {/* RiverLayer sits above section backgrounds but below content */}
+      <RiverLayer />
       <LandingHeader />
       <HeroSection />
       <AboutSection />
