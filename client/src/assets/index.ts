@@ -15,6 +15,7 @@ import mapaRecife from "./mapaRecife.png";
 import contactLeft from './contactLeft.png';
 import contactRight from './contactRight.png';
 import endingRight from './endingRight.png';
+import riverComponent from './riverComponent.svg';
 
 
 export { CalendarImg };
@@ -34,3 +35,4 @@ export { mapaRecife };
 export { contactLeft };
 export { contactRight };
 export { endingRight };
+export { riverComponent };
