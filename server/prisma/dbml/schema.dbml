@@ -3,7 +3,7 @@
 //// ------------------------------------------------------
 
 Table User {
-  id String [pk]
+  id Int [pk, increment]
   name String [not null]
   phone String
   email String [unique, not null]
@@ -56,7 +56,7 @@ Table Trail {
   isHighlighted Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  ownerId String [not null]
+  ownerId Int [not null]
   owner User [not null]
   challenges TrailChallenge [not null]
   participants TrailParticipation [not null]
@@ -80,7 +80,7 @@ Table TrailChallenge {
 
 Table TrailParticipation {
   id Int [pk, increment]
-  userId String [not null]
+  userId Int [not null]
   trailId Int [not null]
   progress Float [not null, default: 0]
   isCompleted Boolean [not null, default: false]
@@ -96,7 +96,7 @@ Table TrailParticipation {
 
 Table CompletedChallenge {
   id Int [pk, increment]
-  userId String [not null]
+  userId Int [not null]
   challengeId Int [not null]
   completedAt DateTime [default: `now()`, not null]
   rewardsEarned Int [not null]
@@ -111,8 +111,8 @@ Table CompletedChallenge {
 Table TrailInvitation {
   id Int [pk, increment]
   trailId Int [not null]
-  senderId String [not null]
-  inviteeId String [not null]
+  senderId Int [not null]
+  inviteeId Int [not null]
   status InvitationStatus [not null, default: 'PENDENTE']
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
