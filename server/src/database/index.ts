@@ -10,7 +10,7 @@ prisma
   .then(() => {
     console.log('📦 Successfully connected with database');
   })
-  .catch((error) => {
+  .catch((error: any) => {
     console.log('❌ Error connecting to database', error);
   });
 
