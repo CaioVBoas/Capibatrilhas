@@ -3,7 +3,7 @@
 //// ------------------------------------------------------
 
 Table User {
-  id String [pk]
+  id Int [pk, increment]
   name String [not null]
   phone String
   email String [unique, not null]
@@ -12,24 +12,24 @@ Table User {
   cpf String [unique, not null]
   urlImage String
   birthdate String
-  cep String
-  estado String
-  municipio String
-  bairro String
-  logradouro String
-  complemento String
-  numero String
+  zipCode String
+  state String
+  city String
+  district String
+  street String
+  complement String
+  number String
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   isAdmin Boolean [not null, default: false]
-  trilhasCriadas Trilha [not null]
-  participacoes ParticipacaoTrilha [not null]
-  desafiosConcluidos DesafioConcluido [not null]
-  convitesEnviados ConviteTrilha [not null]
-  convitesRecebidos ConviteTrilha [not null]
+  createdTrails Trail [not null]
+  participations TrailParticipation [not null]
+  completedChallenges CompletedChallenge [not null]
+  sentInvitations TrailInvitation [not null]
+  receivedInvitations TrailInvitation [not null]
 }
 
-Table Desafio {
+Table Challenge {
   id Int [pk, increment]
   title String [not null]
   description String [not null]
@@ -40,11 +40,11 @@ Table Desafio {
   isActive Boolean [not null, default: true]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  trilhaDesafios TrilhaDesafio [not null]
-  desafiosConcluidos DesafioConcluido [not null]
+  TrailChallenges TrailChallenge [not null]
+  completedChallenges CompletedChallenge [not null]
 }
 
-Table Trilha {
+Table Trail {
   id Int [pk, increment]
   title String [not null]
   description String [not null]
@@ -56,76 +56,76 @@ Table Trilha {
   isHighlighted Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  criadorId String [not null]
-  criador User [not null]
-  desafios TrilhaDesafio [not null]
-  participantes ParticipacaoTrilha [not null]
-  convites ConviteTrilha [not null]
+  ownerId Int [not null]
+  owner User [not null]
+  challenges TrailChallenge [not null]
+  participants TrailParticipation [not null]
+  invites TrailInvitation [not null]
 }
 
-Table TrilhaDesafio {
+Table TrailChallenge {
   id Int [pk, increment]
-  trilhaId Int [not null]
-  desafioId Int [not null]
-  ordem Int [not null]
+  trailId Int [not null]
+  challengeId Int [not null]
+  challengeOrder Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  trilha Trilha [not null]
-  desafio Desafio [not null]
+  trail Trail [not null]
+  challenge Challenge [not null]
 
   indexes {
-    (trilhaId, desafioId) [unique]
+    (trailId, challengeId) [unique]
   }
 }
 
-Table ParticipacaoTrilha {
+Table TrailParticipation {
   id Int [pk, increment]
-  userId String [not null]
-  trilhaId Int [not null]
+  userId Int [not null]
+  trailId Int [not null]
   progress Float [not null, default: 0]
   isCompleted Boolean [not null, default: false]
   joinedAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   user User [not null]
-  trilha Trilha [not null]
+  trail Trail [not null]
 
   indexes {
-    (userId, trilhaId) [unique]
+    (userId, trailId) [unique]
   }
 }
 
-Table DesafioConcluido {
+Table CompletedChallenge {
   id Int [pk, increment]
-  userId String [not null]
-  desafioId Int [not null]
+  userId Int [not null]
+  challengeId Int [not null]
   completedAt DateTime [default: `now()`, not null]
   rewardsEarned Int [not null]
   user User [not null]
-  desafio Desafio [not null]
+  challenge Challenge [not null]
 
   indexes {
-    (userId, desafioId) [unique]
+    (userId, challengeId) [unique]
   }
 }
 
-Table ConviteTrilha {
+Table TrailInvitation {
   id Int [pk, increment]
-  trilhaId Int [not null]
-  remetenteId String [not null]
-  destinatarioId String [not null]
-  status ConviteStatus [not null, default: 'PENDENTE']
+  trailId Int [not null]
+  senderId Int [not null]
+  inviteeId Int [not null]
+  status InvitationStatus [not null, default: 'PENDENTE']
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  trilha Trilha [not null]
-  remetente User [not null]
-  destinatario User [not null]
+  trail Trail [not null]
+  sender User [not null]
+  invitee User [not null]
 
   indexes {
-    (trilhaId, destinatarioId) [unique]
+    (trailId, inviteeId) [unique]
   }
 }
 
-Table BairroDestacado {
+Table HighlightedDistrict {
   id Int [pk, increment]
   name String [not null]
   location String [not null]
@@ -138,7 +138,7 @@ Table BairroDestacado {
   updatedAt DateTime [not null]
 }
 
-Table EventoAgenda {
+Table EventAgenda {
   id Int [pk, increment]
   title String [not null]
   description String [not null]
@@ -151,34 +151,34 @@ Table EventoAgenda {
   isActive Boolean [not null, default: true]
   isFeatured Boolean [not null, default: false]
   tags String[] [not null]
-  organizador String
-  preco String
+  organizer String
+  value String
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
 
-Enum ConviteStatus {
+Enum InvitationStatus {
   PENDENTE
   ACEITO
   RECUSADO
 }
 
-Ref: Trilha.criadorId > User.id [delete: Cascade]
+Ref: Trail.ownerId > User.id [delete: Cascade]
 
-Ref: TrilhaDesafio.trilhaId > Trilha.id [delete: Cascade]
+Ref: TrailChallenge.trailId > Trail.id [delete: Cascade]
 
-Ref: TrilhaDesafio.desafioId > Desafio.id [delete: Cascade]
+Ref: TrailChallenge.challengeId > Challenge.id [delete: Cascade]
 
-Ref: ParticipacaoTrilha.userId > User.id [delete: Cascade]
+Ref: TrailParticipation.userId > User.id [delete: Cascade]
 
-Ref: ParticipacaoTrilha.trilhaId > Trilha.id [delete: Cascade]
+Ref: TrailParticipation.trailId > Trail.id [delete: Cascade]
 
-Ref: DesafioConcluido.userId > User.id [delete: Cascade]
+Ref: CompletedChallenge.userId > User.id [delete: Cascade]
 
-Ref: DesafioConcluido.desafioId > Desafio.id [delete: Cascade]
+Ref: CompletedChallenge.challengeId > Challenge.id [delete: Cascade]
 
-Ref: ConviteTrilha.trilhaId > Trilha.id [delete: Cascade]
+Ref: TrailInvitation.trailId > Trail.id [delete: Cascade]
 
-Ref: ConviteTrilha.remetenteId > User.id [delete: Cascade]
+Ref: TrailInvitation.senderId > User.id [delete: Cascade]
 
-Ref: ConviteTrilha.destinatarioId > User.id [delete: Cascade]
+Ref: TrailInvitation.inviteeId > User.id [delete: Cascade]
