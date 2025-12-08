@@ -5,7 +5,6 @@ export interface Achievement {
   id: string | number;
   title: string;
   description: string;
-  completed?: boolean;
 }
 
 interface AchievementCardProps {
@@ -20,9 +19,9 @@ export default function AchievementCard({ data }: AchievementCardProps) {
         <p className="text-gray-500 text-sm">{data.description}</p>
       </div>
       
-      <div className={`p-2 rounded-full shrink-0 ml-4 ${data.completed ? "bg-green-100" : "bg-gray-100"}`}>
+      <div className={`p-2 rounded-full shrink-0 ml-4 bg-green-100`}>
         <CheckCircle2 
-          className={`w-6 h-6 ${data.completed ? "text-green-600" : "text-gray-300"}`} 
+          className={`w-6 h-6 text-green-600`} 
         />
       </div>
     </div>

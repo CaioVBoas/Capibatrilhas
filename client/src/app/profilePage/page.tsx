@@ -1,5 +1,5 @@
 import React from "react";
-import { Trophy } from "lucide-react";
+import { Star, Clock } from "lucide-react";
 import ProfileHeader from "components/headerProfilePage";
 import AchievementCard from "components/achievmentsCard";
 import ActivityList from "components/recentActivitiesCard";
@@ -22,19 +22,16 @@ const mockAchievements = [
     id: 1,
     title: "Explorador Iniciante",
     description: "Complete sua primeira trilha",
-    completed: true,
   },
   {
     id: 2,
     title: "Maratonista",
     description: "Complete 3 trilhas em um mês",
-    completed: true,
   },
   {
     id: 3,
     title: "Colecionador",
     description: "Acumule 500 Capibas",
-    completed: false, 
   },
 ];
 
@@ -55,7 +52,7 @@ const mockActivity = [
   },
   {
     id: 3,
-    title: "Nova insígnia desbloqueada",
+    title: "Nova conquista desbloqueada",
     time: "Hoje",
     isCoin: false,
   },
@@ -68,11 +65,11 @@ export default function ProfilePage() {
 
       <ProfileHeader user={mockUser} />
 
-      <main className="max-w-5xl mx-auto px-6 -mt-8 relative z-20 space-y-8">
+      <main className="max-w-5xl mx-auto px-6 mt-10 relative z-20 space-y-8">
         
-        <section>
-          <div className="flex items-center gap-2 mb-4 px-1">
-            <Trophy className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+        <div>
+          <div className="flex items-center gap-2 mb-4 mt-4 px-1">
+            <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
             <h2 className="text-gray-900 font-bold text-xl">Conquistas</h2>
           </div>
           
@@ -81,11 +78,15 @@ export default function ProfilePage() {
               <AchievementCard key={item.id} data={item} />
             ))}
           </div>
-        </section>
-        
-        <section>
+        </div>
+
+        <div>
+            <div className="flex items-center gap-2 pb-4 border-b border-gray-50">
+                <Clock className="w-5 h-5 text-gray-400" />
+                <h2 className="text-gray-900 font-bold text-lg">Atividade Recente</h2>
+            </div>
           <ActivityList activities={mockActivity} />
-        </section>
+        </div>
 
       </main>
     </div>

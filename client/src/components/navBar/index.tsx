@@ -21,7 +21,7 @@ export default function NavBar() {
                 <Link href="#" className="text-white hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Trilhas</Link>
                 <Link href="#" className="text-white hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Agenda</Link>
                 <Link href="#" className="text-white hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Recompensas</Link>
-                <Link href="#" className="text-black bg-white hover:bg-blue-200 hover:text-gray-500 rounded-3xl p-2">
+                <Link href="profilePage" className="text-black bg-white hover:bg-blue-200 hover:text-gray-500 rounded-3xl p-2">
                     <UserRound />
                 </Link>
             </div>

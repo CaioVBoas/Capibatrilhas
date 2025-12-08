@@ -1,5 +1,5 @@
 import React from "react";
-import { Coins, Clock } from "lucide-react";
+import { Coins } from "lucide-react";
 
 export interface Activity {
   id: string | number;
@@ -15,20 +15,15 @@ interface ActivityListProps {
 
 export default function ActivityList({ activities }: ActivityListProps) {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-      <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-50">
-         <Clock className="w-5 h-5 text-gray-400" />
-         <h2 className="text-gray-900 font-bold text-lg">Atividade Recente</h2>
-      </div>
-      
-      <div className="flex flex-col gap-1">
+    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ">
+      <div className="flex flex-col gap-1 divide-y divide-gray-300">
         {activities.map((activity) => (
           <div 
             key={activity.id} 
-            className="py-4 px-2 hover:bg-gray-50 rounded-lg transition-colors flex justify-between items-center group"
+            className="py-4 px-2 hover:bg-gray-50 transition-colors flex justify-between items-center group"
           >
             <div>
-              <p className="text-gray-800 text-base font-medium mb-1 group-hover:text-blue-600 transition-colors">
+              <p className="text-gray-800 text-base font-medium mb-1 transition-colors">
                 {activity.title}
               </p>
               <p className="text-gray-400 text-sm">
@@ -46,8 +41,7 @@ export default function ActivityList({ activities }: ActivityListProps) {
                 </>
               ) : (
                 <div className="flex items-center gap-2">
-                   <div className="w-2 h-2 bg-blue-400 rounded-full" />
-                   <span className="text-gray-400 text-xs font-medium">Info</span>
+                   <div className="w-8 h-6 bg-yellow-400 rounded-full" />
                 </div>
               )}
             </div>
