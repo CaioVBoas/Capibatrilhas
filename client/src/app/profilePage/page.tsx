@@ -45,7 +45,7 @@ const mockActivity = [
   },
   {
     id: 2,
-    title: 'Desafio "Quiz Carnavalesco"',
+    title: 'Desafio "Quiz Carnavalesco" completado',
     time: "Há 1 dia",
     reward: "+60",
     isCoin: true,

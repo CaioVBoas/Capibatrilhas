@@ -50,10 +50,10 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
               <h1 className="text-white text-3xl font-bold mb-1">{user.name}</h1>
               <div className="flex items-center gap-3">
                 <p className="text-blue-100 text-sm">{user.email}</p>
-                <span className="bg-yellow-400 text-yellow-900 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
-                  Nível {user.level}
-                </span>
               </div>
+              <span className="bg-yellow-400 text-yellow-900 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                  Nível {user.level}
+              </span>
             </div>
           </div>
           <button 
