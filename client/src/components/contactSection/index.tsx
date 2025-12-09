@@ -1,7 +1,4 @@
 'use client';
-
-import Image from "next/image";
-import { contactLeft } from "assets";
 import { motion, Variants } from "framer-motion";
 
 export function ContactSection() {
@@ -73,32 +70,13 @@ export function ContactSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
-        className="absolute right-10 bottom-10 bg-[#2563EB] hover:bg-[#1d4ed8] 
-                   text-[#FDE68A] text-3xl font-medium px-10 py-4 rounded-full 
-                   border border-black shadow-md transition z-30"
+        className="absolute left-[210px] bottom-24 bg-[#2563EB] hover:bg-[#1d4ed8] 
+                   text-[#ffc107] text-3xl font-medium px-10 py-4 rounded-full 
+                     shadow-md transition z-30"
       >
         Enviar mensagem
       </motion.button>
 
-      <motion.div
-
-        variants={itemVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.1 }}
-        transition={{ duration: 1.5 }}
-        className="absolute bottom-0 left-0 z-0 pointer-events-none"
-      >
-        <Image
-          src={contactLeft}
-          alt="Elemento abstrato"
-          width={495}
-          height={495}
-          className="object-contain select-none pointer-events-none p-0"
-          draggable={false}
-          priority
-        />
-      </motion.div>
 
     </div>
   );
