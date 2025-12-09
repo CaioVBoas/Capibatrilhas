@@ -19,9 +19,18 @@ class UserController {
         });
       }
 
+      const existsUserWithCpf = await UserRepository.findByCpf(userData.cpf);
+
+      if (existsUserWithCpf) {
+        return next({
+          status: 400,
+          message: 'This CPF is already registred',
+        });
+      }
+
       const userDataWithHashedPassword = {
         ...userData,
-        password: await hash(userData.password, 6),
+        password: await hash(userData.password, 12),
       };
 
       const user = await UserRepository.create(userDataWithHashedPassword);

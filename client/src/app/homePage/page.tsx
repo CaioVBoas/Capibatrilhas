@@ -6,15 +6,14 @@ import EventsCard from 'components/eventsCard';
 import NavBar from 'components/navBar';
 import UserCardHomepage from 'components/userCardHomepage';
 import AddMyTrail from 'components/addMyTrail';
+import Footer from "components/footer"
 
-const mockUserCard ={
-
-    userName: "Guilherme",
-    level: 5,
-    qtyCapibas: 450,
-    sequenceOfDays: 7,
-  }
-
+const mockUserCard = {
+  userName: "Guilherme",
+  level: 5,
+  qtyCapibas: 450,
+  sequenceOfDays: 7,
+}
 
 const mockBoroughs = [
   {
@@ -244,6 +243,8 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      <Footer/>
     </div>
   );
 }
