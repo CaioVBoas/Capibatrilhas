@@ -17,11 +17,11 @@ export default function NavBar() {
             </div>
 
             <div className="space-x-10 flex items-center ml-auto px-4 md:px-10 ">
-                <Link href="#" className="text-white font-bold hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Explorar</Link>
-                <Link href="#" className="text-white font-bold hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Trilhas</Link>
-                <Link href="#" className="text-white font-bold hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Agenda</Link>
-                <Link href="#" className="text-white font-bold hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Recompensas</Link>
-                <Link href="#" className="text-black bg-white hover:bg-blue-200 hover:text-gray-500 rounded-3xl p-2">
+                <Link href="#" className="text-white hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Explorar</Link>
+                <Link href="#" className="text-white hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Trilhas</Link>
+                <Link href="#" className="text-white hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Agenda</Link>
+                <Link href="#" className="text-white hover:bg-blue-200 hover:text-gray-500 rounded-2xl p-2">Recompensas</Link>
+                <Link href="profilePage" className="text-black bg-white hover:bg-blue-200 hover:text-gray-500 rounded-3xl p-2">
                     <UserRound />
                 </Link>
             </div>
