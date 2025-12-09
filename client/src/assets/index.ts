@@ -1,10 +1,38 @@
 import Logo from './Logo.png';
 import CalendarImg from "./calendarImg.svg";
 import logoCapibatrilhas from "./logoCapibatrilhas.svg";
+import landingRight from "./landingRight.png";
+import partners from "./partners.png";
+import yellowRiverRight from "./yellowRiverRight.png";
+import aboutRight from "./aboutRight.png";
+import blueRiverMiddle from "./blueRiverMiddle.png";
+import yellowRiverTutorial from "./yellowRiverTutorial.png";
+import trilhasValemCapibas from "./trilhasValemCapibas.png";
+import crieRoles from "./crieRoles.png";
+import premioNaMao from "./premioNaMao.png";
+import blueRiverFaq from "./blueRiverFaq.png";
+import mapaRecife from "./mapaRecife.png";
+import contactLeft from './contactLeft.png';
+import contactRight from './contactRight.png';
+import endingRight from './endingRight.png';
+import riverComponent from './riverComponent.svg';
 
 
 export { CalendarImg };
 export { Logo };
 export {logoCapibatrilhas};
-
-
+export { landingRight };
+export { partners };
+export { yellowRiverRight };
+export { aboutRight };
+export { blueRiverMiddle };
+export { yellowRiverTutorial };
+export { trilhasValemCapibas };
+export { crieRoles };
+export { premioNaMao };
+export { blueRiverFaq };
+export { mapaRecife };
+export { contactLeft };
+export { contactRight };
+export { endingRight };
+export { riverComponent };
