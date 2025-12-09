@@ -4,6 +4,7 @@ import { MapPin, TrendingUp, Star } from 'lucide-react';
 import React from 'react';
 import EventsCard from 'components/eventsCard';
 import NavBar from 'components/navBar';
+import Footer from "components/footer"
 
 
 const mockBoroughs = [
@@ -229,6 +230,8 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      <Footer/>
     </div>
   );
 }
