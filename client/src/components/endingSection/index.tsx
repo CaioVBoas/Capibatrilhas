@@ -73,7 +73,7 @@ export function EndingSection() {
         viewport={{ once: false }}
         className="relative w-1/2 h-full overflow-hidden z-0 flex justify-end items-end"
       >
-        <motion.div variants={itemVariants} className="absolute bottom-0 right-0 h-full w-full">
+        <motion.div variants={itemVariants} className="absolute bottom-0 right-[-3px] h-full w-full">
           <Image
             src={endingRight}
             alt="Foto do Recife Antigo"
