@@ -1,40 +1,30 @@
 import Logo from './Logo.png';
 import CalendarImg from "./calendarImg.svg";
-import logoCapibatrilhas from "./logoCapibatrilhas.svg";
+import capibatrilhasAlternateLogo from "./capibatrilhasAlternateLogo.svg"
 import logoPrefeitura from "./LogoDaPrefeitura.svg"
-import landingRight from "./landingRight.png";
-import partners from "./partners.png";
-import yellowRiverRight from "./yellowRiverRight.png";
-import aboutRight from "./aboutRight.png";
-import blueRiverMiddle from "./blueRiverMiddle.png";
-import yellowRiverTutorial from "./yellowRiverTutorial.png";
-import trilhasValemCapibas from "./trilhasValemCapibas.png";
-import crieRoles from "./crieRoles.png";
-import premioNaMao from "./premioNaMao.png";
-import blueRiverFaq from "./blueRiverFaq.png";
-import mapaRecife from "./mapaRecife.png";
-import contactLeft from './contactLeft.png';
-import contactRight from './contactRight.png';
-import endingRight from './endingRight.png';
+import landingRight from "./landingRight.svg";
+import partners from "./partners.svg";
+import aboutRight from "./aboutRight.svg";
+import trilhasValemCapibas from "./trilhasValemCapibas.svg";
+import crieRoles from "./crieRoles.svg";
+import premioNaMao from "./premioNaMao.svg";
+import mapaRecife from "./mapaRecife.svg";
+import contactLeft from './contactLeft.svg';
+import endingRight from './endingRight.svg';
 import riverComponent from './riverComponent.svg';
 
 
 export { CalendarImg };
 export { Logo };
-export {logoCapibatrilhas};
+export {capibatrilhasAlternateLogo};
 export {logoPrefeitura};
 export { landingRight };
 export { partners };
-export { yellowRiverRight };
 export { aboutRight };
-export { blueRiverMiddle };
-export { yellowRiverTutorial };
 export { trilhasValemCapibas };
 export { crieRoles };
 export { premioNaMao };
-export { blueRiverFaq };
 export { mapaRecife };
 export { contactLeft };
-export { contactRight };
 export { endingRight };
 export { riverComponent };
