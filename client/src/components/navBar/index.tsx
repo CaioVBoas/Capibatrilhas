@@ -7,7 +7,7 @@ import { UserRound } from 'lucide-react';
 export default function NavBar() {
 
     return (
-        <div className=" bg-linear-to-r from-blue-500 to-blue-400 flex items-center w-full h-20 px-4 md:px-10">
+        <div className=" bg-linear-to-r from-blue-600 to-blue-500 flex items-center w-full h-20 px-4 md:px-10">
 
 
             <Image src={logoCapibatrilhas} alt="logo da Capibatrilhas" className=" md:ml-10" height={70} />
