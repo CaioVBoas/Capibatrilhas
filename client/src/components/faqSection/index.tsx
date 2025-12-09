@@ -34,7 +34,7 @@ export function FaqSection() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          FAQ
+          Perguntas Frequentes
         </motion.h1>
 
         <MotionImage

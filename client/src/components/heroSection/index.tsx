@@ -34,7 +34,7 @@ export function HeroSection() {
           <span className="pl-2.5">trilhas</span>
         </motion.h1>
 
-        <button className="z-50 mt-8 ml-2 bg-[#ffc107] hover:bg-[#FFFFFF] hover:shadow-2xl hover:scale-102 transition text-black hover:text-[#2563EB] text-3xl font-bold py-7 px-16 rounded-full shadow-xl w-[425px] h-[100px]">
+        <button className="z-50 mt-8 ml-2 bg-[#ffc107] hover:bg-[#FFFFFF] hover:shadow-2xl hover:scale-102 transition text-[#2563EB] hover:text-[#2563EB] text-3xl font-bold py-7 px-16 rounded-full shadow-xl w-[425px] h-[100px]">
         CRIE SUA CONTA
         </button>
       </div>

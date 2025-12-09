@@ -66,7 +66,7 @@ export function TutorialSection() {
         alt="Img#1 TUTORIAL"
         width={600}
         height={600}
-        className="object-contain select-none pointer-events-none relative" 
+        className="object-contain select-none pointer-events-none relative rounded-4xl" 
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ export function TutorialSection() {
         alt="Img#2 TUTORIAL"
         width={600}
         height={600}
-        className="object-contain select-none pointer-events-none relative" 
+        className="object-contain select-none pointer-events-none relative rounded-4xl" 
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -121,7 +121,7 @@ export function TutorialSection() {
         </span> <br />
 
         <span className="font-medium"> 
-            Monte seus próprios roteiros personalizados, convide a galera para completar suas trilhas e desbloqueie Badges exclusivos de cidadania.
+            Monte seus próprios roteiros personalizados, convide a galera para completar suas trilhas e desbloqueie Insígnias exclusivos de cidadania.
         </span>
 
       </motion.p>
@@ -136,7 +136,7 @@ export function TutorialSection() {
         width={600}
         height={600}
 
-        className="object-contain select-none pointer-events-none relative"
+        className="object-contain select-none pointer-events-none relative rounded-4xl"
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
