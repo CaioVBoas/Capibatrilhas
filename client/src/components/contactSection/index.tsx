@@ -17,9 +17,9 @@ export function ContactSection() {
     },
   };
 
-  // Esse é o estilo padrão: Fade-in + Slide Up
+
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 50 }, // Começa invisível e 50px para baixo
+    hidden: { opacity: 0, y: 50 },
     visible: { 
       opacity: 1, 
       y: 0, 
@@ -61,7 +61,7 @@ export function ContactSection() {
           />
           <label className="mb-0.5">Mensagem</label>
           <textarea 
-            rows={2}
+            rows={1}
             className="border-b border-black bg-transparent -mb-2 pb-2 focus:outline-none"
           />
         </motion.form>
@@ -79,16 +79,6 @@ export function ContactSection() {
       >
         Enviar mensagem
       </motion.button>
-
-
-      {/* <Image
-        src={contactRight}
-        alt="Elemento do rio azul/amarelo Capibatrilhas"
-        width={850}
-        height={850}
-        className="absolute top-[-25px] left-10 ml-[427px] translate-y-2 object-contain select-none pointer-events-none"
-        draggable={false}
-      /> */}
 
       <motion.div
 

@@ -94,9 +94,8 @@ export function TutorialSection() {
 
     </div>
 
-    <div className="absolute top-[900px] ml-[750px] left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[750px] ml-[750px] left-[3px] flex flex-col w-[600px] z-20">
       
-      {/* IMAGEM: Removemos o absolute daqui */}
       <MotionImage
         src={crieRoles}
         alt="Img#2 TUTORIAL"
@@ -111,7 +110,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#ffc107] p-4 rounded-lg"
+        className="text-2xl leading-tight mt-3 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#ffc107] p-4 rounded-lg"
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
@@ -129,14 +128,14 @@ export function TutorialSection() {
       
     </div>
 
-    <div className="absolute top-[1500px] ml-[15px] left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[1300px] ml-[15px] left-[3px] flex flex-col w-[600px] z-20">
       
       <MotionImage
         src={premioNaMao}
         alt="Img#3 TUTORIAL"
         width={600}
         height={600}
-        // Removido o absolute daqui
+
         className="object-contain select-none pointer-events-none relative"
         draggable={false}
         initial={{ opacity: 0, y: 40 }}

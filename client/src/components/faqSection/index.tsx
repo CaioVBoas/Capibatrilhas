@@ -34,7 +34,7 @@ export function FaqSection() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          Perguntas Frequentes
+          FAQ
         </motion.h1>
 
         <MotionImage
@@ -95,15 +95,6 @@ export function FaqSection() {
           </motion.div>
         </motion.div>
       )}
-
-      {/* <Image
-        src={blueRiverFaq}
-        alt="Elemento do rio azul Capibatrilhas"
-        width={560}
-        height={600}
-        className="absolute top-[-250px] left-10 ml-[832px] translate-y-2 object-contain"
-        draggable={false}
-      /> */}
 
     </div>
   );
