@@ -16,6 +16,9 @@ import boraExplorar from './boraExplorar.svg';
 import capibatrilhasAlternateLogo2 from "./capibatrilhasAlternateLogo2.svg";
 
 export { boraExplorar };
+import loginBackground from './loginBackground.svg';
+import logo_slogan from './Logo&Slogan.svg';
+
 export { CalendarImg };
 export { Logo };
 export {capibatrilhasAlternateLogo};
@@ -31,3 +34,5 @@ export { contactLeft };
 export { endingRight };
 export { riverComponent };
 export { capibatrilhasAlternateLogo2 };
+export { loginBackground };
+export { logo_slogan };
