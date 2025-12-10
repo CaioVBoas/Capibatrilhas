@@ -76,7 +76,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start pl-2 pr-4 text-justify bg-[#FFFFFF] shadow-lg p-4 rounded-lg border-4 border-black`}
+        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start pl-2 pr-4 text-justify bg-[#FFFFFF] shadow-lg p-4 rounded-2xl border-4 border-black`}
         style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
@@ -111,7 +111,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className={`${dmSans.className} text-2xl leading-tight mt-3 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg  p-4 rounded-lg border-4 border-black`}
+        className={`${dmSans.className} text-2xl leading-tight mt-3 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg  p-4 rounded-2xl border-4 border-black`}
         style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
@@ -147,7 +147,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg p-4 rounded-lg border-4 border-black`}
+        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg p-4 rounded-2xl border-4 border-black`}
         style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
