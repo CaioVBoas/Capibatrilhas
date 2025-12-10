@@ -3,6 +3,17 @@
 import Image from "next/image";
 import { aboutRight } from "assets";
 import { motion, Variants } from "framer-motion";
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export function AboutSection() {
 
@@ -40,21 +51,19 @@ export function AboutSection() {
       >
   
         <motion.h1 
-          className="text-[#2563EB] text-8xl font-thin leading-tight"
+          className={`${outfit.className} text-[#2563EB] text-8xl leading-tight font-semibold`}
           variants={itemVariants}
         >
           Sobre
         </motion.h1>
 
         <motion.p 
-          className="text-2xl leading-relaxed max-w-lg ml-7 text-justify font-medium -mt-1"
+          className={`${dmSans.className} text-2xl leading-relaxed max-w-lg ml-7 text-justify font-medium -mt-1`}
           variants={itemVariants}
         >
-          Um desejo. <br />
-          Foi disso que nasceu o Capibatrilhas: do desejo por mais vida. 
+          Um desejo. Foi disso que nasceu o projeto Capibatrilhas: do desejo por mais vida. 
           A cidade é o lugar onde tudo pulsa. Cultura, natureza... <span className="text-[#2563EB] font-semibold">gente</span>. 
           Onde suor e sangue se misturam no caldeirão sagrado da <span className="text-[#2563EB] font-semibold">cidadania</span>.<br /><br />
-
           O que o Capibatrilhas quer é simples: mais <span className="bg-[#2563EB] text-yellow-400 px-2 py-1 rounded font-extrabold">
             VIDA VIVIDA.
           </span><br /> <br />
@@ -89,6 +98,7 @@ export function AboutSection() {
             priority
             />
         </motion.div>
+        
       </div>
     </div>
   );

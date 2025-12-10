@@ -4,6 +4,17 @@ import Image from "next/image";
 import { mapaRecife } from "assets";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 const MotionImage = motion(Image);
 
@@ -28,13 +39,13 @@ export function FaqSection() {
 
 
         <motion.h1
-          className="text-[#2563EB] text-8xl font-thin leading-tight whitespace-nowrap mb-6"
+          className={`${outfit.className} text-[#2563EB] text-8xl leading-tight whitespace-nowrap mb-6`}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          Perguntas Frequentes
+          Dúvidas Comuns
         </motion.h1>
 
         <MotionImage
@@ -59,7 +70,7 @@ export function FaqSection() {
           <motion.button
             key={index}
             onClick={() => setOpenIndex(index)}
-            className="bg-[#2563EB] text-white font-extrabold text-xl py-4 rounded-lg shadow-md hover:bg-blue-700 transition"
+            className={`${dmSans.className} bg-[#2563EB] text-white font-extrabold text-xl py-4 rounded-lg shadow-md hover:bg-blue-700 transition`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -77,7 +88,7 @@ export function FaqSection() {
           onClick={() => setOpenIndex(null)}
         >
           <motion.div
-            className="bg-[#2563EB] text-white p-10 rounded-xl shadow-xl max-w-xl text-center relative"
+            className={`${dmSans.className} bg-[#2563EB] text-white p-10 rounded-xl shadow-xl max-w-xl text-center relative`}
             initial={{ scale: 0.8, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 0.25 }}

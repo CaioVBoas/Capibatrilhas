@@ -3,6 +3,17 @@
 import { trilhasValemCapibas, crieRoles, premioNaMao } from "assets";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 const MotionImage = motion(Image);
 
@@ -41,32 +52,22 @@ export function TutorialSection() {
         >
     
           <motion.h1 
-            className="text-[#ffc107] text-8xl font-thin leading-tight"
+            className={`${outfit.className} text-[#ffc107] text-8xl leading-tight`}
             variants={itemVariants}
           >
             Tutorial
           </motion.h1>
       </motion.div>
 
-      
-      
-      {/* <Image
-          src={yellowRiverTutorial}
-          alt="Elemento do rio amarelo TUTORIAL"
-          width={3000}
-          height={4000}
-          className="absolute top-[-23px] ml-[15px] left-[3px] object-contain select-none pointer-events-none fade-up"
-          draggable={false}
-      /> */}
     
-    <div className="absolute top-[250px] ml-[15px] left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[200px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20">
       
       <MotionImage
         src={trilhasValemCapibas}
         alt="Img#1 TUTORIAL"
         width={600}
         height={600}
-        className="object-contain select-none pointer-events-none relative rounded-4xl" 
+        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black" 
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -75,8 +76,8 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start pl-2 pr-4 text-justify bg-[#ffc107] p-4 rounded-lg"
-        
+        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start pl-2 pr-4 text-justify bg-[#FFFFFF] shadow-lg p-4 rounded-lg border-4 border-black`}
+        style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
@@ -87,7 +88,7 @@ export function TutorialSection() {
         </span> <br />
 
         <span className="font-medium"> 
-           Monte seus próprios roteiros, convide a galera para completar suas trilhas e desbloqueie Badges exclusivos de cidadania.
+        Escolha (ou crie) trilhas temáticas, complete desafios e acumule Capibas. Quanto mais você explora, mais você ganha!
         </span>
 
       </motion.p>
@@ -101,7 +102,7 @@ export function TutorialSection() {
         alt="Img#2 TUTORIAL"
         width={600}
         height={600}
-        className="object-contain select-none pointer-events-none relative rounded-4xl" 
+        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black" 
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -110,7 +111,8 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className="text-2xl leading-tight mt-3 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#ffc107] p-4 rounded-lg"
+        className={`${dmSans.className} text-2xl leading-tight mt-3 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg  p-4 rounded-lg border-4 border-black`}
+        style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
@@ -121,14 +123,14 @@ export function TutorialSection() {
         </span> <br />
 
         <span className="font-medium"> 
-            Monte seus próprios roteiros personalizados, convide a galera para completar suas trilhas e desbloqueie Insígnias exclusivos de cidadania.
+            Monte seus próprios roteiros personalizados, convide a galera para completar suas trilhas e desbloqueie Insígnias exclusivas de cidadania.
         </span>
 
       </motion.p>
       
     </div>
 
-    <div className="absolute top-[1300px] ml-[15px] left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[1300px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20">
       
       <MotionImage
         src={premioNaMao}
@@ -136,7 +138,7 @@ export function TutorialSection() {
         width={600}
         height={600}
 
-        className="object-contain select-none pointer-events-none relative rounded-4xl"
+        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black"
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -145,7 +147,8 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className="text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#ffc107] p-4 rounded-lg"
+        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg p-4 rounded-lg border-4 border-black`}
+        style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"

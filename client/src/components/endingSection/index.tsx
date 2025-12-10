@@ -3,6 +3,17 @@
 import Image from "next/image";
 import { endingRight } from "assets";
 import { motion, Variants } from "framer-motion";
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export function EndingSection() {
 
@@ -27,7 +38,7 @@ export function EndingSection() {
   };
 
   return (
-    <div id="login" className="h-screen w-full flex bg-[#2563EB] relative overflow-hidden">
+    <div className="h-screen w-full flex bg-[#2563EB] relative overflow-hidden">
       
 
       <motion.div 
@@ -40,7 +51,7 @@ export function EndingSection() {
   
 
         <motion.h1 
-          className="text-[#ffc107] text-7xl font-thin leading-tight"
+          className={`${outfit.className} text-[#ffc107] text-7xl leading-tight`}
           variants={itemVariants}
         >
           Sua jornada começa onde nasce o Oceano Atlântico:{" "}
@@ -51,14 +62,18 @@ export function EndingSection() {
 
         <motion.button
           variants={itemVariants}
-          className="
+          onClick={() => {
+            const heroSection = document.getElementById('hero');
+            heroSection?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className={`${dmSans.className}
             px-16 py-6
             rounded-full text-4xl font-bold
             shadow-xl border bg-[#ffc107] hover:bg-[#FFFFFF] 
-            hover:shadow-2xl hover:scale-105 transition text-black 
+            hover:shadow-2xl hover:scale-105 transition text-[#2563EB]
             hover:text-[#2563EB] 
              w-[70%]
-          "
+          `}
         >
           Volte a Explorar
         </motion.button>

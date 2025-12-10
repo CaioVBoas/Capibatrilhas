@@ -1,5 +1,16 @@
 'use client';
 import { motion, Variants } from "framer-motion";
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export function ContactSection() {
   
@@ -35,7 +46,7 @@ export function ContactSection() {
         viewport={{ once: false, amount: 0.1 }}
       >
         <motion.h1 
-          className="text-[#2563EB] text-7xl font-thin leading-tight"
+          className={`${outfit.className} text-[#2563EB] text-7xl leading-tight`}
           variants={itemVariants}
         >
           <span className="whitespace-nowrap">Ainda em dúvida?</span><br />
@@ -44,7 +55,7 @@ export function ContactSection() {
 
         <motion.form 
           variants={itemVariants}
-          className="flex flex-col text-2xl w-[75%] font-light"
+          className={`${dmSans.className} flex flex-col text-2xl w-[75%] font-light`}
         >
           <label className="mb-1">Nome completo</label>
           <input 
@@ -70,9 +81,10 @@ export function ContactSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
-        className="absolute left-[210px] bottom-24 bg-[#2563EB] hover:bg-[#1d4ed8] 
-                   text-[#ffc107] text-3xl font-medium px-10 py-4 rounded-full 
-                     shadow-md transition z-30"
+        className={`${dmSans.className} absolute left-[210px] bottom-24 bg-[#2563EB] hover:bg-[#FFFFFF] 
+        hover:shadow-2xl hover:scale-102 transition
+                   text-[#ffc107] text-3xl px-10 py-4 rounded-full 
+                     shadow-md font-bold z-30`}
       >
         Enviar mensagem
       </motion.button>

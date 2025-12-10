@@ -1,19 +1,26 @@
 "use client";
 
-import { Poppins } from "next/font/google";
+import { Poppins, DM_Sans } from "next/font/google";
 import Image from "next/image";
 import { landingRight } from "assets";
-// import { yellowRiverRight } from "assets";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export function HeroSection() {
+  const router = useRouter();
+
   return (
-    <div className="h-screen w-full flex bg-[#2563EB] relative overflow-hidden"> 
+    <div id="hero" className="h-screen w-full flex bg-[#2563EB] relative overflow-hidden"> 
       
       <div className="flex flex-col justify-start pl-16 pt-40 w-1/2">
         <motion.h1
@@ -34,8 +41,15 @@ export function HeroSection() {
           <span className="pl-2.5">trilhas</span>
         </motion.h1>
 
-        <button className="z-50 mt-8 ml-2 bg-[#ffc107] hover:bg-[#FFFFFF] hover:shadow-2xl hover:scale-102 transition text-[#2563EB] hover:text-[#2563EB] text-3xl font-bold py-7 px-16 rounded-full shadow-xl w-[425px] h-[100px]">
-        CRIE SUA CONTA
+        <button 
+          onClick={() => {
+            window.history.replaceState(null, '', '/landingPage');
+            router.push('/login');
+          }}
+          className={`${dmSans.className} z-50 mt-8 ml-2 bg-[#ffc107] hover:bg-[#FFFFFF] 
+        hover:shadow-2xl hover:scale-102 transition text-[#2563EB] hover:text-[#2563EB] 
+        text-3xl font-bold py-7 px-16 rounded-full shadow-xl w-[425px] h-[100px]`}>
+        COMECE POR AQUI
         </button>
       </div>
 
