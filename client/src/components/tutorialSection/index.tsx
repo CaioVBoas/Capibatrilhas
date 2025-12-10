@@ -60,7 +60,7 @@ export function TutorialSection() {
       </motion.div>
 
     
-    <div className="absolute top-[200px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[150px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20">
       
       <MotionImage
         src={trilhasValemCapibas}
