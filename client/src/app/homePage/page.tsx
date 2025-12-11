@@ -305,7 +305,14 @@ export default function HomePage() {
       <div className="p-10">
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp className="h-8 w-8 text-accent text-blue-600"></TrendingUp>
-          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilha em Andamento</h1>
+          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilha em Andamento</h1> 
+          
+          <a 
+            href="myTrails" 
+            className={`${dmSans.className} ml-auto text-sm md:text-base font-medium text-blue-600 hover:text-blue-800 hover:underline`}
+          >
+            Ver todas as trilhas em andamento
+          </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           {trilhasEmAndamento.map((trail) => (
