@@ -191,7 +191,7 @@ export function TutorialSection() {
         viewport={{ once: false, amount: 0.1 }} 
       >
         <span className="underline underline-offset-4 decoration-2">
-            RECIFE TE ESPERA.
+            RECIFE TE ESPERA:
         </span> <br />
 
         <span className="font-medium"> 
