@@ -1,7 +1,8 @@
 'use client';
 import React, { useState } from 'react';
-import { Search, CalendarDays, ChevronDown } from 'lucide-react';
+import { Search, CalendarDays, ChevronDown, ChevronLeft } from 'lucide-react';
 import CulturalCard from 'components/culturalCard';
+import { useRouter } from 'next/navigation';
 
 const mockEvents = [
   {
@@ -116,6 +117,7 @@ const mockEvents = [
 ];
 
 export default function CulturalAgendaPage() {
+  const router = useRouter();
   const [categoryFilter, setCategoryFilter] = useState('Todas');
   const [freeFilter, setFreeFilter] = useState('Todas');
 
@@ -137,15 +139,22 @@ export default function CulturalAgendaPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
-      <header className="bg-linear-to-r from-blue-600 to-blue-500 pt-12 pb-10 px-6 shadow-lg">
+      <header className="bg-blue-600 pt-8 pb-12 px-6 shadow-lg">
         <div className="max-w-6xl mx-auto">
-          <div className='flex items-center gap-2 mb-4'>
-            <CalendarDays className="w-8 h-8 text-white"/>
+          <button
+            onClick={() => router.back()}
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity text-white mb-3"
+          >
+            <ChevronLeft className="h-6 w-6" />
+            <span className="text-lg font-medium">Voltar</span>
+          </button>
+          <div className="flex items-center gap-3 mb-2">
+            <CalendarDays className="w-8 h-8 text-white" />
             <h1 className="text-3xl md:text-4xl font-bold text-white">
               Agenda Cultural
             </h1>
           </div>
-          <p className="text-blue-50 text-lg max-w-2xl font-light">
+          <p className="text-blue-100 text-lg font-light max-w-2xl">
             Descubra eventos culturais do Recife
           </p>
         </div>
