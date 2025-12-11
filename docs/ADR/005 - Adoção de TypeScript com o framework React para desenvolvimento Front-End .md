@@ -1,4 +1,4 @@
-# Adoção de TypeScript com o Framework React para Desenvolvimento Front-end
+# Adoção de TypeScript com o Framework React para Desenvolvimento Front-End
 
 ## Contexto
 
