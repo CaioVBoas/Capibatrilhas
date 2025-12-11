@@ -1,6 +1,6 @@
 import Logo from './Logo.png';
 import CalendarImg from "./calendarImg.svg";
-import logoCapibatrilhas from "./logoCapibatrilhas.svg";
+import capibatrilhasAlternateLogo from "./capibatrilhasAlternateLogo.svg";
 import logoPrefeitura from "./LogoDaPrefeitura.svg"
 import landingRight from "./landingRight.png";
 import partners from "./partners.png";
@@ -21,7 +21,7 @@ import riverComponent from './riverComponent.svg';
 
 export { CalendarImg };
 export { Logo };
-export {logoCapibatrilhas};
+export {capibatrilhasAlternateLogo};
 export {logoPrefeitura};
 export { landingRight };
 export { partners };

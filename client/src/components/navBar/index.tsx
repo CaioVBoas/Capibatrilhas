@@ -1,4 +1,4 @@
-import { logoCapibatrilhas } from "assets";
+import { capibatrilhasAlternateLogo } from "assets";
 import Image from "next/image";
 import Link from "next/link";
 import { UserRound } from 'lucide-react';
@@ -10,7 +10,7 @@ export default function NavBar() {
         <div className=" bg-linear-to-r from-blue-600 to-blue-500 flex items-center w-full h-20 px-4 md:px-10">
 
 
-            <Image src={logoCapibatrilhas} alt="logo da Capibatrilhas" className=" md:ml-10" height={70} />
+            <Image src={capibatrilhasAlternateLogo} alt="logo da Capibatrilhas" className=" md:ml-10" height={70} />
             <div className="items-center flex flex-col">
                 <p className="font-bold text-blue-800 text-base md:text-lg lg:text-2xl">Capibatrilhas</p>
                 <p className="font-medium text-white whitespace-nowrap text-xs md:text-base">Cultura, Cidadania & Descobertas</p>
