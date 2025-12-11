@@ -2,6 +2,17 @@ import React from 'react';
 import { CalendarImg } from 'assets';
 import Image from 'next/image';
 import { MapPin } from 'lucide-react';
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
 
 interface Events {
   type: string;
@@ -23,18 +34,18 @@ const EventsCard: React.FC<EventsCardProps> = ({ event }) => {
       </div>
 
       <div className="px-1 py-3 flex flex-row justify-between items-center font-bold">
-        <h3 className=" bg-yellow-400 rounded-2xl px-3 py-0.5 text-sm">
+        <h3 className={`${outfit.className} bg-yellow-400 rounded-2xl px-3 py-0.5 text-sm`}>
           {event.type}
         </h3>
-        <h3 className="border border-gray-400 rounded-2xl px-3 py-0.5 text-sm">
+        <h3 className={`${outfit.className} border border-gray-400 rounded-2xl px-3 py-0.5 text-sm`}>
           {event.costType}
         </h3>
       </div>
 
       <div>
-        <h3 className="font-bold">{event.name}</h3>
-        <h4 className="text-sm py-0.5 text-gray-400">{event.date}</h4>
-        <h4 className="flex gap-0.5 py-1 text-sm text-gray-400">
+        <h3 className={`${outfit.className} font-bold`}>{event.name}</h3>
+        <h4 className={`${dmSans.className} text-sm py-0.5 text-gray-400`}>{event.date}</h4>
+        <h4 className={`${dmSans.className} flex gap-0.5 py-1 text-sm text-gray-400`}>
           <MapPin size={17}></MapPin>
           {event.location}
         </h4>

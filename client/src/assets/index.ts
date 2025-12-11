@@ -17,6 +17,7 @@ import contactLeft from './contactLeft.png';
 import contactRight from './contactRight.png';
 import endingRight from './endingRight.png';
 import riverComponent from './riverComponent.svg';
+import capibatrilhasAlternateLogo2 from "./capibatrilhasAlternateLogo2.svg";
 
 
 export { CalendarImg };
@@ -38,3 +39,4 @@ export { contactLeft };
 export { contactRight };
 export { endingRight };
 export { riverComponent };
+export { capibatrilhasAlternateLogo2 };
