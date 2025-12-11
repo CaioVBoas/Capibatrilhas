@@ -137,7 +137,7 @@ export default function CulturalAgendaPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
-      <header className="bg-linear-to-r from-blue-600 to-blue-500 pt-12 pb-24 px-6 shadow-lg">
+      <header className="bg-linear-to-r from-blue-600 to-blue-500 pt-12 pb-10 px-6 shadow-lg">
         <div className="max-w-6xl mx-auto">
           <div className='flex items-center gap-2 mb-4'>
             <CalendarDays className="w-8 h-8 text-white"/>
@@ -151,8 +151,8 @@ export default function CulturalAgendaPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 -mt-12 relative z-10">
-        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-10">
+      <main className="max-w-6xl mx-auto px-6 mt-12 relative z-10">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-10">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1">
               <label
