@@ -40,11 +40,11 @@ export function TutorialSection() {
   };
 
   return (
-    <div id="tutorial" className="w-full flex h-[275vh] bg-[#2563EB] relative overflow-hidden">
+    <div id="tutorial" className="w-full flex h-[275vh] bg-[#2563EB] relative overflow-hidden max-md:h-auto max-md:flex-col">
       
 
       <motion.div 
-          className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10"
+          className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 max-md:w-full max-md:pl-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -52,7 +52,7 @@ export function TutorialSection() {
         >
     
           <motion.h1 
-            className={`${outfit.className} text-[#ffc107] text-8xl leading-tight`}
+            className={`${outfit.className} text-[#ffc107] text-8xl leading-tight max-md:text-5xl`}
             variants={itemVariants}
           >
             Tutorial
@@ -60,14 +60,14 @@ export function TutorialSection() {
       </motion.div>
 
     
-    <div className="absolute top-[150px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[150px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20 max-md:relative max-md:top-0 max-md:ml-0 max-md:left-0 max-md:w-full max-md:px-4 max-md:mt-8">
       
       <MotionImage
         src={trilhasValemCapibas}
         alt="Img#1 TUTORIAL"
         width={600}
         height={600}
-        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black" 
+        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black max-md:w-full max-md:h-auto" 
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start pl-2 pr-4 text-justify bg-[#FFFFFF] shadow-lg p-4 rounded-2xl border-4 border-black`}
+        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start pl-2 pr-4 text-justify bg-[#FFFFFF] shadow-lg p-4 rounded-2xl border-4 border-black max-md:text-lg max-md:mt-3`}
         style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
@@ -95,14 +95,14 @@ export function TutorialSection() {
 
     </div>
 
-    <div className="absolute top-[750px] ml-[750px] left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[750px] ml-[750px] left-[3px] flex flex-col w-[600px] z-20 max-md:relative max-md:top-0 max-md:ml-0 max-md:left-0 max-md:w-full max-md:px-4 max-md:mt-8">
       
       <MotionImage
         src={crieRoles}
         alt="Img#2 TUTORIAL"
         width={600}
         height={600}
-        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black" 
+        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black max-md:w-full max-md:h-auto" 
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className={`${dmSans.className} text-2xl leading-tight mt-3 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg  p-4 rounded-2xl border-4 border-black`}
+        className={`${dmSans.className} text-2xl leading-tight mt-3 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg  p-4 rounded-2xl border-4 border-black max-md:text-lg`}
         style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"
@@ -130,7 +130,7 @@ export function TutorialSection() {
       
     </div>
 
-    <div className="absolute top-[1300px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20">
+    <div className="absolute top-[1300px] ml-2.5 left-[3px] flex flex-col w-[600px] z-20 max-md:relative max-md:top-0 max-md:ml-0 max-md:left-0 max-md:w-full max-md:px-4 max-md:mt-8 max-md:mb-8">
       
       <MotionImage
         src={premioNaMao}
@@ -138,7 +138,7 @@ export function TutorialSection() {
         width={600}
         height={600}
 
-        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black"
+        className="object-contain select-none pointer-events-none relative rounded-4xl border-2 border-black max-md:w-full max-md:h-auto"
         draggable={false}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -147,7 +147,7 @@ export function TutorialSection() {
       />
 
       <motion.p 
-        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg p-4 rounded-2xl border-4 border-black`}
+        className={`${dmSans.className} text-2xl leading-tight mt-4 w-full font-extrabold text-[#2563EB] self-start text-justify pl-2 pr-4 bg-[#FFFFFF] shadow-lg p-4 rounded-2xl border-4 border-black max-md:text-lg`}
         style={{ WebkitTextStroke: '0.5px black' }}
         variants={itemVariants}
         initial="hidden"

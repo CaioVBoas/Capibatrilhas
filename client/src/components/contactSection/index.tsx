@@ -36,17 +36,17 @@ export function ContactSection() {
   };
 
   return (
-    <div id="contato" className="h-screen w-full flex bg-[#fff3ef] relative overflow-hidden">
+    <div id="contato" className="h-screen w-full flex max-md:flex-col bg-[#fff3ef] relative overflow-hidden max-md:h-auto max-md:min-h-fit max-md:py-6">
 
       <motion.div 
-        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 gap-10"
+        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 gap-10 max-md:w-full max-md:pl-4 max-md:pr-4"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
       >
         <motion.h1 
-          className={`${outfit.className} text-[#2563EB] text-7xl leading-tight`}
+          className={`${outfit.className} text-[#2563EB] text-7xl leading-tight max-md:text-4xl`}
           variants={itemVariants}
         >
           <span className="whitespace-nowrap">Ainda em dúvida?</span><br />
@@ -55,7 +55,7 @@ export function ContactSection() {
 
         <motion.form 
           variants={itemVariants}
-          className={`${dmSans.className} flex flex-col text-2xl w-[75%] font-light`}
+          className={`${dmSans.className} flex flex-col text-2xl w-[75%] font-light max-md:w-full max-md:text-lg`}
         >
           <label className="mb-1">Nome completo</label>
           <input 
@@ -73,6 +73,18 @@ export function ContactSection() {
             className="border-b border-black bg-transparent -mb-2 pb-2 focus:outline-none"
           />
         </motion.form>
+        
+        <motion.button
+          type="submit"
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`${dmSans.className} bg-[#2563EB] hover:bg-[#FFFFFF] 
+          hover:shadow-2xl transition text-[#ffc107] hover:text-[#2563EB] text-xl px-8 py-3 rounded-full 
+          shadow-md font-bold mt-6 md:hidden`}
+        >
+          Enviar mensagem
+        </motion.button>
       </motion.div>
 
       <motion.button
@@ -84,7 +96,7 @@ export function ContactSection() {
         className={`${dmSans.className} absolute left-[210px] bottom-24 bg-[#2563EB] hover:bg-[#FFFFFF] 
         hover:shadow-2xl hover:scale-102 transition
                    text-[#ffc107] text-3xl px-10 py-4 rounded-full 
-                     shadow-md font-bold z-30`}
+                     shadow-md font-bold z-30 max-md:hidden`}
       >
         Enviar mensagem
       </motion.button>

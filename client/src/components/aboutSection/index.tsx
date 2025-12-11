@@ -40,10 +40,10 @@ export function AboutSection() {
   };
 
   return (
-    <div id="sobre" className="h-screen w-full flex bg-[#ffc107] relative overflow-hidden">
+    <div id="sobre" className="h-screen w-full flex max-md:flex-col bg-[#ffc107] relative overflow-hidden">
       
       <motion.div 
-        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10"
+        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 max-md:w-full max-md:pl-4 max-md:pr-4"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -51,14 +51,14 @@ export function AboutSection() {
       >
   
         <motion.h1 
-          className={`${outfit.className} text-[#2563EB] text-8xl leading-tight font-semibold`}
+          className={`${outfit.className} text-[#2563EB] text-8xl leading-tight font-semibold max-md:text-5xl`}
           variants={itemVariants}
         >
           Sobre
         </motion.h1>
 
         <motion.p 
-          className={`${dmSans.className} text-2xl leading-relaxed max-w-lg ml-7 text-justify font-medium -mt-1`}
+          className={`${dmSans.className} text-2xl leading-relaxed max-w-lg ml-7 text-justify font-medium -mt-1 max-md:text-lg max-md:ml-2`}
           variants={itemVariants}
         >
           Um desejo. Foi disso que nasceu o projeto Capibatrilhas: do desejo por mais vida. 

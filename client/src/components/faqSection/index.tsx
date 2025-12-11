@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import { mapaRecife } from "assets";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Outfit, DM_Sans } from "next/font/google";
@@ -16,7 +14,7 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-const MotionImage = motion(Image);
+// const MotionImage = motion(Image);
 
 export function FaqSection() {
 
@@ -32,14 +30,14 @@ export function FaqSection() {
   ];
 
   return (
-    <div id="faq" className="h-screen w-full flex bg-[#ffc107] relative overflow-hidden">
+    <div id="faq" className="h-screen w-full flex max-md:flex-col bg-[#ffc107] relative overflow-hidden max-md:h-auto max-md:min-h-fit max-md:py-6">
 
 
-      <motion.div className="flex flex-col pl-8 pt-3 w-[65%] relative z-10">
+      <motion.div className="flex flex-col pl-8 pt-3 w-[65%] relative z-10 max-md:w-full max-md:pl-4 max-md:pr-4">
 
 
         <motion.h1
-          className={`${outfit.className} text-[#2563EB] text-8xl leading-tight whitespace-nowrap mb-6`}
+          className={`${outfit.className} text-[#2563EB] text-8xl leading-tight whitespace-nowrap mb-6 max-md:text-5xl max-md:whitespace-normal`}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
@@ -48,31 +46,22 @@ export function FaqSection() {
           Dúvidas Comuns
         </motion.h1>
 
-        <MotionImage
-          src={mapaRecife}
-          alt="Mapa Recife"
-          width={2200}
-          height={2200}
-          className="ml-[-30px] scale-[1] object-cover"
-          draggable={false}
-          initial={{ opacity: 0, y: -50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        />
-
       </motion.div>
 
 
-      <div className="flex flex-col w-[35%] pr-10 gap-4 justify-center z-40 mt-23">
+      <div className="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-6 p-10 pt-32 z-40 max-md:relative max-md:grid-cols-1 max-md:flex max-md:flex-col max-md:w-full max-md:pr-4 max-md:pl-4 max-md:mt-8 max-md:pb-8 max-md:pt-0">
 
         {faqs.map((item, index) => (
           <motion.button
             key={index}
             onClick={() => setOpenIndex(index)}
-            className={`${dmSans.className} bg-[#2563EB] text-white font-extrabold text-xl py-4 rounded-lg shadow-md hover:bg-blue-700 transition`}
+            className={`${dmSans.className} bg-[#fff3ef] text-[#2563EB] font-extrabold text-2xl px-1 rounded-3xl shadow-md hover:bg-blue-700 hover:text-white transition max-md:text-base max-md:py-3`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             {item.q.toUpperCase()}
           </motion.button>
@@ -88,14 +77,14 @@ export function FaqSection() {
           onClick={() => setOpenIndex(null)}
         >
           <motion.div
-            className={`${dmSans.className} bg-[#2563EB] text-white p-10 rounded-xl shadow-xl max-w-xl text-center relative`}
+            className={`${dmSans.className} bg-[#2563EB] text-white p-10 rounded-xl shadow-xl max-w-xl text-center relative max-md:p-6 max-md:mx-4`}
             initial={{ scale: 0.8, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 0.25 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-3xl font-bold mb-4">{faqs[openIndex].q}</h2>
-            <p className="text-lg leading-relaxed">{faqs[openIndex].a}</p>
+            <h2 className="text-3xl font-bold mb-4 max-md:text-xl">{faqs[openIndex].q}</h2>
+            <p className="text-lg leading-relaxed max-md:text-base">{faqs[openIndex].a}</p>
 
             <button
               onClick={() => setOpenIndex(null)}

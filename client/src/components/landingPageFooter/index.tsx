@@ -3,7 +3,7 @@ import { MapPin, Mail, Phone, Instagram } from 'lucide-react';
 
 export function LandingFooter() {
   return (
-    <footer className="w-full bg-[#0057FF] text-white px-6 py-10 flex flex-col">
+    <footer className="w-full bg-[#0057FF] text-white px-6 py-10 flex flex-col max-md:pb-8">
       
       <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row justify-between items-start gap-8">
         
