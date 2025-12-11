@@ -12,8 +12,9 @@ import capibatrilhasLogo2 from "./capibatrilhasLogo2.svg";
 import contactLeft from './contactLeft.svg';
 import endingRight from './endingRight.svg';
 import riverComponent from './riverComponent.svg';
+import boraExplorar from './boraExplorar.svg';
 
-
+export { boraExplorar };
 export { CalendarImg };
 export { Logo };
 export {capibatrilhasAlternateLogo};
