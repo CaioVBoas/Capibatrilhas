@@ -195,7 +195,7 @@ export function TutorialSection() {
         </span> <br />
 
         <span className="font-medium"> 
-        Sua jornada de cidadania e diversão começa agora. Vamos valorizar o que é nosso! Eaí? Tá esperando o que? VAMOS JOGAR!
+        Sua jornada de cidadania e diversão começa agora. Vamos valorizar o que é nosso! Eaí? Tá esperando o quê? VAMOS JOGAR!
         </span>
 
       </motion.p>
