@@ -28,7 +28,7 @@ interface EventsCardProps {
 
 const EventsCard: React.FC<EventsCardProps> = ({ event }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 px-4 py-5 my-3 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1 w-72">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 outline-2 outline-[#2563EB] px-4 py-5 my-3 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1 w-72">
       <div className="self-center">
         <Image src={CalendarImg} alt="" />
       </div>

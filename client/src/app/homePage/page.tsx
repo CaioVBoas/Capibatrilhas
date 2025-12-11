@@ -241,11 +241,22 @@ export default function HomePage() {
   const trilhasEmDestaque = mockTrails.filter((trail) => trail.progress === 0);
   const trilhasEmAndamento = mockTrails.filter((trail) => trail.progress > 0);
   const eventsScrollRef = useRef<HTMLDivElement>(null);
+  const trailsScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollEvents = (direction: 'left' | 'right') => {
     if (eventsScrollRef.current) {
       const scrollAmount = 300;
       eventsScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollTrails = (direction: 'left' | 'right') => {
+    if (trailsScrollRef.current) {
+      const scrollAmount = 400;
+      trailsScrollRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
       });
@@ -274,7 +285,7 @@ export default function HomePage() {
           >
             <ChevronLeft className="h-6 w-6 text-blue-600" />
           </button>
-          <div ref={eventsScrollRef} className="overflow-x-auto pb-4 flex gap-3 scroll-smooth scrollbar-hide">
+          <div ref={eventsScrollRef} className="overflow-x-auto pb-4 px-2 flex gap-3 scroll-smooth scrollbar-hide">
             {mockEvents.map((eventItem, index) => (
               <div key={index} className="shrink-0">
                 <EventsCard event={eventItem} />
@@ -305,15 +316,31 @@ export default function HomePage() {
           <Star className="h-8 w-8 text-accent text-yellow-300"></Star>
           <h1 className={`${outfit.className} text-3xl font-bold`}>Trilha em Destaque</h1>
         </div>
-        <div className="overflow-x-auto gap-6 pb-4 flex">
-          {trilhasEmDestaque.map(trail => (
-            <div
-              key={trail.id}
-              className="shrink-0 w-11/12 sm:w-[400px] lg:w-[420px] mt-1"
-            >
-              <TrailCard trail={trail} />
-            </div>
-          ))}
+        <div className="relative flex items-center gap-4">
+          <button
+            onClick={() => scrollTrails('left')}
+            className="shrink-0 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all hover:scale-110"
+            aria-label="Scroll para esquerda"
+          >
+            <ChevronLeft className="h-6 w-6 text-blue-600" />
+          </button>
+          <div ref={trailsScrollRef} className="overflow-x-auto py-2 px-2 flex gap-6 scroll-smooth scrollbar-hide">
+            {trilhasEmDestaque.map(trail => (
+              <div
+                key={trail.id}
+                className="shrink-0 w-11/12 sm:w-[400px] lg:w-[420px] mt-1"
+              >
+                <TrailCard trail={trail} />
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => scrollTrails('right')}
+            className="shrink-0 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all hover:scale-110"
+            aria-label="Scroll para direita"
+          >
+            <ChevronRight className="h-6 w-6 text-blue-600" />
+          </button>
         </div>
       </div>
       <div className="p-10">
