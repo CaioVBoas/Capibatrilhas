@@ -84,8 +84,14 @@ class TrailController {
         });
       }
 
-      const trail = await TrailRepository.update(trailId, trailData);
+      let trailDataFinalized = { ...trailData };
+      if (trailData.challenges) {
+        trailDataFinalized.challenges = trailData.challenges.map((id: number) => ({
+          challenge: { connect: { id } },
+        }));
+      }
 
+      const trail = await TrailRepository.update(trailId, trailDataFinalized);
       res.locals = {
         status: 200,
         data: trail,
