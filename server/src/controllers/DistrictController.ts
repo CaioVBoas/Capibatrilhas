@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { DistrictRepository, UserRepository } from '../repositories';
+import { DistrictRepository } from '../repositories';
 import { District, UpdateDistrict } from '../DTOs';
 
 class DistrictController {
@@ -52,12 +52,50 @@ class DistrictController {
     }
   }
 
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { tag } = req.query;
+      const districts = tag
+        ? await DistrictRepository.findByTag(String(tag))
+        : await DistrictRepository.findAll();
+
+      res.locals = {
+        status: 200,
+        data: districts,
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const districtId = Number(req.params.id);
+
+      if (isNaN(districtId)) {
+        return next({
+          status: 400,
+          message: 'ID do bairro inválido',
+        });
+      }
+
+      const exists = await DistrictRepository.findById(districtId);
+
+      if (!exists) {
+        return next({
+          status: 404,
+          message: 'Bairro não encontrado',
+        });
+      }
+
       const districtData = UpdateDistrict.parse(req.body);
 
-      const district = await DistrictRepository.update(districtId, districtData);
+      const district = await DistrictRepository.update(
+        districtId,
+        districtData,
+      );
 
       res.locals = {
         status: 200,
