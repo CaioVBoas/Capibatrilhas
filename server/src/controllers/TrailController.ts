@@ -16,16 +16,9 @@ class TrailController {
         });
       }
 
-        const challenges = trailData.challenges?.map((id) => ({
-            challenge: { connect: { id: id } },
+        const challenges = trailData.challenges.map((id) => ({
+            challenge: { connect: { id } },
         }));
-
-      if (!challenges || challenges.length === 0) {
-        return next({
-          status: 400,
-          message: 'A trilha deve conter pelo menos um desafio',
-        });
-      }
 
       const trailDataFinalized = {
         ...trailData,
@@ -53,6 +46,13 @@ class TrailController {
 
       const trail = await TrailRepository.findById(trailId);
 
+      if (isNaN(trailId)) {
+        return next({
+          status: 400,
+          message: 'ID da trilha inválido',
+        });
+      }
+
       if (!trail) {
         return next({
           status: 404,
@@ -75,7 +75,6 @@ class TrailController {
     try {
       const trailId = Number(req.params.id);
       const trailData = UpdateTrail.parse(req.body);
-      
 
       if (isNaN(trailId)) {
         return next({
