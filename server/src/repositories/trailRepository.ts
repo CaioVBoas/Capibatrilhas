@@ -1,41 +1,32 @@
 import { Prisma, Trail } from '@prisma/client';
 import prisma from '@database';
+import { truncate } from 'fs';
 
 class TrailRepository {
-  async create(data: Prisma.TrailCreateInput, ownerId: number): Promise<Trail> {
-    const trail = await prisma.trail.create({ data });
+  async create(data: Prisma.TrailCreateInput): Promise<Trail> {
+    const trail = await prisma.trail.create({ data, include: { challenges: { include: { challenge: true} } } });
     return trail;
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = await prisma.user.findUnique({ where: { email } });
-    return user;
-  }
-
-  async findById(id: string): Promise<Trail | null> {
+  async findById(id: number): Promise<Trail | null> {
     const trail = await prisma.trail.findUnique({ where: { id } });
     return trail;
   }
 
-  async findByCpf(cpf: string): Promise<User | null> {
-    const user = await prisma.user.findUnique({ where: { cpf } });
-    return user;
+  async update(id: number, data: Prisma.TrailUpdateInput): Promise<Trail> {
+    const trail = await prisma.trail.update({ where: { id }, data });
+    return trail;
   }
 
-  async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
-    const user = await prisma.user.update({ where: { id }, data });
-    return user;
+  async delete(id: number): Promise<Trail> {
+    const trail = await prisma.trail.delete({ where: { id } });
+    return trail;
   }
 
-  async delete(id: string): Promise<User> {
-    const user = await prisma.user.delete({ where: { id } });
-    return user;
-  }
-
-  async findAll(): Promise<User[]> {
-    const users = await prisma.user.findMany();
-    return users;
+  async findAll(): Promise<Trail[]> {
+    const trails = await prisma.trail.findMany({orderBy : { createdAt: 'desc' }});
+    return trails;
   }
 }
 
-export default new UserRepository();
+export default new TrailRepository();
