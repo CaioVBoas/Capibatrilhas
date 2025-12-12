@@ -97,3 +97,5 @@ export const User = z.object({
 });
 
 export const UpdateUser = User.partial();
+export type IUser = z.infer<typeof User>;
+export type IUpdateUser = z.infer<typeof UpdateUser>;

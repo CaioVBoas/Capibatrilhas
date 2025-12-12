@@ -15,7 +15,7 @@ class UserController {
       if (existsUserWithEmail) {
         return next({
           status: 400,
-          message: 'This email is already registred',
+          message: 'Este email já está registrado',
         });
       }
 
@@ -24,7 +24,7 @@ class UserController {
       if (existsUserWithCpf) {
         return next({
           status: 400,
-          message: 'This CPF is already registred',
+          message: 'Este CPF já está registrado',
         });
       }
 
@@ -37,7 +37,7 @@ class UserController {
 
       res.locals = {
         status: 201,
-        message: 'User created',
+        message: 'Usuário criado',
         data: user,
       };
 
@@ -49,14 +49,14 @@ class UserController {
 
   async read(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const userId = Number(req.params.id);
 
       const user = await UserRepository.findById(userId);
 
       if (!user) {
         return next({
           status: 404,
-          message: 'User not found',
+          message: 'Usuário não encontrado',
         });
       }
 
@@ -73,7 +73,7 @@ class UserController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const userId = Number(req.params.id);
       const userData = UpdateUser.parse(req.body);
 
       const user = await UserRepository.update(userId, userData);
@@ -81,7 +81,7 @@ class UserController {
       res.locals = {
         status: 200,
         data: user,
-        message: 'User updated',
+        message: 'Usuário atualizado',
       };
 
       return next();
@@ -92,13 +92,13 @@ class UserController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const userId = Number(req.params.id);
 
       await UserRepository.delete(userId);
 
       res.locals = {
         status: 200,
-        message: 'User deleted',
+        message: 'Usuário deletado',
       };
 
       return next();
