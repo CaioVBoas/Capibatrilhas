@@ -1,6 +1,6 @@
 import Logo from './Logo.png';
 import CalendarImg from "./calendarImg.svg";
-import capibatrilhasAlternateLogo from "./capibatrilhasAlternateLogo.svg"
+import capibatrilhasAlternateLogo from "./capibatrilhasAlternateLogo.svg";
 import logoPrefeitura from "./LogoDaPrefeitura.svg"
 import landingRight from "./landingRight.svg";
 import partners from "./partners.svg";
@@ -13,6 +13,7 @@ import contactLeft from './contactLeft.svg';
 import endingRight from './endingRight.svg';
 import riverComponent from './riverComponent.svg';
 import boraExplorar from './boraExplorar.svg';
+import capibatrilhasAlternateLogo2 from "./capibatrilhasAlternateLogo2.svg";
 
 export { boraExplorar };
 export { CalendarImg };
@@ -29,3 +30,4 @@ export { capibatrilhasLogo2 };
 export { contactLeft };
 export { endingRight };
 export { riverComponent };
+export { capibatrilhasAlternateLogo2 };
