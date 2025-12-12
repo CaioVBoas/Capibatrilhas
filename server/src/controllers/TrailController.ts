@@ -16,8 +16,9 @@ class TrailController {
         });
       }
 
-        const challenges = trailData.challenges.map((id) => ({
+        const challenges = trailData.challenges.map((id, index) => ({
             challenge: { connect: { id } },
+            challengeOrder: index,
         }));
 
       const trailDataFinalized = {
