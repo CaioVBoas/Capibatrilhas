@@ -1,6 +1,5 @@
 import { Prisma, Trail } from '@prisma/client';
 import prisma from '@database';
-import { truncate } from 'fs';
 
 class TrailRepository {
   async create(data: Prisma.TrailCreateInput): Promise<Trail> {
