@@ -3,7 +3,6 @@
 import { Poppins } from "next/font/google";
 import Image from "next/image";
 import { landingRight } from "assets";
-// import { yellowRiverRight } from "assets";
 import { motion } from "framer-motion";
 
 const poppins = Poppins({
