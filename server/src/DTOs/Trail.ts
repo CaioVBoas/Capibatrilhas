@@ -52,6 +52,17 @@ export const Trail = TrailSchema.refine(
   },
 );
 
-export const UpdateTrail = TrailSchema.partial();
+export const UpdateTrail = TrailSchema.partial().refine(
+  (data) => {
+    if (data.endDate !== undefined && data.startDate !== undefined) {
+      return data.endDate >= data.startDate;
+    }
+    return true;
+  },
+  {
+    message: 'A data de término deve ser igual ou posterior à data de início',
+    path: ['endDate'],
+  },
+);
 export type TrailDTO = z.infer<typeof Trail>;
 export type UpdateTrailDTO = z.infer<typeof UpdateTrail>;
