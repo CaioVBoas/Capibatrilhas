@@ -1,3 +1,4 @@
 import { User, UpdateUser } from './User';
+import { District, UpdateDistrict } from './district';
 
-export { User, UpdateUser };
+export { User, UpdateUser, District, UpdateDistrict };
