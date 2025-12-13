@@ -1,5 +1,5 @@
 'use client';
-import { Plus } from 'lucide-react';
+import { Plus, TrendingUp, Sparkles, CircleCheckBig } from 'lucide-react';
 import { useState } from 'react';
 
 export default function MyTrails() {
@@ -23,21 +23,21 @@ export default function MyTrails() {
       <div className="w-full max-w-4xl flex flex-row bg-[#E4EBF1] mt-6 rounded-2xl overflow-hidden mx-4">
         <button
           onClick={() => setTrailType('Andamento')}
-          className={`flex-1 py-1.5 m-1  text-zinc-700 rounded-xl font-medium text-sm ${trailType === 'Andamento' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
+          className={`flex-1 py-1.5 m-1  text-zinc-700 rounded-xl font-medium text-sm flex items-center justify-center gap-3 transition-all ${trailType !== 'Andamento' ? 'hover:bg-zinc-100' : 'hover:bg-white'} ${trailType === 'Andamento' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
         >
-          Em Andamento
+          <TrendingUp size={16}></TrendingUp> Em Andamento
         </button>
         <button
           onClick={() => setTrailType('Personalizadas')}
-          className={`flex-1 py-1.5 m-1 rounded-xl text-zinc-700 font-medium text-sm ${trailType === 'Personalizadas' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
+          className={`flex-1 py-1.5 m-1 rounded-xl text-zinc-700 font-medium text-sm flex items-center justify-center gap-3 transition-all ${trailType !== 'Personalizadas' ? 'hover:bg-zinc-100' : 'hover:bg-white'} ${trailType === 'Personalizadas' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
         >
-          Personalizadas
+          <Sparkles size={16}></Sparkles> Personalizadas
         </button>
         <button
           onClick={() => setTrailType('Concluidas')}
-          className={`flex-1 py-1.5 m-1 rounded-xl  text-zinc-700 font-medium text-sm ${trailType === 'Concluidas' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
+          className={`flex-1 py-1.5 m-1 rounded-xl  text-zinc-700 font-medium text-sm flex items-center justify-center gap-3 transition-all ${trailType !== 'Concluidas' ? 'hover:bg-zinc-100' : 'hover:bg-white'} ${trailType === 'Concluidas' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
         >
-          Concluídas
+          <CircleCheckBig size={16}></CircleCheckBig> Concluídas
         </button>
       </div>
     </div>
