@@ -2,17 +2,29 @@ import { Plus } from 'lucide-react';
 
 export default function MyTrails() {
   return (
-    <header>
-      <div className="flex flex-row justify-between py-6 px-96 border border-zinc-200 shadow rounded-md">
-        <h1 className="text-2xl font-semibold">Minhas Trilhas</h1>
-        <button
-          className="flex flex-row items-center text-sm bg-[#2563EB] text-white py-2.5 px-3 gap-2 rounded-2xl
-  hover:bg-[#3b78ff] hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
-        >
-          {' '}
-          <Plus size={18}></Plus> Criar Trilha
-        </button>
+    <div className='bg-[#FFFDFC] w-full min-h-screen flex flex-col items-center'>
+      
+      <header className="w-full flex justify-center py-6 border-b border-zinc-200 shadow-sm bg-white">
+        
+        <div className="w-full max-w-4xl flex flex-row justify-between items-center px-4">
+          <h1 className="text-2xl font-semibold">Minhas Trilhas</h1>
+          
+          <button
+            className="flex flex-row items-center text-sm bg-[#2563EB] text-white py-2.5 px-3 gap-2 rounded-2xl
+            hover:bg-[#3b78ff] hover:shadow-md transition-all duration-200 transform active:bg-[#1e55c7] active:scale-95 active:shadow-none"
+          >
+            <Plus size={18} /> Criar Trilha
+          </button>
+        </div>
+
+      </header>
+
+      <div className='w-full max-w-4xl flex flex-row bg-[#E4EBF1] mt-6 rounded-md overflow-hidden mx-4'>
+        <button className='flex-1 py-3 hover:bg-zinc-200 transition-colors text-zinc-700 font-medium'>Em Andamento</button>
+        <button className='flex-1 py-3 hover:bg-zinc-200 transition-colors text-zinc-700 font-medium'>Personalizadas</button>
+        <button className='flex-1 py-3 hover:bg-zinc-200 transition-colors text-zinc-700 font-medium'>Concluídas</button>
       </div>
-    </header>
+
+    </div>
   );
 }
