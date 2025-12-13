@@ -1,9 +1,19 @@
 'use client';
 import { Plus, TrendingUp, Sparkles, CircleCheckBig } from 'lucide-react';
 import { useState } from 'react';
+import TrailCard from 'components/featuredTrailCards';
+import { mockTrails } from './mocks';
 
 export default function MyTrails() {
   const [trailType, setTrailType] = useState('Andamento');
+
+  const filteredTrails = mockTrails.filter((trail) => {
+    if (trailType === 'Andamento')
+      return trail.progress > 0 && trail.progress < 100;
+    if (trailType === 'Personalizadas') return trail.progress === 0;
+    if (trailType === 'Concluidas') return trail.progress === 100;
+    return true;
+  });
 
   return (
     <div className="bg-zinc-100 w-full min-h-screen flex flex-col items-center">
@@ -39,6 +49,12 @@ export default function MyTrails() {
         >
           <CircleCheckBig size={16}></CircleCheckBig> Concluídas
         </button>
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 w-full max-w-6xl mt-8'>
+        {filteredTrails.map((trail) => (
+          <TrailCard key={trail.id} trail={trail} />
+        ))}
       </div>
     </div>
   );

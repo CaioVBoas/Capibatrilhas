@@ -3,7 +3,7 @@ import { MapPin, Clock, Trophy } from "lucide-react";
 import Link from "next/link";
 
 //Interface de Props do TrailCard
-interface Trails {
+export interface Trails {
   title: string;
   subtitle: string;
   progress: number; 
