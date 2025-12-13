@@ -6,7 +6,7 @@ export default function MyTrails() {
   const [trailType, setTrailType] = useState('Andamento');
 
   return (
-    <div className="bg-[#FFFDFC] w-full min-h-screen flex flex-col items-center">
+    <div className="bg-zinc-100 w-full min-h-screen flex flex-col items-center">
       <header className="w-full flex justify-center py-6 border-b border-zinc-200 shadow-sm bg-white">
         <div className="w-full max-w-4xl flex flex-row justify-between items-center px-4">
           <h1 className="text-2xl font-semibold">Minhas Trilhas</h1>
@@ -20,22 +20,22 @@ export default function MyTrails() {
         </div>
       </header>
 
-      <div className="w-full max-w-4xl flex flex-row bg-[#E4EBF1] mt-6 rounded-md overflow-hidden mx-4">
+      <div className="w-full max-w-4xl flex flex-row bg-[#E4EBF1] mt-6 rounded-2xl overflow-hidden mx-4">
         <button
           onClick={() => setTrailType('Andamento')}
-          className={`flex-1 py-3  text-zinc-700 font-medium text-sm ${trailType === 'Andamento' ? 'bg-zinc-800' : 'bg-[#E4EBF1]'}`}
+          className={`flex-1 py-1.5 m-1  text-zinc-700 rounded-xl font-medium text-sm ${trailType === 'Andamento' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
         >
           Em Andamento
         </button>
         <button
           onClick={() => setTrailType('Personalizadas')}
-          className={`flex-1 py-3  text-zinc-700 font-medium text-sm ${trailType === 'Personalizadas' ? 'bg-zinc-800' : 'bg-[#E4EBF1]'}`}
+          className={`flex-1 py-1.5 m-1 rounded-xl text-zinc-700 font-medium text-sm ${trailType === 'Personalizadas' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
         >
           Personalizadas
         </button>
         <button
           onClick={() => setTrailType('Concluidas')}
-          className={`flex-1 py-3  text-zinc-700 font-medium text-sm ${trailType === 'Concluidas' ? 'bg-zinc-800' : 'bg-[#E4EBF1]'}`}
+          className={`flex-1 py-1.5 m-1 rounded-xl  text-zinc-700 font-medium text-sm ${trailType === 'Concluidas' ? 'bg-white' : 'bg-[#E4EBF1]'}`}
         >
           Concluídas
         </button>
