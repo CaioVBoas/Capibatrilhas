@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { Request, Response, NextFunction } from 'express';
 import { Challenge, UpdateChallenge } from '../DTOs';
 import ChallengeRepository from '../repositories/challengeRepository';

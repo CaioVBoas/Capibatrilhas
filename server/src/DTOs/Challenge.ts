@@ -37,10 +37,9 @@ export const Challenge = z.object({
   rewards: z.number({
     invalid_type_error: 'A recompensa deve ser um número',
     required_error: 'A recompensa é obrigatória',
-  }),   
+  }),
 
-  isActive: z.boolean(),
-
+  isActive: z.boolean().default(true),
 });
 
 export const UpdateChallenge = Challenge.partial();
