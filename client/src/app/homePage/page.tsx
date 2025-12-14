@@ -1,10 +1,32 @@
+'use client';
+
 import BoroughCard from 'components/featuredBoroughCards'; // Importa o novo componente de card único
 import TrailCard from "components/featuredTrailCards";
-import { MapPin, TrendingUp, Star } from 'lucide-react';
-import React from 'react';
+import { MapPin, TrendingUp, Star, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useRef } from 'react';
 import EventsCard from 'components/eventsCard';
-import NavBar from 'components/navBar';
+import { Outfit, DM_Sans } from "next/font/google";
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+import NavBar from 'components/navBar';
+import UserCardHomepage from 'components/userCardHomepage';
+import AddMyTrail from 'components/addMyTrail';
+import Footer from "components/footer"
+
+const mockUserCard = {
+  userName: "Guilherme",
+  level: 5,
+  qtyCapibas: 450,
+  sequenceOfDays: 7,
+}
 
 const mockBoroughs = [
   {
@@ -77,6 +99,48 @@ const mockEvents = [
     name: "Corrida de Rua 'Recife Corre'",
     date: '22 de Dezembro, 07:00',
     location: 'Marco Zero'
+  },
+  {
+    type: 'Teatro',
+    costType: 'Pago',
+    name: 'Peça: O Auto da Compadecida',
+    date: '18 de Dezembro, 19:30',
+    location: 'Teatro de Santa Isabel'
+  },
+  {
+    type: 'Música',
+    costType: 'Pago',
+    name: 'Festival de Jazz',
+    date: '20 de Dezembro, 21:00',
+    location: 'Parque da Jaqueira'
+  },
+  {
+    type: 'Cinema',
+    costType: 'Gratuito',
+    name: 'Cinema ao Ar Livre',
+    date: '14 de Dezembro, 18:00',
+    location: 'Praça do Arsenal'
+  },
+  {
+    type: 'Dança',
+    costType: 'Gratuito',
+    name: 'Apresentação de Frevo',
+    date: '16 de Dezembro, 17:00',
+    location: 'Pátio de São Pedro'
+  },
+  {
+    type: 'Literatura',
+    costType: 'Gratuito',
+    name: 'Feira Literária do Recife',
+    date: '19 de Dezembro, 09:00',
+    location: 'Parque 13 de Maio'
+  },
+  {
+    type: 'Artesanato',
+    costType: 'Gratuito',
+    name: 'Feira de Artesanato',
+    date: '21 de Dezembro, 10:00',
+    location: 'Mercado de São José'
   }
 ];
 const mockTrails = [
@@ -176,21 +240,79 @@ const mockTrails = [
 export default function HomePage() {
   const trilhasEmDestaque = mockTrails.filter((trail) => trail.progress === 0);
   const trilhasEmAndamento = mockTrails.filter((trail) => trail.progress > 0);
+  const eventsScrollRef = useRef<HTMLDivElement>(null);
+  const trailsScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollEvents = (direction: 'left' | 'right') => {
+    if (eventsScrollRef.current) {
+      const scrollAmount = 300;
+      eventsScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollTrails = (direction: 'left' | 'right') => {
+    if (trailsScrollRef.current) {
+      const scrollAmount = 400;
+      trailsScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-[#fffdfc]">
       
-        <NavBar />
-      
-      <div className="flex flex-row gap-7.5 justify-center py-5">
-        {mockEvents.map((eventItem, index) => (
-          <EventsCard key={index} event={eventItem} />
-        ))}
+      <NavBar />
+
+      <UserCardHomepage userCardProp={mockUserCard}/>
+
+      <AddMyTrail />
+
+      <div className="px-4 md:px-10 py-10">
+        <div className="flex items-center gap-2 mb-5">
+          <Calendar className="h-8 w-8 text-blue-600" />
+          <h1 className={`${outfit.className} text-3xl font-bold`}>Agenda Cultural</h1>
+        </div>
+        <div className="relative flex items-center gap-4">
+          <button
+            onClick={() => scrollEvents('left')}
+            className="shrink-0 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all hover:scale-110"
+            aria-label="Scroll para esquerda"
+          >
+            <ChevronLeft className="h-6 w-6 text-blue-600" />
+          </button>
+          <div ref={eventsScrollRef} className="overflow-x-auto pb-4 px-2 flex gap-3 scroll-smooth scrollbar-hide">
+            {mockEvents.map((eventItem, index) => (
+              <div key={index} className="shrink-0">
+                <EventsCard event={eventItem} />
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => scrollEvents('right')}
+            className="shrink-0 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all hover:scale-110"
+            aria-label="Scroll para direita"
+          >
+            <ChevronRight className="h-6 w-6 text-blue-600" />
+          </button>
+        </div>
       </div>
+
       <div className="p-10">
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp className="h-8 w-8 text-accent text-blue-600"></TrendingUp>
-          <h1 className="text-3xl font-bold">Trilha em Andamento</h1>
+          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilha em Andamento</h1> 
+          
+          <a 
+            href="myTrails" 
+            className={`${dmSans.className} ml-auto text-sm md:text-base font-medium text-blue-600 hover:text-blue-800 hover:underline`}
+          >
+            Ver todas as trilhas em andamento
+          </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           {trilhasEmAndamento.map((trail) => (
@@ -199,26 +321,42 @@ export default function HomePage() {
         </div>
         <div className="flex items-center gap-2 mb-5">
           <Star className="h-8 w-8 text-accent text-yellow-300"></Star>
-          <h1 className="text-3xl font-bold">Trilha em Destaque</h1>
+          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilha em Destaque</h1>
         </div>
-        <div className="overflow-x-auto gap-6 pb-4 flex">
-          {trilhasEmDestaque.map(trail => (
-            <div
-              key={trail.id}
-              className="shrink-0 w-11/12 sm:w-[400px] lg:w-[420px] mt-1"
-            >
-              <TrailCard trail={trail} />
-            </div>
-          ))}
+        <div className="relative flex items-center gap-4">
+          <button
+            onClick={() => scrollTrails('left')}
+            className="shrink-0 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all hover:scale-110"
+            aria-label="Scroll para esquerda"
+          >
+            <ChevronLeft className="h-6 w-6 text-blue-600" />
+          </button>
+          <div ref={trailsScrollRef} className="overflow-x-auto py-2 px-2 flex gap-6 scroll-smooth scrollbar-hide">
+            {trilhasEmDestaque.map(trail => (
+              <div
+                key={trail.id}
+                className="shrink-0 w-11/12 sm:w-[400px] lg:w-[420px] mt-1"
+              >
+                <TrailCard trail={trail} />
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => scrollTrails('right')}
+            className="shrink-0 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all hover:scale-110"
+            aria-label="Scroll para direita"
+          >
+            <ChevronRight className="h-6 w-6 text-blue-600" />
+          </button>
         </div>
       </div>
       <div className="p-10">
         <div className="flex items-center gap-2 mb-1">
           <MapPin className="h-8 w-8 text-accent text-red-500"></MapPin>
-          <h1 className="text-3xl font-bold">Bairros em Destaque</h1>
+          <h1 className={`${outfit.className} text-3xl font-bold`}>Bairros em Destaque</h1>
         </div>
 
-        <h3 className="text-gray-600 mb-5 ml-8">
+        <h3 className={`${dmSans.className} text-gray-600 mb-5 ml-8`}>
           Descubra os bairros em destaque do mês! Complete desafios neles e
           ganhe moedas Capibas com um bônus especial.
         </h3>
@@ -229,6 +367,8 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      <Footer/>
     </div>
   );
 }

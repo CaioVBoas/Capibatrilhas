@@ -148,7 +148,7 @@ const CreateTrailPage: React.FC = () => {
         </div>
         
         <div className="flex items-start gap-3">
-          <Plus className="h-8 w-8 mt-1 flex-shrink-0" />
+          <Plus className="h-8 w-8 mt-1 shrink-0" />
           <div>
             <h1 className="text-3xl font-bold">Criar Trilha Personalizada</h1>
             <p className="text-blue-100 mt-2">Monte sua própria trilha escolhendo desafios que mais combinem com você e seus amigos!</p>
