@@ -3,6 +3,7 @@ import { Plus, TrendingUp, Sparkles, CircleCheckBig } from 'lucide-react';
 import { useState } from 'react';
 import TrailCard from 'components/featuredTrailCards';
 import { mockTrails } from './mocks';
+import Link from 'next/link';
 
 export default function MyTrails() {
   const [trailType, setTrailType] = useState('Andamento');
@@ -21,12 +22,14 @@ export default function MyTrails() {
         <div className="w-full max-w-4xl flex flex-row justify-between items-center px-4">
           <h1 className="text-2xl font-semibold">Minhas Trilhas</h1>
 
-          <button
-            className="flex flex-row items-center text-sm bg-[#2563EB] text-white py-2.5 px-3 gap-2 rounded-2xl
-            hover:bg-[#3b78ff] hover:shadow-md transition-all duration-200 transform active:bg-[#1e55c7] active:scale-95 active:shadow-none"
-          >
-            <Plus size={18} /> Criar Trilha
-          </button>
+          <Link href="/createTrail">
+            <button
+              className="flex flex-row items-center text-sm bg-[#2563EB] text-white py-2.5 px-3 gap-2 rounded-2xl
+              hover:bg-[#3b78ff] hover:shadow-md transition-all duration-200 transform active:bg-[#1e55c7] active:scale-95 active:shadow-none"
+            >
+              <Plus size={18} /> Criar Trilha
+            </button>
+          </Link>
         </div>
       </header>
 
