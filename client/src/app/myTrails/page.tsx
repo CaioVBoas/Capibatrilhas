@@ -22,7 +22,7 @@ export default function MyTrails() {
       <NavBar />
       <header className="w-full flex justify-center py-6 border-b border-zinc-200 shadow-sm bg-white">
         <div className="w-full max-w-4xl flex flex-row justify-between items-center px-4">
-          <h1 className="text-2xl font-semibold ">Minhas Trilhas</h1>
+          <h1 className="text-2xl font-semibold font-outfit ">Minhas Trilhas</h1>
 
           <Link href="/createTrail">
             <button
