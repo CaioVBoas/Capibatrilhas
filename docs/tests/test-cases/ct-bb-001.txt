@@ -1,0 +1,26 @@
+ID: CT-BB-001  
+Título: Criação e edição de trilha personalizada  
+Tipo: Black Box / Teste Funcional  
+Funcionalidade: CRUD de trilhas personalizadas  
+
+Descrição:  
+Validar a criação e a edição de uma trilha personalizada a partir da interface do usuário.
+
+Pré-condições:  
+- Usuário autenticado  
+
+Entradas:  
+- Nome da trilha  
+- Descrição  
+- Pontos de interesse  
+
+Passos:  
+1. Acessar a funcionalidade de criação de trilha  
+2. Informar dados válidos  
+3. Salvar a trilha  
+4. Editar os dados da trilha criada  
+
+Resultado Esperado:  
+- A trilha é criada com sucesso  
+- As alterações realizadas são persistidas  
+- O sistema retorna mensagens de confirmação adequadas  
