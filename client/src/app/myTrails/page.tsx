@@ -4,6 +4,7 @@ import { useState } from 'react';
 import TrailCard from 'components/featuredTrailCards';
 import { mockTrails } from './mocks';
 import Link from 'next/link';
+import NavBar from 'components/navBar';
 
 export default function MyTrails() {
   const [trailType, setTrailType] = useState('Andamento');
@@ -18,6 +19,7 @@ export default function MyTrails() {
 
   return (
     <div className="bg-zinc-100 w-full min-h-screen flex flex-col items-center">
+      <NavBar />
       <header className="w-full flex justify-center py-6 border-b border-zinc-200 shadow-sm bg-white">
         <div className="w-full max-w-4xl flex flex-row justify-between items-center px-4">
           <h1 className="text-2xl font-semibold ">Minhas Trilhas</h1>
@@ -54,7 +56,7 @@ export default function MyTrails() {
         </button>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 w-full max-w-6xl mt-8'>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 w-full max-w-6xl mt-8">
         {filteredTrails.map((trail) => (
           <TrailCard key={trail.id} trail={trail} />
         ))}
