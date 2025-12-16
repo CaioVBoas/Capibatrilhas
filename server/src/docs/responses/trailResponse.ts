@@ -1,17 +1,17 @@
-const userResponse = {
+const trailResponse = {
   create: {
     201: {
-      description: 'Usuário criado com sucesso',
+      description: 'Trilha criada com sucesso',
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/user',
+            $ref: '#/components/schemas/trail',
           },
         },
       },
     },
     400: {
-      description: 'Parâmetros inválidos ou email/CPF já cadastrado',
+      description: 'Parâmetros inválidos ou ID do proprietário obrigatório',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -19,20 +19,20 @@ const userResponse = {
   },
   get: {
     200: {
-      description: 'Dados do usuário',
+      description: 'Dados da trilha',
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/user',
+            $ref: '#/components/schemas/trail',
           },
         },
       },
     },
     400: {
-      description: 'Parâmetros inválidos',
+      description: 'ID inválido',
     },
     404: {
-      description: 'Usuário não encontrado',
+      description: 'Trilha não encontrada',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -40,11 +40,11 @@ const userResponse = {
   },
   update: {
     200: {
-      description: 'Usuário atualizado com sucesso',
+      description: 'Trilha atualizada com sucesso',
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/user',
+            $ref: '#/components/schemas/trail',
           },
         },
       },
@@ -52,11 +52,8 @@ const userResponse = {
     400: {
       description: 'Parâmetros inválidos',
     },
-    401: {
-      description: 'Não autorizado',
-    },
     404: {
-      description: 'Usuário não encontrado',
+      description: 'Trilha não encontrada',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -64,13 +61,13 @@ const userResponse = {
   },
   delete: {
     200: {
-      description: 'Usuário deletado com sucesso',
+      description: 'Trilha deletada com sucesso',
     },
-    401: {
-      description: 'Não autorizado',
+    400: {
+      description: 'ID inválido',
     },
     404: {
-      description: 'Usuário não encontrado',
+      description: 'Trilha não encontrada',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -78,4 +75,4 @@ const userResponse = {
   },
 };
 
-export default userResponse;
+export default trailResponse;

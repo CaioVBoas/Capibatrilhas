@@ -1,17 +1,17 @@
-const userResponse = {
+const trailInvitationResponse = {
   create: {
     201: {
-      description: 'Usuário criado com sucesso',
+      description: 'Convite para trilha criado com sucesso',
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/user',
+            $ref: '#/components/schemas/trailInvitation',
           },
         },
       },
     },
     400: {
-      description: 'Parâmetros inválidos ou email/CPF já cadastrado',
+      description: 'Parâmetros inválidos',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -19,20 +19,17 @@ const userResponse = {
   },
   get: {
     200: {
-      description: 'Dados do usuário',
+      description: 'Dados do convite',
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/user',
+            $ref: '#/components/schemas/trailInvitation',
           },
         },
       },
     },
-    400: {
-      description: 'Parâmetros inválidos',
-    },
     404: {
-      description: 'Usuário não encontrado',
+      description: 'Convite não encontrado',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -40,11 +37,11 @@ const userResponse = {
   },
   update: {
     200: {
-      description: 'Usuário atualizado com sucesso',
+      description: 'Convite atualizado com sucesso',
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/user',
+            $ref: '#/components/schemas/trailInvitation',
           },
         },
       },
@@ -52,11 +49,8 @@ const userResponse = {
     400: {
       description: 'Parâmetros inválidos',
     },
-    401: {
-      description: 'Não autorizado',
-    },
     404: {
-      description: 'Usuário não encontrado',
+      description: 'Convite não encontrado',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -64,13 +58,10 @@ const userResponse = {
   },
   delete: {
     200: {
-      description: 'Usuário deletado com sucesso',
-    },
-    401: {
-      description: 'Não autorizado',
+      description: 'Convite deletado com sucesso',
     },
     404: {
-      description: 'Usuário não encontrado',
+      description: 'Convite não encontrado',
     },
     500: {
       description: 'Erro interno do servidor',
@@ -78,4 +69,4 @@ const userResponse = {
   },
 };
 
-export default userResponse;
+export default trailInvitationResponse;
