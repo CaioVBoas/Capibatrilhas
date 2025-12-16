@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import { Logo } from 'assets';
+import { loginBackground, logo_slogan } from 'assets';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { Button } from '../../components/ui/button';
 import {
@@ -13,6 +12,7 @@ import {
   CardHeader,
   CardTitle
 } from '../../components/ui/card';
+import Image from 'next/image';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 
@@ -24,15 +24,19 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen justify-around items-center">
-      <Card className="w-full max-w-sm">
+    <div
+      className="flex min-h-screen justify-around items-center bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${loginBackground.src})` }}>
+
+
+      <Card className="w-full max-w-sm bg-white rounded-2xl">
         <CardHeader>
-          <div>
-            <Image src={Logo} alt="Logo" />
+          <div className='flex items-center justify-center py-5'>
+            <Image src={logo_slogan} alt="Logo e slogan do Capibatrilhas" className='w-full h-full' />
           </div>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-3xl">Login</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account.
+            Entre com seu email e senha do Conceta Recife abaixo para poder acessar o Capibatrilhas.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -46,14 +50,23 @@ export default function Login() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required />
+            <Label htmlFor="password">Senha</Label>
+            <Input id="password" type="password" placeholder='Digite sua senha aqui...' required />
           </div>
         </CardContent>
-        <CardFooter>
-          <Button className="w-full">Sign in</Button>
+        <CardFooter >
+          <div className='w-full '>
+            <div className="flex justify-center w-full pb-6">
+              <Button className="w-60 text-white text-base  bg-blue-500  rounded-xl   hover:bg-[#ffc107] transition duration-300 font-bold ">Entrar</Button>
+            </div>
+            <div className='text-sm text-gray-400'>
+              Ainda não possui cadastro no conecta recife?
+              <a href="https://conecta.recife.pe.gov.br/" target="_blank" className="text-blue-400 underline hover:text-blue-600">Cadastre-se aqui</a>
+            </div>
+          </div>
         </CardFooter>
       </Card>
     </div>
+
   );
 }

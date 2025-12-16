@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import { Clock, Trophy, ArrowLeft } from "lucide-react";
+import { Clock, Trophy, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export interface Trails {
@@ -31,7 +31,7 @@ const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
             aria-label="Voltar"
             onClick={() => router.back()}
           >
-            <ArrowLeft className="h-6 w-6" />
+            <ChevronLeft className="h-6 w-6" />
             <span className="text-lg font-medium">Voltar</span>
         </button>
       </div>
