@@ -1,14 +1,15 @@
 import React from "react";
 import { Star, Clock } from "lucide-react";
+import NavBar from "components/navBar";
 import ProfileHeader from "components/headerProfilePage";
 import AchievementCard from "components/achievmentsCard";
 import ActivityList from "components/recentActivitiesCard";
 
 const mockUser = {
-  name: "Maria Silva",
-  email: "maria@email.com",
+  name: "Guilherme Silva",
+  email: "guiguizinhosaunders@email.com",
   level: 5,
-  avatarInitials: "MS",
+  avatarInitials: "GS",
   stats: {
     capibas: 450,
     trails: 3,
@@ -61,8 +62,8 @@ const mockActivity = [
 export default function ProfilePage() {
   return (
     <div className="bg-gray-50/50 min-h-screen font-sans pb-12">
+      <NavBar />
       
-
       <ProfileHeader user={mockUser} />
 
       <main className="max-w-5xl mx-auto px-6 mt-10 relative z-20 space-y-8">

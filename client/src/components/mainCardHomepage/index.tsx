@@ -78,7 +78,7 @@ export default function UserCardHomepage({ userCardProp }: UserCardHomepageProps
             setCurrentIndex((prevIndex) =>
                 prevIndex === allCards.length - 1 ? 0 : prevIndex + 1
             );
-        }, 10000);
+        }, 95000);
 
         return () => clearInterval(interval);
     }, [allCards.length]);
@@ -106,7 +106,7 @@ export default function UserCardHomepage({ userCardProp }: UserCardHomepageProps
                 h-96 md:h-80
                 relative overflow-hidden
                 group
-                flex flex-col md:flex-row justify-between items-start md:items-center
+                flex flex-col justify-between
                 ${currentCard.type === 'user' 
                     ? 'bg-linear-to-r from-[#2563EB] to-[#3B82F6]'
                     : (currentCard.data as ThematicTrail).image
@@ -115,7 +115,7 @@ export default function UserCardHomepage({ userCardProp }: UserCardHomepageProps
 
                 {currentCard.type === 'user' ? (
                     <>
-                        <div className="z-10 mb-6 md:mb-0 space-y-4 flex-1">
+                        <div className="z-10 space-y-4 flex-1">
                             <div>
                                 <h2 className={`${outfit.className} text-white font-bold text-5xl md:text-7xl leading-tight`}>
                                     Olá, {(currentCard.data as UserCardHomepage).userName}!
@@ -134,7 +134,8 @@ export default function UserCardHomepage({ userCardProp }: UserCardHomepageProps
                                 </span>
                             </div>
                         </div>
-                        <div className="z-10 flex gap-3 w-full md:w-auto">
+                        
+                        <div className="z-10 flex gap-3 w-full md:w-auto md:self-end">
                             <div className={`${outfit.className} bg-yellow-400 text-[#2563EB] font-bold px-5 py-3 rounded-2xl shadow-lg flex items-center justify-center text-lg flex-1 md:flex-none min-w-[100px]`}>
                                 Nível {(currentCard.data as UserCardHomepage).level}
                             </div>

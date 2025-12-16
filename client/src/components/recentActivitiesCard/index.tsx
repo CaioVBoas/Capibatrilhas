@@ -1,5 +1,5 @@
 import React from "react";
-import { Coins } from "lucide-react";
+import { Coins, AlertCircle } from "lucide-react";
 
 export interface Activity {
   id: string | number;
@@ -35,13 +35,13 @@ export default function ActivityList({ activities }: ActivityListProps) {
               {activity.isCoin ? (
                 <>
                   <Coins className="w-4 h-4 text-yellow-500" />
-                  <span className="text-yellow-600 font-bold text-sm">
+                  <span className="text-yellow-500 font-bold text-sm">
                     {activity.reward}
                   </span>
                 </>
               ) : (
                 <div className="flex items-center gap-2">
-                   <div className="w-8 h-6 bg-yellow-400 rounded-full" />
+                   <AlertCircle className="w-5 h-5 text-yellow-500" />
                 </div>
               )}
             </div>
