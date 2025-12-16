@@ -5,10 +5,10 @@ import TrailCard from 'components/featuredTrailCards';
 import { mockTrails } from './mocks';
 import Link from 'next/link';
 import NavBar from 'components/navBar';
-import { Outfit } from 'next/font/google'
+import { Outfit } from 'next/font/google';
 
 const outfit = Outfit({
-  subsets: ['latin'],
+  subsets: ['latin']
 });
 
 export default function MyTrails() {
@@ -25,7 +25,9 @@ export default function MyTrails() {
   return (
     <div className="bg-zinc-100 w-full min-h-screen flex flex-col items-center">
       <NavBar />
-      <div className={`w-full flex justify-center py-6 border-b border-zinc-200 shadow-sm bg-white ${outfit.className}`}>
+      <div
+        className={`w-full flex justify-center py-6 border-b border-zinc-200 shadow-sm bg-white ${outfit.className}`}
+      >
         <div className="w-full max-w-4xl flex flex-row justify-between items-center px-4">
           <h1 className="text-3xl font-semibold">Minhas Trilhas</h1>
 
@@ -34,7 +36,7 @@ export default function MyTrails() {
               className="flex flex-row items-center text-sm font-semibold bg-[#2563EB] text-white py-3 px-5 gap-2 rounded-2xl
               hover:bg-[#3b78ff] hover:shadow-md transition-all duration-200 transform active:bg-[#1e55c7] active:scale-95 active:shadow-none"
             >
-              <Plus size={18} strokeWidth={3}/> Criar Trilha
+              <Plus size={18} strokeWidth={3} /> Criar Trilha
             </button>
           </Link>
         </div>
