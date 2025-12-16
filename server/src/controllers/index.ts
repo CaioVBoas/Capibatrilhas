@@ -5,6 +5,7 @@ import DistrictController from './DistrictController';
 import TrailController from './TrailController';
 import ChallengeController from './challengeController';
 import TrailChallengeController from './trailChallengeController';
+import CompletedChallengeController from './CompletedChallengeController';
 
 
 export { UserController, LoginController, FileController };
@@ -12,3 +13,4 @@ export { DistrictController };
 export { TrailController };
 export { ChallengeController };
 export { TrailChallengeController };
+export { CompletedChallengeController };
