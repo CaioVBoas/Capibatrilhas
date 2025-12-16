@@ -26,9 +26,7 @@ class AgendaRepository {
   async findByCategory(category: string): Promise<EventAgenda[]> {
     const agendas = await prisma.eventAgenda.findMany({
         where: {
-            category: {
-                has: category
-            }
+            category: category
         }
     });
     return agendas;

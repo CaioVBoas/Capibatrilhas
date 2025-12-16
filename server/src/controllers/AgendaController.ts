@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { AgendaRepository, DistrictRepository } from '../repositories';
+import { AgendaRepository } from '../repositories';
 import { Agenda, UpdateAgenda } from '../DTOs';
 
 class AgendaController {
@@ -109,6 +109,21 @@ class AgendaController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const eventId = Number(req.params.id);
+
+      if (isNaN(eventId)) {
+        return next({
+          status: 400,
+          message: 'ID do evento inválido',
+        });
+      }
+
+      const exists = await AgendaRepository.findById(eventId);
+      if (!exists) {
+        return next({
+          status: 404,
+          message: 'Evento não encontrado',
+        });
+      }
 
       await AgendaRepository.delete(eventId);
       res.locals = {

@@ -34,13 +34,13 @@ export const agendaSchema = z.object({
   eventDate: z
     .coerce.date({
       invalid_type_error: 'A data do evento deve ser uma data',
-      required_error: 'A data do evento é obrigatória',})
-    .refine(date => date > new Date(), { message: 'A data do evento deve ser no futuro' }),
+      required_error: 'A data do evento é obrigatória',}),
 
   endDate: z
     .coerce.date({
       invalid_type_error: 'A data do evento deve ser uma data',
-      required_error: 'A data do fim do evento é obrigatória',}),
+      required_error: 'A data do fim do evento é obrigatória',})
+      .refine(date => date >= new Date(), { message: 'A data de término do evento deve ser no futuro' }),
 
   category: z
     .string({
@@ -48,7 +48,7 @@ export const agendaSchema = z.object({
       required_error: 'A categoria é obrigatória',
     })
     .regex(/^[\p{L}\d\s,.-]+$/u, {
-      message: 'A localização contém caracteres inválidos',
+      message: 'A categoria contém caracteres inválidos',
     }),
 
   urlImage: z
@@ -57,8 +57,8 @@ export const agendaSchema = z.object({
     .optional(),
 
   urlExternal: z
-    .string({ invalid_type_error: 'A URL da imagem deve ser uma string' })
-    .url({ message: 'URL da imagem inválida' })
+    .string({ invalid_type_error: 'A URL deve ser uma string' })
+    .url({ message: 'URL inválida' })
     .optional(),
 
   isActive: z
@@ -68,7 +68,7 @@ export const agendaSchema = z.object({
 
   isFeatured: z
     .boolean()
-    .default(true)
+    .default(false)
     .optional(),
 
   tags: z
