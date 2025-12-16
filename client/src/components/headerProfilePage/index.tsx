@@ -9,6 +9,7 @@ import {
   LucideIcon,
 
 } from 'lucide-react';
+import { outfit, dmSans } from '../../styles/fonts';
 
 interface UserStats {
   capibas: number;
@@ -38,7 +39,7 @@ const StatBox = ({
   value: number;
   label: string;
 }) => (
-  <div className="flex flex-col items-center justify-center bg-white/10 backdrop-blur-sm rounded-xl py-4 px-4 flex-1 border border-white/10 shadow-sm transition-transform hover:scale-105">
+  <div className={`flex flex-col items-center justify-center bg-white/10 backdrop-blur-sm rounded-xl py-4 px-4 flex-1 border border-white/10 shadow-sm transition-transform hover:scale-105 ${dmSans.className}`}>
     <div className="flex items-center gap-2 text-white mb-1">
       <Icon className="w-5 h-5 text-yellow-300" />
       <span className="font-bold text-2xl leading-none">{value}</span>
@@ -66,11 +67,11 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
               </span>
             </div>
             <div>
-              <h1 className="text-white text-3xl font-bold mb-1">
+              <h1 className={`text-white text-3xl font-bold mb-1 ${outfit.className}`}>
                 {user.name}
               </h1>
               <div className="flex items-center gap-3 mb-1">
-                <p className="text-blue-100 text-sm">{user.email}</p>
+                <p className={`text-blue-100 text-sm ${dmSans.className}`}>{user.email}</p>
               </div>
               <span className="bg-yellow-400 text-[#2563EB] font-bold px-3 py-1.5 rounded-2xl shadow-lg inline-block text-sm">
                 Nível {user.level}
