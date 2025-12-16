@@ -25,7 +25,7 @@ class AgendaController {
     try {
       const eventId = Number(req.params.id);
 
-      if (isNaN(eventId)) {
+      if (Number.isNaN(eventId)) {
         return next({
           status: 400,
           message: 'ID do evento inválido',
@@ -73,7 +73,7 @@ class AgendaController {
     try {
       const eventId = Number(req.params.id);
 
-      if (isNaN(eventId)) {
+      if (Number.isNaN(eventId)) {
         return next({
           status: 400,
           message: 'ID do evento inválido',
@@ -110,7 +110,7 @@ class AgendaController {
     try {
       const eventId = Number(req.params.id);
 
-      if (isNaN(eventId)) {
+      if (Number.isNaN(eventId)) {
         return next({
           status: 400,
           message: 'ID do evento inválido',
