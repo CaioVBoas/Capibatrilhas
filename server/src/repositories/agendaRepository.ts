@@ -24,11 +24,7 @@ class AgendaRepository {
   }
   
   async findByCategory(category: string): Promise<EventAgenda[]> {
-    const agendas = await prisma.eventAgenda.findMany({
-        where: {
-            category: category
-        }
-    });
+    const agendas = await prisma.eventAgenda.findMany({ where: { category } });    
     return agendas;
   }
 
@@ -43,7 +39,7 @@ class AgendaRepository {
   }
 
   async findAll(): Promise<EventAgenda[]> {
-    const agendas = await prisma.eventAgenda.findMany();
+    const agendas = await prisma.eventAgenda.findMany({ where: { isActive: true } });
     return agendas;
   }
 }

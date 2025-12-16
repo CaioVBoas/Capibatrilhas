@@ -7,9 +7,7 @@ export const agendaSchema = z.object({
       required_error: 'O nome é obrigatório',
     })
     .min(3, { message: 'O nome deve ter no mínimo 3 caracteres' })
-    .regex(/^[\p{L}\s'-]+$/u, {
-      message: 'O nome contém caracteres inválidos',
-    }),
+    .max(100, { message: 'O nome deve ter no máximo 100 caracteres' }),
 
   description: z
     .string({
@@ -17,19 +15,14 @@ export const agendaSchema = z.object({
       required_error: 'A descrição é obrigatória',
     })
     .min(10, { message: 'A descrição deve ter no mínimo 10 caracteres' })
-    .max(500, { message: 'A descrição deve ter no máximo 500 caracteres' })
-    .regex(/^[\p{L}\d\s.,'-]+$/u, {
-      message: 'A descrição contém caracteres inválidos',
-    }),
+    .max(500, { message: 'A descrição deve ter no máximo 500 caracteres' }),
 
   location: z
     .string({ invalid_type_error: 'A localização deve ser uma string',
               required_error: 'A localização é obrigatória',
      })
     .min(5, {message: 'Detalhe melhor a localização',})
-    .regex(/^[\p{L}\d\s,.-]+$/u, {
-      message: 'A localização contém caracteres inválidos',
-    }),
+    .max(200, { message: 'A localização deve ter no máximo 200 caracteres' }),
 
   eventDate: z
     .coerce.date({
@@ -40,15 +33,12 @@ export const agendaSchema = z.object({
     .coerce.date({
       invalid_type_error: 'A data do evento deve ser uma data',
       required_error: 'A data do fim do evento é obrigatória',})
-      .refine(date => date >= new Date(), { message: 'A data de término do evento deve ser no futuro' }),
+    .optional(),
 
   category: z
     .string({
       invalid_type_error: 'A categoria deve ser uma string',
       required_error: 'A categoria é obrigatória',
-    })
-    .regex(/^[\p{L}\d\s,.-]+$/u, {
-      message: 'A categoria contém caracteres inválidos',
     }),
 
   urlImage: z
