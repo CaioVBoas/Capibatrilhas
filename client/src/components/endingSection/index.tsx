@@ -3,6 +3,17 @@
 import Image from "next/image";
 import { endingRight } from "assets";
 import { motion, Variants } from "framer-motion";
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export function EndingSection() {
 
@@ -27,11 +38,11 @@ export function EndingSection() {
   };
 
   return (
-    <div id="login" className="h-screen w-full flex bg-[#2563EB] relative overflow-hidden">
+    <div className="h-screen w-full flex max-md:flex-col bg-[#2563EB] relative overflow-hidden max-md:h-auto max-md:min-h-fit max-md:py-6">
       
 
       <motion.div 
-        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 gap-12"
+        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 gap-12 max-md:w-full max-md:pl-4 max-md:pr-4 max-md:gap-8"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -40,7 +51,7 @@ export function EndingSection() {
   
 
         <motion.h1 
-          className="text-[#ffc107] text-7xl font-thin leading-tight"
+          className={`${outfit.className} text-[#ffc107] text-7xl leading-tight max-md:text-4xl`}
           variants={itemVariants}
         >
           Sua jornada começa onde nasce o Oceano Atlântico:{" "}
@@ -51,14 +62,18 @@ export function EndingSection() {
 
         <motion.button
           variants={itemVariants}
-          className="
+          onClick={() => {
+            const heroSection = document.getElementById('hero');
+            heroSection?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className={`${dmSans.className}
             px-16 py-6
             rounded-full text-4xl font-bold
             shadow-xl border bg-[#ffc107] hover:bg-[#FFFFFF] 
-            hover:shadow-2xl hover:scale-105 transition text-black 
+            hover:shadow-2xl hover:scale-105 transition text-[#2563EB]
             hover:text-[#2563EB] 
-             w-[70%]
-          "
+             w-[70%] max-md:w-full max-md:text-2xl max-md:px-8 max-md:py-4 max-md:mb-8
+          `}
         >
           Volte a Explorar
         </motion.button>
@@ -71,9 +86,9 @@ export function EndingSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false }}
-        className="relative w-1/2 h-full overflow-hidden z-0 flex justify-end items-end"
+        className="relative w-1/2 h-full overflow-hidden z-0 flex justify-end items-end max-md:w-full max-md:h-64"
       >
-        <motion.div variants={itemVariants} className="absolute bottom-0 right-0 h-full w-full">
+        <motion.div variants={itemVariants} className="absolute bottom-0 right-[-3px] h-full w-full max-md:right-0">
           <Image
             src={endingRight}
             alt="Foto do Recife Antigo"

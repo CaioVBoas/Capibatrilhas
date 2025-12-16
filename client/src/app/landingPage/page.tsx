@@ -12,7 +12,7 @@ import { RiverLayer } from 'components/riverLayer';
 
 export default function LandingPage() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <RiverLayer />
       <LandingHeader />
       <HeroSection />

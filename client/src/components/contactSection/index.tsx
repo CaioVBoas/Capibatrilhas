@@ -1,11 +1,68 @@
 'use client';
-
-import Image from "next/image";
-import { contactLeft } from "assets";
+import { useState } from "react";
 import { motion, Variants } from "framer-motion";
+import { Outfit, DM_Sans } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export function ContactSection() {
   
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent | React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    setStatus('loading');
+
+    try {
+      const response = await fetch('http://localhost:3001/mail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' }); 
+        alert('Mensagem enviada com sucesso!');
+      } else {
+        setStatus('error');
+        alert('Erro ao enviar mensagem.');
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+      alert('Erro de conexão com o servidor.');
+    } finally {
+        if(status !== 'success') setStatus('idle');
+    }
+  };
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -17,9 +74,8 @@ export function ContactSection() {
     },
   };
 
-  // Esse é o estilo padrão: Fade-in + Slide Up
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 50 }, // Começa invisível e 50px para baixo
+    hidden: { opacity: 0, y: 50 },
     visible: { 
       opacity: 1, 
       y: 0, 
@@ -28,17 +84,17 @@ export function ContactSection() {
   };
 
   return (
-    <div id="contato" className="h-screen w-full flex bg-[#fff3ef] relative overflow-hidden">
+    <div id="contato" className="h-screen w-full flex max-md:flex-col bg-[#fff3ef] relative overflow-hidden max-md:h-auto max-md:min-h-fit max-md:py-6">
 
       <motion.div 
-        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 gap-10"
+        className="flex flex-col justify-start pl-8 pt-8 w-1/2 relative z-10 gap-10 max-md:w-full max-md:pl-4 max-md:pr-4"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
       >
         <motion.h1 
-          className="text-[#2563EB] text-7xl font-thin leading-tight"
+          className={`${outfit.className} text-[#2563EB] text-7xl leading-tight max-md:text-4xl`}
           variants={itemVariants}
         >
           <span className="whitespace-nowrap">Ainda em dúvida?</span><br />
@@ -47,68 +103,65 @@ export function ContactSection() {
 
         <motion.form 
           variants={itemVariants}
-          className="flex flex-col text-2xl w-[75%] font-light"
+          className={`${dmSans.className} flex flex-col text-2xl w-[75%] font-light max-md:w-full max-md:text-lg`}
+          onSubmit={(e) => e.preventDefault()} 
         >
           <label className="mb-1">Nome completo</label>
           <input 
-            type="text" 
+            type="text"
+            name="name" 
+            value={formData.name} 
+            onChange={handleChange} 
             className="border-b border-black bg-transparent mb-6 pb-2 focus:outline-none"
           />
           <label className="mb-1">E-mail</label>
           <input 
-            type="email" 
+            type="email"
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
             className="border-b border-black bg-transparent mb-6 pb-2 focus:outline-none"
           />
           <label className="mb-0.5">Mensagem</label>
           <textarea 
-            rows={2}
+            name="message" 
+            value={formData.message} 
+            onChange={handleChange}  
+            rows={1}
             className="border-b border-black bg-transparent -mb-2 pb-2 focus:outline-none"
           />
         </motion.form>
+        
+        <motion.button
+          type="button" 
+          onClick={handleSubmit} 
+          disabled={status === 'loading'}
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`${dmSans.className} bg-[#2563EB] hover:bg-[#FFFFFF] 
+          hover:shadow-2xl transition text-[#ffc107] hover:text-[#2563EB] text-xl px-8 py-3 rounded-full 
+          shadow-md font-bold mt-6 md:hidden ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
+        >
+           {status === 'loading' ? 'Enviando...' : 'Enviar mensagem'}
+        </motion.button>
       </motion.div>
 
       <motion.button
-        type="submit"
+        type="button" 
+        onClick={handleSubmit} 
+        disabled={status === 'loading'}
         variants={itemVariants} 
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
-        className="absolute right-10 bottom-10 bg-[#2563EB] hover:bg-[#1d4ed8] 
-                   text-[#FDE68A] text-3xl font-medium px-10 py-4 rounded-full 
-                   border border-black shadow-md transition z-30"
+        className={`${dmSans.className} absolute left-[210px] bottom-24 bg-[#2563EB] hover:bg-[#FFFFFF] 
+        hover:shadow-2xl hover:scale-102 transition
+                   text-[#ffc107] text-3xl px-10 py-4 rounded-full 
+                     shadow-md font-bold z-30 max-md:hidden ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
       >
-        Enviar mensagem
+         {status === 'loading' ? 'Enviando...' : 'Enviar mensagem'}
       </motion.button>
-
-
-      {/* <Image
-        src={contactRight}
-        alt="Elemento do rio azul/amarelo Capibatrilhas"
-        width={850}
-        height={850}
-        className="absolute top-[-25px] left-10 ml-[427px] translate-y-2 object-contain select-none pointer-events-none"
-        draggable={false}
-      /> */}
-
-      <motion.div
-
-        variants={itemVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.1 }}
-        transition={{ duration: 1.5 }}
-        className="absolute bottom-0 left-0 z-0 pointer-events-none"
-      >
-        <Image
-          src={contactLeft}
-          alt="Elemento abstrato"
-          width={495}
-          height={495}
-          className="object-contain select-none pointer-events-none p-0"
-          draggable={false}
-          priority
-        />
-      </motion.div>
 
     </div>
   );

@@ -1,52 +1,77 @@
 import { Flame, Coins } from 'lucide-react';
+import { Outfit, DM_Sans } from "next/font/google";
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
 
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
 
 interface UserCardHomepage {
-    userName: string,
-    level: number,
-    qtyCapibas: number,
-    sequenceOfDays: number,
+    userName: string;
+    level: number;
+    qtyCapibas: number;
+    sequenceOfDays: number;
 }
 
 interface UserCardHomepageProps {
-    userCardProp: UserCardHomepage
+    userCardProp: UserCardHomepage;
 }
 
-export default function UserCardHomepage({
-    userCardProp
-}: UserCardHomepageProps) {
-
+export default function UserCardHomepage({ userCardProp }: UserCardHomepageProps) {
     return (
+        <div className="w-full mt-8 mb-10 px-4 md:px-8">
+            <div className={`
+                w-full
+                bg-linear-to-r from-[#2563EB] to-[#3B82F6] 
+                rounded-4xl shadow-xl 
+                p-6 md:p-10 
+                flex flex-col md:flex-row justify-between items-start md:items-end 
+                relative overflow-hidden
+            `}>
 
-        <div className="w-full mt-13 flex justify-center">
-            <div className="flex justify-between items-start bg-linear-to-r from-blue-600 to-blue-500  h-37 md:h-40  rounded-xl w-300 md:w-330">
+                <div className="z-10 mb-6 md:mb-0 space-y-4">
+                    <div>
+                        <h2 className={`${outfit.className} text-white font-bold text-3xl md:text-5xl leading-tight`}>
+                            Olá, {userCardProp.userName}!
+                        </h2>
+                        <p className={`${dmSans.className} text-blue-100 mt-1 text-base md:text-lg font-medium`}>
+                            Pronto(a) para mais uma aventura?
+                        </p>
+                    </div>
 
-                <div className="mt-5 ml-10 h-full">
+                    <div className="inline-flex items-center gap-2 bg-blue-800/40 border border-blue-400/30 rounded-full px-4 py-2 backdrop-blur-sm">
+                        <div className="bg-[#ffc107] rounded-full p-1">
+                            <Flame className="text-[#2563EB] w-4 h-4" fill="currentColor" />
+                        </div>
+                        <span className={`${dmSans.className} text-white font-bold text-sm md:text-base tracking-wide`}>
+                            Sequência de {userCardProp.sequenceOfDays} dias
+                        </span>
+                    </div>
+                </div>
+              <div className="z-10 flex gap-3 w-full md:w-auto">
+                    
+                    <div className={`${outfit.className} bg-yellow-400 text-[#2563EB] font-bold px-5 py-3 rounded-2xl shadow-lg flex items-center justify-center text-lg flex-1 md:flex-none min-w-[100px]`}>
+                        Nível {userCardProp.level}
+                    </div>
 
-                    <p className="text-white font-bold text-xl md:text-3xl ">Olá, {userCardProp.userName}!</p>
-                    <p className="text-white mt-1.5 text-sm md:text-base">Pronto(a) para mais uma aventura?</p>
 
-                    <div className=' bg-blue-400 w-45 md:w-55 flex justify-center text-white p-1 rounded-2xl mt-2 md:mt-3 border-x-2 border-y-0.5'>
-                        <Flame className='bg-linear-to-t from-yellow-600 to-red-600 rounded-4xl mr-1 md:mr-2 h-5' />
-                        <p className='text-sm md:text-base'>Sequência de 7 dias</p>
+                    <div className={`${dmSans.className} bg-white/10 border border-white/20 text-white font-bold px-5 py-3 rounded-2xl shadow-lg flex items-center justify-center gap-2 flex-1 md:flex-none min-w-[120px]`}>
+                        <Coins className="text-[#ffc107] w-6 h-6" fill="currentColor" />
+                        <span className="text-xl tracking-tight">{userCardProp.qtyCapibas}</span>
                     </div>
 
                 </div>
 
-                <div className='mt-5 ml-auto mr-10 flex'>
-                    <p className='bg-yellow-300 rounded-2xl px-2 md:px-6 mr-1 md:mr-2'>Nível {userCardProp.level}</p>
-
-                    <div className='bg-blue-300 rounded-2xl px-2 md:px-6 mr-1 md:mr-2 text-white font-semibold flex'>
-                        <Coins className='mr-1.5' />
-                        <p>{userCardProp.qtyCapibas}</p>
-                    </div>
-
-                </div>
-
+                
+                <div className="absolute -top-24 -right-24 w-80 h-80 bg-blue-400 opacity-20 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('/noise.png')]"></div> 
 
             </div>
-
         </div>
     )
 }

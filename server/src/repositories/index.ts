@@ -5,8 +5,18 @@ import FileRepository from './fileRepository';
 import DistrictRepository from './districtRepository';
 import TrailRepository from './trailRepository';
 import AgendaRepository from './agendaRepository';
+import ChallengeRepository from './challengeRepository';
+import TrailChallengeRepository from './trailChallengeRepository';
+import TrailParticipationRepository from './trailParticipationRepository';
+import trailInvitationRepository from './trailInvitationRepository';
+import CompletedChallengeRepository from './completedChallengeRepository';
 
 export { UserRepository, TokenRepository, CookieRepository, FileRepository };
 export { DistrictRepository };
 export { TrailRepository };
 export { AgendaRepository };
+export { ChallengeRepository };
+export { TrailChallengeRepository };
+export { TrailParticipationRepository };
+export { trailInvitationRepository };
+export { CompletedChallengeRepository };

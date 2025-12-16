@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { Prisma } from '@prisma/client';
 import { TrailRepository } from '../repositories';
 import { Trail, UpdateTrail } from '../DTOs';
 
@@ -7,27 +8,31 @@ class TrailController {
     try {
       const trailData = Trail.parse(req.body);
 
-      const ownerId = Number(req.user?.id); // ajustar de acordo com o middleware de autenticação
+      // TODO: Get ownerId from authenticated user token when auth middleware is updated
+      const ownerId = Number(req.body.ownerId);
 
-      if (!ownerId) {
+      if (!ownerId || Number.isNaN(ownerId)) {
         return next({
-          status: 401,
-          message: 'Usuário não autenticado',
+          status: 400,
+          message: 'ID do proprietário é obrigatório',
         });
       }
 
-        const challenges = trailData.challenges.map((id, index) => ({
+      const trail = await TrailRepository.create({
+        title: trailData.title,
+        description: trailData.description,
+        theme: trailData.theme,
+        startDate: trailData.startDate,
+        endDate: trailData.endDate,
+        totalRewards: trailData.totalRewards,
+        owner: { connect: { id: ownerId } },
+        challenges: {
+          create: trailData.challenges.map((id, index) => ({
             challenge: { connect: { id } },
             challengeOrder: index,
-        }));
-
-      const trailDataFinalized = {
-        ...trailData,
-        ownerId,
-        challenges,
-        };
-
-      const trail = await TrailRepository.create(trailDataFinalized);
+          })),
+        },
+      });
 
       res.locals = {
         status: 201,
@@ -45,14 +50,14 @@ class TrailController {
     try {
       const trailId = Number(req.params.id);
 
-      const trail = await TrailRepository.findById(trailId);
-
-      if (isNaN(trailId)) {
+      if (Number.isNaN(trailId)) {
         return next({
           status: 400,
           message: 'ID da trilha inválido',
         });
       }
+
+      const trail = await TrailRepository.findById(trailId);
 
       if (!trail) {
         return next({
@@ -77,21 +82,33 @@ class TrailController {
       const trailId = Number(req.params.id);
       const trailData = UpdateTrail.parse(req.body);
 
-      if (isNaN(trailId)) {
+      if (Number.isNaN(trailId)) {
         return next({
           status: 400,
           message: 'ID da trilha inválido',
         });
       }
 
-      let trailDataFinalized = { ...trailData };
+      const updateData: Prisma.TrailUpdateInput = {
+        title: trailData.title,
+        description: trailData.description,
+        theme: trailData.theme,
+        startDate: trailData.startDate,
+        endDate: trailData.endDate,
+        totalRewards: trailData.totalRewards,
+      };
+
       if (trailData.challenges) {
-        trailDataFinalized.challenges = trailData.challenges.map((id: number) => ({
-          challenge: { connect: { id } },
-        }));
+        updateData.challenges = {
+          deleteMany: {},
+          create: trailData.challenges.map((id: number, index: number) => ({
+            challenge: { connect: { id } },
+            challengeOrder: index,
+          })),
+        };
       }
 
-      const trail = await TrailRepository.update(trailId, trailDataFinalized);
+      const trail = await TrailRepository.update(trailId, updateData);
       res.locals = {
         status: 200,
         data: trail,
@@ -108,7 +125,7 @@ class TrailController {
     try {
       const trailId = Number(req.params.id);
 
-      if (isNaN(trailId)) {
+      if (Number.isNaN(trailId)) {
         return next({
           status: 400,
           message: 'ID da trilha inválido',

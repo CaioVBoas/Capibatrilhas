@@ -5,9 +5,14 @@ import TrailInvitationComponent from "components/invitationComponent";
 import SummaryCard from "components/summaryCard";
 import AddChallengeCard from "components/addChallengeCard";
 import React, { useState } from "react";
-import { ListTodo, Plus, ArrowLeft } from "lucide-react";
+import { ListTodo, Plus } from "lucide-react";
+// import { ChevronLeft } from "lucide-react";
 
-const mockTags = ["Mista", "Aventura", "Cultura", "Natureza", "Gastronomia", "História", "Natal", "São João", "Carnaval", "Páscoa"];
+import { useRouter } from "next/navigation";
+import NavBar from "components/navBar";
+import { outfit, dmSans } from "styles/fonts";
+
+const mockTags = ["Customizada", "Aventura", "Cultura", "Natureza", "Gastronomia", "História", "Natal", "São João", "Carnaval", "Páscoa"];
 const mockLink = "https://capibatrilhas.com/invite/abc123";
 const mockChallenges = [
 {
@@ -69,6 +74,7 @@ const mockChallenges = [
 ];
 
 const CreateTrailPage: React.FC = () => {
+  const router = useRouter();
   const [selectedChallenges, setSelectedChallenges] = useState<string[]>([]);
   const [showCapibaWarning, setShowCapibaWarning] = useState(false);
   const [warningVisible, setWarningVisible] = useState(false);
@@ -132,26 +138,28 @@ const CreateTrailPage: React.FC = () => {
     selectedChallenges.length > 0;
 
   return (
+    
   
-    <div className="min-h-screen bg-gray-50">
+    <div className={`${dmSans.className} min-h-screen bg-gray-50`}>
+      <NavBar />
       
-      <div className="bg-blue-600 text-white px-6 py-8">
+      <div className="bg-linear-to-r from-[#2563EB] to-[#1E40AF] text-white px-6 py-8"> {/*aqui*/}
         <div className="flex items-center gap-3 mb-4">
-          <button 
+          {/* <button 
             onClick={() => window.history.back()}
-            className="hover:opacity-80 transition-opacity"
+            className="hover:opacity-80 transition-opacity flex items-center gap-2"
             aria-label="Voltar"
           >
-            <ArrowLeft className="h-6 w-6" />
-          </button>
-          <span className="text-lg font-medium">Voltar</span>
+            <ChevronLeft className="h-6 w-6" />
+            <span className="text-lg font-medium">Voltar</span>
+          </button> */}
         </div>
         
         <div className="flex items-start gap-3">
-          <Plus className="h-8 w-8 mt-1 flex-shrink-0" />
+          <Plus className="h-8 w-8 mt-1 shrink-0" />
           <div>
-            <h1 className="text-3xl font-bold">Criar Trilha Personalizada</h1>
-            <p className="text-blue-100 mt-2">Monte sua própria trilha escolhendo desafios que mais combinem com você e seus amigos!</p>
+            <h1 className={`text-3xl font-bold ${outfit.className}`}>Criar Trilha Personalizada</h1>
+            <p className={`text-blue-100 mt-2 ${dmSans.className}`}>Monte sua própria trilha escolhendo desafios que mais combinem com você e seus amigos!</p>
           </div>
         </div>
       </div>
@@ -180,7 +188,7 @@ const CreateTrailPage: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-6 p-6 ml-6">
         <div className="flex flex-col gap-1">
-          <h2 className="text-2xl font-semibold flex items-center gap-1">
+          <h2 className={`text-2xl font-semibold flex items-center gap-1 ${outfit.className}`}>
             <ListTodo className="h-5 w-5 text-gray-600" aria-hidden="true" />
             Escolha os Desafios
           </h2>
@@ -210,14 +218,13 @@ const CreateTrailPage: React.FC = () => {
       <div className="flex justify-center p-6">
         <button
           onClick={() => {
-            if (isFormValid) {
-              console.log("Trilha criada:", { title, description, dateRange, selectedChallenges });
-              alert("Trilha criada com sucesso!"); //MUDAR ISSO PARA LEVAR PRA PÁGINA DAS SUAS TRILHAS
-              // SUBSTITUINDO CONSOLE POR POP UP
-            }
+            if (!isFormValid) return;
+            console.log("Trilha criada:", { title, description, dateRange, selectedChallenges });
+            alert("Trilha criada com sucesso!");
+            router.push("/myTrails");
           }}
           disabled={!isFormValid}
-          className={`w-1/2 flex justify-center  py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${
+          className={`w-1/2 flex justify-center  py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${outfit.className} ${
             isFormValid
               ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer justify-center flex items-center gap-2"
               : "bg-gray-300 text-gray-500 cursor-not-allowed justify-center flex items-center gap-2"

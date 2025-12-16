@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Link, Copy, QrCode } from "lucide-react";
 import { Users } from "lucide-react";
 import Image from "next/image";
+import { outfit, dmSans } from "styles/fonts";
 
 interface TrailInvitationProps {
   link: string;
@@ -29,15 +30,15 @@ const TrailInvitationComponent: React.FC<TrailInvitationProps> = ({ link }) => {
 
   return (
     <>
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col gap-3">
-            <h2 className="text-2xl font-semibold flex items-center gap-1">
+      <div className={`${outfit.className} bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col gap-3`}>
+        <h2 className={`text-2xl font-semibold flex items-center gap-1 ${outfit.className}`}>
                 <Users className="h-5 w-5 text-gray-600" aria-hidden="true" />
                 Convidar Usuários para sua Trilha
             </h2>
 
-            <div>
-            <p className="text-gray-500 ml-3">Compartilhe sua trilha personalizada com amigos e familiares através de QR Code ou link</p>
-            </div>
+        <div>
+        <p className={`text-gray-500 ml-3 ${dmSans.className}`}>Compartilhe sua trilha personalizada com amigos e familiares através de QR Code ou link</p>
+        </div>
 
               <div className="flex gap-3 w-full items-stretch">
                 <div className="flex items-center gap-2 bg-gray-50 rounded-xl p-4 text-gray-700 border border-gray-100 font-mono w-[50%] font-semibold">
