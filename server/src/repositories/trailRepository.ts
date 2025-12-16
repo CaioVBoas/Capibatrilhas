@@ -1,5 +1,5 @@
 import { Prisma, Trail } from '@prisma/client';
-import prisma from '@database';
+import prisma from '../database';
 
 class TrailRepository {
   async create(data: Prisma.TrailCreateInput): Promise<Trail> {
@@ -21,10 +21,9 @@ class TrailRepository {
   async update(id: number, data: Prisma.TrailUpdateInput): Promise<Trail> {
     const exists = await prisma.trail.findUnique({ where: { id } });
     if (!exists) {
-      throw {
-        status: 404,
-        message: 'Trilha não encontrada',
-      };
+      const error = new Error('Trilha não encontrada') as any;
+      error.status = 404;
+      throw error;
     }
     const trail = await prisma.trail.update({ where: { id }, data });
     return trail;
@@ -33,10 +32,9 @@ class TrailRepository {
   async delete(id: number): Promise<Trail> {
     const exists = await prisma.trail.findUnique({ where: { id } });
     if (!exists) {
-      throw {
-        status: 404,
-        message: 'Trilha não encontrada',
-      };
+      const error = new Error('Trilha não encontrada') as any;
+      error.status = 404;
+      throw error;
     }
     const trail = await prisma.trail.delete({ where: { id } });
     return trail;
