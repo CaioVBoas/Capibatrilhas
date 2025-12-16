@@ -7,6 +7,7 @@ import { Calendar } from "../ui/calendar";
 import { DateRange } from "react-day-picker";
 import { CalendarIcon, BadgeInfo } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { outfit, dmSans } from "styles/fonts";
 
 interface TrailDescriptionProps {
   topic: string[];
@@ -72,8 +73,8 @@ const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitle
   }, [isCalendarOpen]);
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col gap-6">
-      <h2 className="text-2xl font-semibold flex items-center gap-1">
+    <div className={`${dmSans.className} bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col gap-6`}>
+      <h2 className={`text-2xl font-semibold flex items-center gap-1 ${outfit.className}`}>
         <BadgeInfo className="h-5 w-5 text-gray-600" aria-hidden="true" />
         Informações da Trilha
       </h2>
