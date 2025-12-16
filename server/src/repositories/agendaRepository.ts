@@ -1,5 +1,5 @@
 import { Prisma, EventAgenda } from '@prisma/client';
-import prisma from '@database';
+import prisma from '../database';
 
 class AgendaRepository {
   async create(data: Prisma.EventAgendaCreateInput): Promise<EventAgenda> {
