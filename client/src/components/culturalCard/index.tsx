@@ -1,5 +1,7 @@
 import React from 'react';
-import { Calendar, MapPin } from 'lucide-react';
+import { Calendar, MapPin, Coins } from 'lucide-react';
+import { dmSans, outfit } from "styles/fonts";
+import Link from 'next/link';
 
 interface Cultural {
   title: string;
@@ -8,6 +10,7 @@ interface Cultural {
   isFree: boolean;
   date: string;
   location: string;
+  capibas: number;
 }
 
 interface CulturalCardProps {
@@ -16,46 +19,50 @@ interface CulturalCardProps {
 
 const CulturalCard: React.FC<CulturalCardProps> = ({ cultural }) => {
   return (
-    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow duration-300 w-full max-w-sm">
+    <div className={`${dmSans.className} group bg-white rounded-3xl shadow-sm border border-gray-200 p-5 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 w-full max-w-sm`}>
+      <div className="relative h-20 rounded-2xl bg-linear-to-r from-blue-100 via-purple-100 to-orange-100 mb-4 overflow-hidden" />
 
-      <div className="h-48 bg-linear-to-br from-blue-100 via-purple-100 to-orange-100 relative">
-        <span className="absolute bottom-4 left-4 bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
-          {cultural.category}
-        </span>
-      </div> 
-
-      <div className="p-6 flex flex-col gap-4 grow">
-
-        <div className="flex justify-between items-center">
-          <div className="flex items-center text-gray-500 font-medium text-sm tracking-wide uppercase">
-            <Calendar className="w-4 h-4 mr-2" />
+      <div className="flex flex-col gap-3 flex-1">
+        <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex items-center gap-2 text-gray-500 text-sm font-medium uppercase tracking-wide">
+            <Calendar className="w-4 h-4" />
             <span>{cultural.date}</span>
+            
           </div>
 
-          {cultural.isFree && (
-            <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-              Gratuito
-            </span>
-          )}
+          <span className={`${dmSans.className} text-xs font-semibold px-3 py-1 rounded-lg bg-[#3e7bff24] text-[#2563EB]`}>
+            {cultural.category}
+          </span>
+
+          <span className={`${dmSans.className} text-xs font-semibold px-3 py-1 rounded-lg border ${
+            cultural.isFree
+              ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+              : "bg-gray-50 text-gray-600 border-gray-200"
+          }`}>
+            {cultural.isFree ? "Gratuito" : "Pago"}
+          </span>
+          
         </div>
 
-        <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2 leading-tight">
-            {cultural.title}
-          </h2>
-          <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">
-            {cultural.description}
-          </p>
+        <div className="flex flex-col gap-2">
+          <h2 className={`${outfit.className} text-xl font-bold text-gray-900 leading-tight`}>{cultural.title}</h2>
+          <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{cultural.description}</p>
         </div>
 
-        <div className="flex items-center text-gray-500 text-sm font-medium mt-auto pt-2">
-          <MapPin className="w-4 h-4 mr-2 shrink-0" />
-          <span className="truncate">{cultural.location}</span>
+        <div className="flex items-center justify-between text-gray-500 text-sm font-medium mt-auto pt-2">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 shrink-0" />
+            <span className="truncate">{cultural.location}</span>
+          </div>
+          <div className="flex items-center gap-1 text-yellow-500 font-semibold">
+            <Coins className="w-4 h-4" />
+            <span>+{cultural.capibas}</span>
+          </div>
         </div>
 
-        <button className="w-full py-3 rounded-xl border border-gray-200 font-bold text-gray-700 hover:bg-gray-50 transition-colors mt-2 text-sm">
+        <Link href="knowMore" className={`${outfit.className} w-full py-3 rounded-xl border border-gray-200 font-semibold text-gray-800 hover:bg-gray-50 transition-colors mt-2 text-sm flex items-center justify-center`}>
           Saber mais
-        </button>
+        </Link>
       </div>
     </div>
   );

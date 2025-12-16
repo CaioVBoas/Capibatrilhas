@@ -1,7 +1,7 @@
 import React from 'react';
 import { CalendarImg } from 'assets';
 import Image from 'next/image';
-import { MapPin, CalendarClock } from 'lucide-react';
+import { MapPin, CalendarClock, Coins } from 'lucide-react';
 import { Outfit, DM_Sans } from "next/font/google";
 
 const outfit = Outfit({
@@ -20,6 +20,7 @@ interface Events {
   name: string;
   date: string;
   location: string;
+  capibas: number;
 }
 
 interface EventsCardProps {
@@ -68,6 +69,13 @@ const EventsCard: React.FC<EventsCardProps> = ({ event }) => {
             <MapPin size={18} className="text-red-400 shrink-0" />
             <span className={`${dmSans.className} text-sm`}>
               {event.location}
+            </span>
+          </div>
+          
+          <div className="flex items-center gap-2 text-yellow-500">
+            <Coins size={18} className="shrink-0" />
+            <span className={`${dmSans.className} text-sm font-semibold`}>
+              +{event.capibas}
             </span>
           </div>
         </div>

@@ -74,9 +74,9 @@ export default function NavBar() {
                 <nav className="hidden md:flex items-center gap-6 lg:gap-8 ml-auto">
                     <NavLink href="/homePage" text="Home" />
                     <NavLink href="/exploreTrails" text="Explorar" />
-                    <NavLink href="/trilhas" text="Minhas Trilhas" />
-                    <NavLink href="/agenda" text="Agenda" />
-                    <NavLink href="/recompensas" text="Recompensas" />
+                    <NavLink href="/myTrails" text="Minhas Trilhas" />
+                    <NavLink href="/schedulePage" text="Agenda" />
+                    <NavLink href="/rewardsPage" text="Recompensas" />
                     
                     <Link 
                         href="profilePage" 
