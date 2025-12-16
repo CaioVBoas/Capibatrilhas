@@ -2,6 +2,7 @@
 import ExploreTrailsCard from 'components/exploreTrailsCard';
 import TrailCard from 'components/featuredTrailCards';
 import { useState } from 'react';
+import NavBar from 'components/navBar';
 
 const mockTrails = [
   {
@@ -116,6 +117,7 @@ export default function ExploreTrails() {
 
   return (
     <div className="w-full bg-[#e8ebf095] min-h-screen">
+      <NavBar></NavBar>
       <ExploreTrailsCard
         selectedType={selectedType}
         setSelectedType={setSelectedType}

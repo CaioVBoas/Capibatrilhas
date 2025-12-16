@@ -1,5 +1,11 @@
 'use client';
 import { Funnel, Search } from 'lucide-react';
+import { Outfit } from 'next/font/google';
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['600', '700']
+});
 
 const trailsTypes = [
   'Todas',
@@ -26,7 +32,7 @@ export default function ExploreTrailsCard({
   return (
     <div className="w-full flex justify-center py-4 bg-zinc-50 border-b border-zinc-300">
       <div className="flex flex-col gap-4">
-        <h1 className="text-xl text-[#1B2432] font-semibold">
+        <h1 className={`text-2xl text-[#1B2432] font-semibold ${outfit.className}`}>
           Explorar Trilhas
         </h1>
 
@@ -47,7 +53,7 @@ export default function ExploreTrailsCard({
           />
         </div>
 
-        <div className="flex  py-1 items-center flex-wrap gap-y-2">
+        <div className="flex  py-1 items-center flex-wrap gap-y-2 font-sans">
           <Funnel className="text-[#6c7d94] mx-1" size={19} />{' '}
           {trailsTypes.map((type) => (
             <button
