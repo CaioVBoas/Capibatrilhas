@@ -14,7 +14,7 @@ const dmSans = DM_Sans({
 });
 
 //Interface de Props do TrailCard
-interface Trails {
+export interface Trails {
   title: string;
   subtitle: string;
   progress: number; 
