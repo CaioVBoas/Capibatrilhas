@@ -61,6 +61,7 @@ Table Trail {
   challenges TrailChallenge [not null]
   participants TrailParticipation [not null]
   invites TrailInvitation [not null]
+  completedChallenges CompletedChallenge [not null]
 }
 
 Table TrailChallenge {
@@ -98,13 +99,15 @@ Table CompletedChallenge {
   id Int [pk, increment]
   userId Int [not null]
   challengeId Int [not null]
+  trailId Int [not null]
   completedAt DateTime [default: `now()`, not null]
   rewardsEarned Int [not null]
   user User [not null]
   challenge Challenge [not null]
+  trail Trail [not null]
 
   indexes {
-    (userId, challengeId) [unique]
+    (userId, challengeId, trailId) [unique]
   }
 }
 
@@ -176,6 +179,8 @@ Ref: TrailParticipation.trailId > Trail.id [delete: Cascade]
 Ref: CompletedChallenge.userId > User.id [delete: Cascade]
 
 Ref: CompletedChallenge.challengeId > Challenge.id [delete: Cascade]
+
+Ref: CompletedChallenge.trailId > Trail.id [delete: Cascade]
 
 Ref: TrailInvitation.trailId > Trail.id [delete: Cascade]
 

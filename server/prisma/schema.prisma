@@ -82,9 +82,10 @@ model Trail {
   owner   User   @relation("TrailOwner", fields: [ownerId], references: [id], onDelete: Cascade)
 
   // Relacionamentos
-  challenges   TrailChallenge[]
-  participants TrailParticipation[]
-  invites      TrailInvitation[]
+  challenges          TrailChallenge[]
+  participants        TrailParticipation[]
+  invites             TrailInvitation[]
+  completedChallenges CompletedChallenge[]
 
   @@index([ownerId])
   @@index([theme])
@@ -132,15 +133,18 @@ model CompletedChallenge {
   id            Int      @id @default(autoincrement())
   userId        Int
   challengeId   Int
+  trailId       Int
   completedAt   DateTime @default(now())
   rewardsEarned Int // Recompensas ganhas ao completar
 
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  trail     Trail     @relation(fields: [trailId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, challengeId])
+  @@unique([userId, challengeId, trailId])
   @@index([userId])
   @@index([challengeId])
+  @@index([trailId])
 }
 
 // Sistema de convites para trilhas

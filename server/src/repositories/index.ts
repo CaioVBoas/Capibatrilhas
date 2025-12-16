@@ -8,6 +8,7 @@ import ChallengeRepository from './challengeRepository';
 import TrailChallengeRepository from './trailChallengeRepository';
 import TrailParticipationRepository from './trailParticipationRepository';
 import trailInvitationRepository from './trailInvitationRepository';
+import CompletedChallengeRepository from './completedChallengeRepository';
 
 export { UserRepository, TokenRepository, CookieRepository, FileRepository };
 export { DistrictRepository };
@@ -16,3 +17,4 @@ export { ChallengeRepository };
 export { TrailChallengeRepository };
 export { TrailParticipationRepository };
 export { trailInvitationRepository };
+export { CompletedChallengeRepository };
