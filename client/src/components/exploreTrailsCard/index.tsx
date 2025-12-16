@@ -30,7 +30,7 @@ export default function ExploreTrailsCard({
   setSearchTerm
 }: ExploreTrailsCardProps) {
   return (
-    <div className="w-full flex justify-center py-4 bg-zinc-50 border-b border-zinc-300">
+    <div className="w-full grid justify-center py-4 bg-zinc-50 border-b border-zinc-300">
       <div className="flex flex-col gap-4">
         <h1 className={`text-3xl text-[#1B2432] ${outfit.className}`}>
           Explorar Trilhas
@@ -48,7 +48,7 @@ export default function ExploreTrailsCard({
             id=""
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-[#e8ebf095] p-2 pl-9 rounded-2xl border border-zinc-400 w-full text-sm text-[#5e6d83]"
+            className="bg-[#e8ebf095] placeholder:font-sans placeholder:font-semibold p-2 pl-9 rounded-2xl border border-zinc-400 w-full text-sm text-[#5e6d83]"
             placeholder="Buscar trilhas..."
           />
         </div>
