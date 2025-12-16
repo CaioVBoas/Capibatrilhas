@@ -4,6 +4,7 @@ import { dmSans, outfit } from "styles/fonts";
 import Link from 'next/link';
 
 interface Cultural {
+  id: number;
   title: string;
   description: string;
   category: string;
@@ -60,7 +61,7 @@ const CulturalCard: React.FC<CulturalCardProps> = ({ cultural }) => {
           </div>
         </div>
 
-        <Link href="knowMore" className={`${outfit.className} w-full py-3 rounded-xl border border-gray-200 font-semibold text-gray-800 hover:bg-gray-50 transition-colors mt-2 text-sm flex items-center justify-center`}>
+        <Link href={`/eventDetails/${cultural.id}`} className={`${outfit.className} w-full py-3 rounded-xl border border-gray-200 font-semibold text-gray-800 hover:bg-gray-50 transition-colors mt-2 text-sm flex items-center justify-center`}>
           Saber mais
         </Link>
       </div>
