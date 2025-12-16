@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { CheckCircle, Circle, MapPin, Camera, Coins } from "lucide-react";
+import { dmSans, outfit } from "styles/fonts";
 
 interface Challenge {
   id: string;
@@ -11,7 +12,6 @@ interface Challenge {
   description: string;
 }
 
-// Props: accept challenge data, optionally controlled `selected` and `onToggle`
 interface ChallengeCardProps {
   challenge: Challenge;
   selected?: boolean;
@@ -37,7 +37,7 @@ const AddChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: s
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") toggle();
       }}
-      className={`w-full text-left rounded-xl p-6 flex flex-col gap-4 border transition-transform duration-150 ease-in-out focus:outline-none cursor-pointer ${
+      className={`${dmSans.className} w-full text-left rounded-xl p-6 flex flex-col gap-4 border transition-transform duration-150 ease-in-out focus:outline-none cursor-pointer ${
         selected
           ? "border-blue-500 bg-blue-50 shadow-[0_6px_20px_rgba(0,91,255,0.08)] transform -translate-y-0.5"
           : "border-gray-200 bg-white hover:shadow-sm"
@@ -54,7 +54,7 @@ const AddChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: s
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">{challenge.name}</h3>
+            <h3 className={`text-lg font-semibold text-gray-900 ${outfit.className}`}>{challenge.name}</h3>
             {challenge.description && (
               <p className="text-gray-500 mt-1">{challenge.description}</p>
             )}
@@ -69,7 +69,6 @@ const AddChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: s
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  // placeholder action for media/check-in
                 }}
                 className="ml-2 inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700 bg-white"
               >
