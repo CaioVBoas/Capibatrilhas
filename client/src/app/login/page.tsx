@@ -47,7 +47,7 @@ export default function LoginPage() {
             </TabsContent>
 
             <TabsContent value="register">
-              <RegisterForm />
+              <RegisterForm onSuccess = {() => setActiveTab("login")}/>
               <button 
                 onClick={() => setActiveTab("login")}
                 className="w-full text-center text-sm text-blue-600 mt-4 hover:underline"
