@@ -71,6 +71,21 @@ class UserController {
     }
   }
 
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await UserRepository.findAll();
+
+      res.locals = {
+        status: 200,
+        data: users,
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = Number(req.params.id);
