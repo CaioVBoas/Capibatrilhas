@@ -1,5 +1,5 @@
 import { userPath } from './paths';
-import { userSchema } from './schemas';
+import { userSchema, userCreateSchema, userUpdateSchema } from './schemas';
 
 export default {
   openapi: '3.0.0',
@@ -20,6 +20,8 @@ export default {
   components: {
     schemas: {
       user: userSchema,
+      userCreate: userCreateSchema,
+      userUpdate: userUpdateSchema,
     },
     securitySchemes: {
       bearerAuth: {
