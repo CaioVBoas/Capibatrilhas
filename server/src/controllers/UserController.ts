@@ -113,6 +113,14 @@ class UserController {
   async updateProfile(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = Number(req.params.userId);
+
+      if (Number.isNaN(userId)) {
+        return next({
+          status: 400,
+          message: 'ID do usuário inválido',
+        });
+      }
+
       const userData = UpdateUserProfile.parse(req.body);
 
       const user = await UserRepository.update(userId, userData);
@@ -135,6 +143,14 @@ class UserController {
   async updateProgress(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = Number(req.params.userId);
+
+      if (Number.isNaN(userId)) {
+        return next({
+          status: 400,
+          message: 'ID do usuário inválido',
+        });
+      }
+
       const progressData = UpdateUserProgress.parse(req.body);
 
       const user = await UserRepository.update(userId, progressData);
