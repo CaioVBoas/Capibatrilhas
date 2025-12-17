@@ -2,6 +2,7 @@
 import ExploreTrailsCard from 'components/exploreTrailsCard';
 import TrailCard from 'components/featuredTrailCards';
 import { useState } from 'react';
+import NavBar from 'components/navBar';
 
 const mockTrails = [
   {
@@ -116,6 +117,7 @@ export default function ExploreTrails() {
 
   return (
     <div className="w-full bg-[#e8ebf095] min-h-screen">
+      <NavBar></NavBar>
       <ExploreTrailsCard
         selectedType={selectedType}
         setSelectedType={setSelectedType}
@@ -123,7 +125,7 @@ export default function ExploreTrails() {
         setSearchTerm={setSearchTerm}
       />
       <div className="p-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto">
           {filteredTrails.length > 0 ? (
             filteredTrails.map((trail) => (
               <TrailCard key={trail.id} trail={trail} />

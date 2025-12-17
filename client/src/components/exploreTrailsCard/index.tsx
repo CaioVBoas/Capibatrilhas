@@ -1,5 +1,11 @@
 'use client';
 import { Funnel, Search } from 'lucide-react';
+import { Outfit } from 'next/font/google';
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['600', '700']
+});
 
 const trailsTypes = [
   'Todas',
@@ -24,9 +30,9 @@ export default function ExploreTrailsCard({
   setSearchTerm
 }: ExploreTrailsCardProps) {
   return (
-    <div className="w-full flex justify-center py-4 bg-zinc-50 border-b border-zinc-300">
+    <div className="w-full grid justify-center py-4 bg-zinc-50 border-b border-zinc-300">
       <div className="flex flex-col gap-4">
-        <h1 className="text-xl text-[#1B2432] font-semibold">
+        <h1 className={`text-3xl text-[#1B2432] ${outfit.className}`}>
           Explorar Trilhas
         </h1>
 
@@ -42,18 +48,18 @@ export default function ExploreTrailsCard({
             id=""
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-[#e8ebf095] p-2 pl-9 rounded-2xl border border-zinc-400 w-full text-sm text-[#5e6d83]"
+            className="bg-[#e8ebf095] placeholder:font-sans placeholder:font-semibold p-2 pl-9 rounded-2xl border border-zinc-400 w-full text-sm text-[#5e6d83]"
             placeholder="Buscar trilhas..."
           />
         </div>
 
-        <div className="flex  py-1 items-center flex-wrap gap-y-2">
+        <div className="flex py-1 items-center flex-wrap gap-y-2 font-sans">
           <Funnel className="text-[#6c7d94] mx-1" size={19} />{' '}
           {trailsTypes.map((type) => (
             <button
               onClick={() => setSelectedType(type)}
               className={`
-                px-2 py-1 text-xs rounded-2xl mx-1 font-bold
+                px-3 py-1.5 text-xs rounded-2xl mx-1 font-bold
                 ${
                   selectedType === type
                     ? 'bg-[#1162D4] text-white border border-[#627084]'
