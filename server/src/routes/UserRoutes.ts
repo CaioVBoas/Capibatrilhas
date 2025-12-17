@@ -1,35 +1,29 @@
 import { Router } from 'express';
 import auth from '../middlewares/auth';
+import admin from '../middlewares/admin';
 import { UserController } from '../controllers';
 
 const userRouter = Router();
 
-userRouter.route('/')
-  .post(
-    UserController.create,
-  );
+userRouter.route('/').post(UserController.create);
 
-userRouter.route('/:userId')
-  .get(
-    UserController.read,
-  );
+userRouter.route('/').get([auth], UserController.list);
 
-userRouter.route('/')
-  .get(
-    [auth],
-    UserController.list,
-  );
+userRouter.route('/:userId').get(UserController.read);
 
-userRouter.route('/:userId')
-  .patch(
-    [auth],
-    UserController.update,
-  );
+// Update user profile - requires authentication
+userRouter.route('/:userId').patch([auth], UserController.updateProfile);
 
-userRouter.route('/:userId')
-  .delete(
-    [auth],
-    UserController.delete,
-  );
+// Update user game progress (points, level) - ADMIN ONLY
+userRouter
+  .route('/:userId/progress')
+  .patch([admin], UserController.updateProgress);
+
+// Change user password - requires authentication and current password
+userRouter
+  .route('/:userId/password')
+  .patch([auth], UserController.changePassword);
+
+userRouter.route('/:userId').delete([auth], UserController.delete);
 
 export default userRouter;

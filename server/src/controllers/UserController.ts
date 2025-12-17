@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { hash } from 'bcryptjs';
+import { hash, compare } from 'bcryptjs';
 import { UserRepository } from '../repositories';
-import { User, UpdateUser } from '../DTOs';
+import { User, UpdateUserProfile, UpdateUserProgress, ChangePassword } from '../DTOs';
 
 class UserController {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -35,10 +35,13 @@ class UserController {
 
       const user = await UserRepository.create(userDataWithHashedPassword);
 
+      // Remove sensitive fields from response
+      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+
       res.locals = {
         status: 201,
         message: 'Usuário criado',
-        data: user,
+        data: sanitizedUser,
       };
 
       return next();
@@ -60,9 +63,12 @@ class UserController {
         });
       }
 
+      // Remove sensitive fields from response
+      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+
       res.locals = {
         status: 200,
-        data: user,
+        data: sanitizedUser,
       };
 
       return next();
@@ -82,6 +88,10 @@ class UserController {
           cpf,
           email,
           phone,
+          zipCode,
+          state,
+          city,
+          district,
           street,
           complement,
           number,
@@ -100,17 +110,97 @@ class UserController {
     }
   }
 
-  async update(req: Request, res: Response, next: NextFunction) {
+  async updateProfile(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = Number(req.params.id);
-      const userData = UpdateUser.parse(req.body);
+      const userId = Number(req.params.userId);
+      const userData = UpdateUserProfile.parse(req.body);
 
       const user = await UserRepository.update(userId, userData);
 
+      // Remove sensitive fields from response
+      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+
       res.locals = {
         status: 200,
-        data: user,
-        message: 'Usuário atualizado',
+        data: sanitizedUser,
+        message: 'Perfil atualizado',
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async updateProgress(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = Number(req.params.userId);
+      const progressData = UpdateUserProgress.parse(req.body);
+
+      const user = await UserRepository.update(userId, progressData);
+
+      // Remove sensitive fields from response
+      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+
+      res.locals = {
+        status: 200,
+        data: sanitizedUser,
+        message: 'Progresso atualizado',
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async changePassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = Number(req.params.userId);
+      const authenticatedUserId = req.userId;
+
+      // Users can only change their own password
+      if (authenticatedUserId !== userId) {
+        return next({
+          status: 403,
+          message: 'Você só pode alterar sua própria senha',
+        });
+      }
+
+      const passwordData = ChangePassword.parse(req.body);
+
+      // Get current user data
+      const user = await UserRepository.findById(userId);
+
+      if (!user) {
+        return next({
+          status: 404,
+          message: 'Usuário não encontrado',
+        });
+      }
+
+      // Verify current password
+      const isPasswordValid = await compare(
+        passwordData.currentPassword,
+        user.password,
+      );
+
+      if (!isPasswordValid) {
+        return next({
+          status: 401,
+          message: 'Senha atual incorreta',
+        });
+      }
+
+      // Hash new password
+      const hashedPassword = await hash(passwordData.newPassword, 12);
+
+      // Update password
+      await UserRepository.update(userId, { password: hashedPassword });
+
+      res.locals = {
+        status: 200,
+        message: 'Senha alterada com sucesso',
       };
 
       return next();

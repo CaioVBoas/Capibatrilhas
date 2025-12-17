@@ -1,18 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import TokenRepository from '../repositories/tokenRepository';
+import UserRepository from '../repositories/userRepository';
 
-// Extend Express Request to include userId
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace Express {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Request {
-      userId?: number;
-    }
-  }
-}
-
-export default async function auth(
+export default async function admin(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -28,9 +18,17 @@ export default async function auth(
     }
 
     const [, token] = authToken.split(' ');
-
     const decoded = TokenRepository.verifyAccessToken(token);
-    req.userId = decoded.id; // Attach user ID to request
+    
+    const user = await UserRepository.findById(decoded.id);
+
+    if (!user || !user.isAdmin) {
+      return next({
+        status: 403,
+        message: 'Acesso negado. Apenas administradores podem acessar este recurso.',
+      });
+    }
+
     return next();
   } catch (error: any) {
     return res.status(401).send({ error: error.message });
