@@ -9,6 +9,7 @@ import {
   LucideIcon,
 
 } from 'lucide-react';
+import Link from 'next/link';
 import { outfit, dmSans } from '../../styles/fonts';
 
 interface UserStats {
@@ -78,12 +79,12 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
               </span>
             </div>
           </div>
-          <button
-            className="p-2 text-blue-100 hover:text-white hover:bg-white/10 rounded-full transition-all"
+          <Link href='/settingsPage'
+            className="p-1.5 text-blue-100 hover:text-white hover:bg-white/10 rounded-full transition-all"
             aria-label="Configurações"
           >
-            <Settings className="w-7 h-7" />
-          </button>
+            <Settings className="w-6 h-6" />
+          </Link>
         </div>
         <div className="flex gap-4 justify-between">
           <StatBox icon={Coins} value={user.stats.capibas} label="Capibas" />
