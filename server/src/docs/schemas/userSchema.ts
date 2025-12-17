@@ -66,6 +66,7 @@ const userCreateSchema = {
     city: {
       type: 'string',
       minLength: 2,
+      pattern: '^[\\p{L}\\s]+$',
     },
     district: {
       type: 'string',
@@ -120,6 +121,7 @@ const userUpdateSchema = {
     city: {
       type: 'string',
       minLength: 2,
+      pattern: '^[\\p{L}\\s]+$',
     },
     district: {
       type: 'string',
