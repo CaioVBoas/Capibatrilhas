@@ -1,8 +1,10 @@
 'use client';
 import React, { useState } from 'react';
-import { Search, CalendarDays, ChevronDown, ChevronLeft } from 'lucide-react';
+import { Search, CalendarDays, ChevronDown } from 'lucide-react';
 import CulturalCard from 'components/culturalCard';
-import { useRouter } from 'next/navigation';
+import NavBar from 'components/navBar';
+import { outfit, dmSans } from 'styles/fonts';
+
 
 const mockEvents = [
   {
@@ -13,7 +15,8 @@ const mockEvents = [
     category: 'Música',
     isFree: true,
     date: '10 OUT',
-    location: 'Praça do Arsenal'
+    location: 'Praça do Arsenal',
+    capibas: 50
   },
   {
     id: 2,
@@ -22,7 +25,8 @@ const mockEvents = [
     category: 'Cinema',
     isFree: false,
     date: '12 OUT',
-    location: 'Cinema São Luiz'
+    location: 'Cinema São Luiz',
+    capibas: 120
   },
   {
     id: 3,
@@ -31,7 +35,8 @@ const mockEvents = [
     category: 'Artesanato',
     isFree: true,
     date: '15 OUT',
-    location: 'Marco Zero'
+    location: 'Marco Zero',
+    capibas: 80
   },
   {
     id: 4,
@@ -40,7 +45,8 @@ const mockEvents = [
     category: 'Música',
     isFree: true,
     date: '18 OUT',
-    location: 'Pátio de São Pedro'
+    location: 'Pátio de São Pedro',
+    capibas: 90
   },
   {
     id: 5,
@@ -49,7 +55,8 @@ const mockEvents = [
     category: 'Arte',
     isFree: false,
     date: '20 OUT',
-    location: 'MAMAM'
+    location: 'MAMAM',
+    capibas: 110
   },
   {
     id: 6,
@@ -58,7 +65,8 @@ const mockEvents = [
     category: 'Literatura',
     isFree: true,
     date: '22 OUT',
-    location: 'Casa da Cultura'
+    location: 'Casa da Cultura',
+    capibas: 70
   },
   {
     id: 7,
@@ -67,57 +75,54 @@ const mockEvents = [
     category: 'Cursos e Oficinas',
     isFree: false,
     date: '14 OUT',
-    location: 'Paço do Frevo'
+    location: 'Paço do Frevo',
+    capibas: 130
   },
+
   {
     id: 8,
-    title: 'Teatro de Rua',
-    description: 'Espetáculo tradicional de bonecos mamulengos.',
-    category: 'Teatro',
-    isFree: true,
-    date: '16 OUT',
-    location: 'Praça da República'
-  },
-  {
-    id: 9,
     title: 'Exposição Fotográfica',
     description: 'Mostra sobre a história do Bairro do Recife.',
     category: 'Exposição',
     isFree: true,
     date: '19 OUT',
-    location: 'Torre Malakoff'
+    location: 'Torre Malakoff',
+    capibas: 85
   },
   {
-    id: 10,
+    id: 9,
     title: 'Festival Gastronômico',
     description: 'Celebração dos sabores típicos pernambucanos.',
     category: 'Gastronomia',
     isFree: true,
     date: '21 OUT',
-    location: 'Mercado de São José'
+    location: 'Mercado de São José',
+    capibas: 95
   },
   {
-    id: 11,
+    id: 10,
     title: 'Congresso de Cultura',
     description: 'Debates sobre preservação patrimonial.',
     category: 'Congressos e Palestras',
     isFree: false,
     date: '23 OUT',
-    location: 'Centro de Convenções'
+    location: 'Centro de Convenções',
+    capibas: 140
   },
   {
-    id: 12,
+    id: 11,
     title: 'Ciclo de Cinema',
     description: 'Exibição de clássicos nacionais restaurados.',
     category: 'Cinema',
     isFree: true,
     date: '25 OUT',
-    location: 'Cinema da Fundação'
+    location: 'Cinema da Fundação',
+    capibas: 75
   }
 ];
 
 export default function CulturalAgendaPage() {
-  const router = useRouter();
+
   const [categoryFilter, setCategoryFilter] = useState('Todas');
   const [freeFilter, setFreeFilter] = useState('Todas');
 
@@ -139,22 +144,16 @@ export default function CulturalAgendaPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
-      <header className="bg-blue-600 pt-8 pb-12 px-6 shadow-lg">
+      <NavBar />
+      <header className="bg-linear-to-r from-[#2563EB] to-[#1E40AF] pt-8 pb-12 px-6 shadow-lg">
         <div className="max-w-6xl mx-auto">
-          <button
-            onClick={() => router.back()}
-            className="flex items-center gap-2 hover:opacity-80 transition-opacity text-white mb-3"
-          >
-            <ChevronLeft className="h-6 w-6" />
-            <span className="text-lg font-medium">Voltar</span>
-          </button>
           <div className="flex items-center gap-3 mb-2">
             <CalendarDays className="w-8 h-8 text-white" />
-            <h1 className="text-3xl md:text-4xl font-bold text-white">
+            <h1 className={`text-3xl md:text-4xl font-bold text-white ${outfit.className}`}>
               Agenda Cultural
             </h1>
           </div>
-          <p className="text-blue-100 text-lg font-light max-w-2xl">
+          <p className={`text-blue-100 text-lg font-light max-w-2xl ${dmSans.className}`}>
             Descubra eventos culturais do Recife
           </p>
         </div>
@@ -166,16 +165,16 @@ export default function CulturalAgendaPage() {
             <div className="flex-1">
               <label
                 htmlFor="gratuidade"
-                className="block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide"
+                className={`block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide ${outfit.className}`}
               >
-                Gratuidade:
+                Tipo:
               </label>
               <div className="relative group">
                 <select
                   id="gratuidade"
                   value={freeFilter}
                   onChange={(e) => setFreeFilter(e.target.value)}
-                  className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer hover:bg-gray-100"
+                  className={`w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer hover:bg-gray-100 ${dmSans.className}`}
                 >
                   <option value="Todas">Todas</option>
                   <option value="Gratuito">Gratuito</option>
@@ -190,7 +189,7 @@ export default function CulturalAgendaPage() {
             <div className="flex-1">
               <label
                 htmlFor="categoria"
-                className="block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide"
+                className={`block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide ${outfit.className}`}
               >
                 Categoria:
               </label>
@@ -199,7 +198,7 @@ export default function CulturalAgendaPage() {
                   id="categoria"
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer hover:bg-gray-100"
+                  className={`w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer hover:bg-gray-100 ${dmSans.className}`}
                 >
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>
@@ -226,10 +225,10 @@ export default function CulturalAgendaPage() {
             <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <Search className="w-8 h-8 text-blue-400" />
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-1">
+            <h3 className={`text-lg font-bold text-gray-900 mb-1 ${outfit.className}`}>
               Nenhum evento encontrado
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className={`text-gray-500 mb-6 ${dmSans.className}`}>
               Tente selecionar outra categoria ou gratuidade.
             </p>
             <button
