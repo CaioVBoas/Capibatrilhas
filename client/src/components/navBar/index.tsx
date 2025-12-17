@@ -76,7 +76,7 @@ export default function NavBar() {
                     <NavLink href="/exploreTrails" text="Explorar" />
                     <NavLink href="/myTrails" text="Minhas Trilhas" />
                     <NavLink href="/schedulePage" text="Agenda" />
-                    <NavLink href="/rewardsPage" text="Recompensas" />
+                    <NavLink href="/wallet" text="Carteira" />
                     
                     <Link 
                         href="profilePage" 
