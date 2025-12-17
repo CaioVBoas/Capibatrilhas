@@ -4,6 +4,7 @@ import { TrailController } from '../controllers';
 const trailRouter = Router();
 
 trailRouter.route('/')
+  .get(TrailController.list)
   .post(TrailController.create);
 
 trailRouter.route('/:id')
