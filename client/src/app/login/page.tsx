@@ -1,72 +1,63 @@
 "use client";
 
-import { loginBackground, logo_slogan } from 'assets';
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
-import { Button } from '../../components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '../../components/ui/card';
+import { useState } from "react";
 import Image from 'next/image';
-import { Input } from '../../components/ui/input';
-import { Label } from '../../components/ui/label';
+import { loginBackground, logo_slogan } from 'assets';
+import { Card, CardContent, CardHeader, CardTitle } from 'components/ui/card';
+import { Tabs, TabsContent } from "components/ui/tabs";
 
-export default function Login() {
-  const session = useSession();
+// import dos formulários criados no diretório auth 
+import { LoginForm } from "components/auth/login-form";
+import { RegisterForm } from "components/auth/register-form";
 
-  if (session.status === 'authenticated') {
-    redirect('/');
-  }
+export default function LoginPage() {
+  const [activeTab, setActiveTab] = useState("login");
 
   return (
     <div
-      className="flex min-h-screen justify-around items-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${loginBackground.src})` }}>
+    className="relative min-h-dvh w-full flex justify-center items-center bg-no-repeat bg-cover bg-center overflow-hidden"
+    style={{ 
+      backgroundImage: `url(${loginBackground.src})`,
+      backgroundAttachment: 'fixed' 
+  }}
+>
 
-
-      <Card className="w-full max-w-sm bg-white rounded-2xl">
+      <Card className="w-full max-w-lg bg-white backdrop-blur-sm rounded-2xl">
         <CardHeader>
-          <div className='flex items-center justify-center py-5'>
-            <Image src={logo_slogan} alt="Logo e slogan do Capibatrilhas" className='w-full h-full' />
+          <div className='flex justify-center py-4'>
+            <Image src={logo_slogan} alt="Logo" className='w-auto h-auto' />
           </div>
-          <CardTitle className="text-3xl">Login</CardTitle>
-          <CardDescription>
-            Entre com seu email e senha do Conceta Recife abaixo para poder acessar o Capibatrilhas.
-          </CardDescription>
+          <CardTitle className="text-2xl text-center font-bold">
+            {activeTab === "login" ? "Login" : "Cadastro"}
+          </CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Senha</Label>
-            <Input id="password" type="password" placeholder='Digite sua senha aqui...' required />
-          </div>
+
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            
+
+            <TabsContent value="login">
+              <LoginForm />
+              <button 
+                onClick={() => setActiveTab("register")}
+                className="w-full text-center text-sm text-blue-600 mt-4 hover:underline"
+              >
+                Não tem conta? Cadastre-se
+              </button>
+            </TabsContent>
+
+            <TabsContent value="register">
+              <RegisterForm onSuccess = {() => setActiveTab("login")}/>
+              <button 
+                onClick={() => setActiveTab("login")}
+                className="w-full text-center text-sm text-blue-600 mt-4 hover:underline"
+              >
+                Já tem conta? Faça login
+              </button>
+            </TabsContent>
+          </Tabs>
         </CardContent>
-        <CardFooter >
-          <div className='w-full '>
-            <div className="flex justify-center w-full pb-6">
-              <Button className="w-60 text-white text-base  bg-blue-500  rounded-xl   hover:bg-[#ffc107] transition duration-300 font-bold ">Entrar</Button>
-            </div>
-            <div className='text-sm text-gray-400'>
-              Ainda não possui cadastro no conecta recife?
-              <a href="https://conecta.recife.pe.gov.br/" target="_blank" className="text-blue-400 underline hover:text-blue-600">Cadastre-se aqui</a>
-            </div>
-          </div>
-        </CardFooter>
       </Card>
     </div>
-
   );
 }

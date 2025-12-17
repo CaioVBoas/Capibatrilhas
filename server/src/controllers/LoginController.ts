@@ -5,7 +5,7 @@ import {
   UserRepository,
   TokenRepository,
   CookieRepository,
-} from '@repositories';
+} from '../repositories';
 
 class LoginController {
   async login(req: Request, res: Response, next: NextFunction) {
