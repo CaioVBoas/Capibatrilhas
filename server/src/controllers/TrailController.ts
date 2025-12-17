@@ -39,7 +39,7 @@ class TrailController {
         message: 'Trilha criada',
         data: trail,
       };
-      
+
       return next();
     } catch (error) {
       return next(error);
@@ -69,6 +69,21 @@ class TrailController {
       res.locals = {
         status: 200,
         data: trail,
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const trails = await TrailRepository.findAll();
+
+      res.locals = {
+        status: 200,
+        data: trails,
       };
 
       return next();
