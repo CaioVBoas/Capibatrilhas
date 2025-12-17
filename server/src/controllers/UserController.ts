@@ -75,9 +75,23 @@ class UserController {
     try {
       const users = await UserRepository.findAll();
 
+      // Remove sensitive fields from response
+      const sanitizedUsers = users.map(
+        ({
+          password,
+          cpf,
+          email,
+          phone,
+          street,
+          complement,
+          number,
+          ...user
+        }) => user,
+      );
+
       res.locals = {
         status: 200,
-        data: users,
+        data: sanitizedUsers,
       };
 
       return next();

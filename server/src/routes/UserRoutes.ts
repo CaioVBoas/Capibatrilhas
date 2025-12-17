@@ -16,8 +16,9 @@ userRouter.route('/:userId')
 
 userRouter.route('/')
   .get(
+    [auth],
     UserController.list,
-  );    
+  );
 
 userRouter.route('/:userId')
   .patch(
