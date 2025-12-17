@@ -1,3 +1,21 @@
-import userSchema from './userSchema';
+import userSchema, { userCreateSchema, userUpdateSchema } from './userSchema';
+import { loginSchema, loginResponseSchema } from './authSchema';
+import districtSchema, { districtCreateSchema, districtUpdateSchema } from './districtSchema';
+import agendaSchema, { agendaCreateSchema, agendaUpdateSchema } from './agendaSchema';
+import trailSchema, { trailCreateSchema, trailUpdateSchema } from './trailSchema';
+import challengeSchema, { challengeCreateSchema, challengeUpdateSchema } from './challengeSchema';
+import trailChallengeSchema, { trailChallengeCreateSchema, trailChallengeUpdateSchema } from './trailChallengeSchema';
+import trailParticipationSchema, { trailParticipationCreateSchema, trailParticipationUpdateSchema } from './trailParticipationSchema';
+import trailInvitationSchema, { trailInvitationCreateSchema, trailInvitationUpdateSchema } from './trailInvitationSchema';
+import completedChallengeSchema, { completedChallengeCreateSchema, completedChallengeUpdateSchema } from './completedChallengeSchema';
 
-export { userSchema };
+export { userSchema, userCreateSchema, userUpdateSchema };
+export { loginSchema, loginResponseSchema };
+export { districtSchema, districtCreateSchema, districtUpdateSchema };
+export { agendaSchema, agendaCreateSchema, agendaUpdateSchema };
+export { trailSchema, trailCreateSchema, trailUpdateSchema };
+export { challengeSchema, challengeCreateSchema, challengeUpdateSchema };
+export { trailChallengeSchema, trailChallengeCreateSchema, trailChallengeUpdateSchema };
+export { trailParticipationSchema, trailParticipationCreateSchema, trailParticipationUpdateSchema };
+export { trailInvitationSchema, trailInvitationCreateSchema, trailInvitationUpdateSchema };
+export { completedChallengeSchema, completedChallengeCreateSchema, completedChallengeUpdateSchema };
