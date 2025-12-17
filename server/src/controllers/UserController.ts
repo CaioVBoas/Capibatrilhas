@@ -49,7 +49,7 @@ class UserController {
 
   async read(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = Number(req.params.id);
+      const userId = Number(req.params.userId);
 
       const user = await UserRepository.findById(userId);
 
@@ -73,7 +73,7 @@ class UserController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = Number(req.params.id);
+      const userId = Number(req.params.userId);
       const userData = UpdateUser.parse(req.body);
 
       const user = await UserRepository.update(userId, userData);
@@ -92,7 +92,7 @@ class UserController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = Number(req.params.id);
+      const userId = Number(req.params.userId);
 
       await UserRepository.delete(userId);
 

@@ -1,0 +1,14 @@
+import { Router } from 'express';
+import { TrailController } from '../controllers';
+
+const trailRouter = Router();
+
+trailRouter.route('/')
+  .post(TrailController.create);
+
+trailRouter.route('/:id')
+  .get(TrailController.read)
+  .patch(TrailController.update)
+  .delete(TrailController.delete);
+
+export default trailRouter;
