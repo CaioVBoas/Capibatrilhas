@@ -1,142 +1,30 @@
-'use client';
-import ExploreTrailsCard from 'components/exploreTrailsCard';
-import TrailCard from 'components/featuredTrailCards';
-import { useState } from 'react';
-import NavBar from 'components/navBar';
+import ExploreTrailsClient from './ExploreTrailsClient';
 
-const mockTrails = [
-  {
-    id: 1,
-    title: 'Capibatrilha de Carnaval',
-    subtitle:
-      'Explore os melhores blocos e pontos culturais do Carnaval da cidade',
-    progress: 42,
-    type: 'Destaque',
-    challengesQuantity: '7',
-    time: '5 dias',
-    prize: 500,
-    challengesCompleted: '3',
-    buttonText: 'Continuar',
-    tag: 'Cultura'
-  },
-  {
-    id: 2,
-    title: 'Capibatrilha Gastronômica',
-    subtitle:
-      'Descubra os sabores únicos da culinária do Recife com desafios deliciosos',
-    progress: 60,
-    type: 'Destaque',
-    challengesQuantity: '5',
-    time: '6 dias',
-    prize: 400,
-    challengesCompleted: '3',
-    buttonText: 'Continuar',
-    tag: 'Gastronomia'
-  },
-  {
-    id: 3,
-    title: 'Capibatrilha de Natal',
-    subtitle:
-      'Descubra o Natal de um novo jeito embalado pelas luzes e decorações natalinas na melhor cidade do Brasil',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '8',
-    time: '10 dias',
-    prize: 300,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Cultura'
-  },
-  {
-    id: 4,
-    title: '7 Dias de Verão',
-    subtitle: 'Desafios diários em praias e pontos turísticos da cidade',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '7',
-    time: '7 dias',
-    prize: 350,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Natureza'
-  },
-  {
-    id: 5,
-    title: 'Capibatrilha Histórica',
-    subtitle: 'Volte no tempo e descubra as raízes do Recife Antigo',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '6',
-    time: '4 dias',
-    prize: 250,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'História'
-  },
-  {
-    id: 6,
-    title: 'Circuito de Arte Urbana',
-    subtitle: 'Explore os murais de grafite e galerias de arte da cidade',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '5',
-    time: '3 dias',
-    prize: 200,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Arte'
-  },
-  {
-    id: 7,
-    title: 'Recife Verde: Parques',
-    subtitle: 'Uma jornada relaxante pelos principais parques e áreas verdes',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '4',
-    time: '2 dias',
-    prize: 150,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Natureza'
+export default async function ExploreTrails() {
+  let initialTrails = [];
+  let fetchError: string | null = null;
+
+  try {
+    const base = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const res = await fetch(`${base}/trails`, { next: { revalidate: 60 } });
+    if (res.ok) {
+      initialTrails = await res.json();
+    } else {
+      fetchError = `Falha ao buscar trilhas: ${res.status}`;
+    }
+  } catch (err) {
+    // If fetch fails, the API route will return mock data, but catch unexpected errors
+    fetchError = 'Erro ao carregar trilhas';
   }
-];
-
-export default function ExploreTrails() {
-  const [selectedType, setSelectedType] = useState('Todas');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredTrails = mockTrails.filter((trail) => {
-    const matchesType = selectedType === 'Todas' || trail.tag === selectedType;
-
-    const matchesSearch = trail.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    return matchesType && matchesSearch;
-  });
 
   return (
-    <div className="w-full bg-[#e8ebf095] min-h-screen">
-      <NavBar></NavBar>
-      <ExploreTrailsCard
-        selectedType={selectedType}
-        setSelectedType={setSelectedType}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
-      <div className="p-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto">
-          {filteredTrails.length > 0 ? (
-            filteredTrails.map((trail) => (
-              <TrailCard key={trail.id} trail={trail} />
-            ))
-          ) : (
-            <p className="text-gray-600 text-center col-span-2">
-              Nenhuma trilha encontrada para {selectedType}.
-            </p>
-          )}
+    <>
+      {fetchError && (
+        <div className="p-4 bg-yellow-100 text-yellow-800 text-center">
+          {fetchError}
         </div>
-      </div>
-    </div>
+      )}
+      <ExploreTrailsClient initialTrails={initialTrails} />
+    </>
   );
 }
