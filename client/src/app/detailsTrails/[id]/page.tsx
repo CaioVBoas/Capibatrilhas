@@ -1,62 +1,70 @@
-import React from "react";
+'use client';
+import React, { use } from "react"; 
 import ChallengeCard from "components/challengeCard";
-import TrailHeader from "components/headerChallengePage";
-
+import TrailHeader from "components/headerChallengePage"; 
 
 const mockTrails = [
-{
-  id: 1,
-  title: "Capibatrilha de Carnaval",
-  subtitle: "Explore os melhores blocos e pontos culturais do Carnaval da cidade",
-  progress: 42, 
-  type: "Destaque",
-  challengesQuantity: "7",
-  time: "5 dias",
-  prize: 500,
-  challengesCompleted: "3",
-  buttonText: "Continuar",
-  tag: "Cultura",
-},
-{
-  id: 2,
-  title: "Capibatrilha Gastronômica",
-  subtitle: "Descubra os sabores únicos da culinária do Recife com desafios deliciosos",
-  progress: 60, 
-  type: "Destaque",
-  challengesQuantity: "5",
-  time: "6 dias",
-  prize: 400,
-  challengesCompleted: "3",
-  buttonText: "Continuar",
-  tag: "Gastronomia",    
-},
-{
-  id: 3,
-  title: "Capibatrilha de Natal",
-  subtitle: "Descubra o Natal de um novo jeito embalado pelas luzes e decorações natalinas na melhor cidade do Brasil",
-  progress: 0, 
-  type: "Destaque",
-  challengesQuantity: "8",
-  time: "10 dias",
-  prize: 300,
-  challengesCompleted: "0",
-  buttonText: "Iniciar Trilha",
-  tag: "Natal",
-},
-{
-  id: 4,
-  title: "7 Dias de Verão",
-  subtitle: "Desafios diários em praias e pontos turísticos da cidade",
-  progress: 0, 
-  type: "Destaque",
-  challengesQuantity: "7",
-  time: "7 dias",
-  prize: 350,
-  challengesCompleted: "0",
-  buttonText: "Iniciar Trilha",
-  tag: "Verão",
-},
-{
+  {
+    id: 1,
+    title: "Capibatrilha de Carnaval",
+    subtitle: "Explore os melhores blocos e pontos culturais do Carnaval da cidade",
+    progress: 42, 
+    type: "Destaque",
+    challengesQuantity: "7",
+    time: "5 dias",
+    prize: 500,
+    challengesCompleted: "3",
+    buttonText: "Continuar",
+    tag: "Cultura",
+    isPersonalized: true,
+    members: [
+      { id: 1, name: "Lucas", avatarUrl: "https://i.pravatar.cc/150?u=lucas" },
+      { id: 2, name: "Ana", avatarUrl: "https://i.pravatar.cc/150?u=ana" },
+      { id: 3, name: "João", avatarUrl: "https://i.pravatar.cc/150?u=joao" },
+      { id: 4, name: "Maria", avatarUrl: "https://i.pravatar.cc/150?u=maria" },
+      { id: 5, name: "Pedro", avatarUrl: "https://i.pravatar.cc/150?u=pedro" },
+    ]
+  },
+  {
+    id: 2,
+    title: "Capibatrilha Gastronômica",
+    subtitle: "Descubra os sabores únicos da culinária do Recife com desafios deliciosos",
+    progress: 60, 
+    type: "Destaque",
+    challengesQuantity: "5",
+    time: "6 dias",
+    prize: 400,
+    challengesCompleted: "3",
+    buttonText: "Continuar",
+    tag: "Gastronomia",    
+  },
+  {
+    id: 3,
+    title: "Capibatrilha de Natal",
+    subtitle: "Descubra o Natal de um novo jeito embalado pelas luzes e decorações natalinas",
+    progress: 0, 
+    type: "Destaque",
+    challengesQuantity: "8",
+    time: "10 dias",
+    prize: 300,
+    challengesCompleted: "0",
+    buttonText: "Iniciar Trilha",
+    tag: "Natal",
+  },
+  {
+    id: 4,
+    title: "7 Dias de Verão",
+    subtitle: "Desafios diários em praias e pontos turísticos da cidade",
+    progress: 0, 
+    type: "Destaque",
+    challengesQuantity: "7",
+    time: "7 dias",
+    prize: 350,
+    challengesCompleted: "0",
+    buttonText: "Iniciar Trilha",
+    tag: "Verão",
+  },
+  {
     id: 5,
     title: "Capibatrilha Histórica",
     subtitle: "Volte no tempo e descubra as raízes do Recife Antigo",
@@ -68,8 +76,8 @@ const mockTrails = [
     challengesCompleted: "0",
     buttonText: "Iniciar Trilha",
     tag: "História",
-},
-{
+  },
+  {
     id: 6,
     title: "Circuito de Arte Urbana",
     subtitle: "Explore os murais de grafite e galerias de arte da cidade",
@@ -81,8 +89,8 @@ const mockTrails = [
     challengesCompleted: "0",
     buttonText: "Iniciar Trilha",
     tag: "Arte",
-},
-{
+  },
+  {
     id: 7,
     title: "Recife Verde: Parques",
     subtitle: "Uma jornada relaxante pelos principais parques e áreas verdes",
@@ -94,11 +102,10 @@ const mockTrails = [
     challengesCompleted: "0",
     buttonText: "Iniciar Trilha",
     tag: "Natureza",
-},
+  },
 ];
 
 export const mockChallenges = {
-
   "1": [
     {
       id: "1-1",
@@ -457,23 +464,29 @@ export const mockChallenges = {
   ],
 };
 
+export default function ChallengePage({ params }: { params: Promise<{ id: string }> }) {
 
-export default function ChallengePage({ params }: { params: { id: string } }) {
-  const { id } = params;
+  const { id } = use(params);
+
   const trail = mockTrails.find(t => t.id === Number(id));
   const challenges = mockChallenges[id as keyof typeof mockChallenges] || [];
 
   if (!trail) {
     return <div>Trilha não encontrada!</div>;
   }
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <TrailHeader trail={trail} />
       <div className="p-8">
         <div className="flex flex-col gap-6 max-w-4xl mx-auto">
-          {challenges.map((challenge) => (
-            <ChallengeCard key={challenge.id} challenge={challenge} />
-          ))}
+          {challenges.length > 0 ? (
+             challenges.map((challenge) => (
+                <ChallengeCard key={challenge.id} challenge={challenge} />
+             ))
+          ) : (
+             <p className="text-gray-500 text-center">Nenhum desafio encontrado.</p>
+          )}
         </div>
       </div>
     </div>

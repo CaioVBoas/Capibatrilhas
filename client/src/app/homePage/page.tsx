@@ -166,6 +166,7 @@ const mockTrails = [
   challengesCompleted: "3",
   buttonText: "Continuar",
   tag: "Cultura",
+  isPersonalized: true,
 },
 {
   id: 2,
@@ -178,7 +179,8 @@ const mockTrails = [
   prize: 400,
   challengesCompleted: "3",
   buttonText: "Continuar",
-  tag: "Gastronomia",    
+  tag: "Gastronomia",
+  isPersonalized: false,
 },
 {
   id: 3,
@@ -192,6 +194,7 @@ const mockTrails = [
   challengesCompleted: "0",
   buttonText: "Iniciar Trilha",
   tag: "Natal",
+  isPersonalized: false,
 },
 {
   id: 4,
@@ -205,6 +208,7 @@ const mockTrails = [
   challengesCompleted: "0",
   buttonText: "Iniciar Trilha",
   tag: "Verão",
+  isPersonalized: false,
 },
 {
     id: 5,
@@ -218,6 +222,7 @@ const mockTrails = [
     challengesCompleted: "0",
     buttonText: "Iniciar Trilha",
     tag: "História",
+    isPersonalized: false,
 },
 {
     id: 6,
@@ -231,6 +236,7 @@ const mockTrails = [
     challengesCompleted: "0",
     buttonText: "Iniciar Trilha",
     tag: "Arte",
+    isPersonalized: false,
 },
 {
     id: 7,
@@ -244,6 +250,7 @@ const mockTrails = [
     challengesCompleted: "0",
     buttonText: "Iniciar Trilha",
     tag: "Natureza",
+    isPersonalized: false,
 },
 ];
 
