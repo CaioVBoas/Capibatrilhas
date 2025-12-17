@@ -19,11 +19,6 @@ export default async function ExploreTrails() {
 
   return (
     <>
-      {fetchError && (
-        <div className="p-4 bg-yellow-100 text-yellow-800 text-center">
-          {fetchError}
-        </div>
-      )}
       <ExploreTrailsClient initialTrails={initialTrails} />
     </>
   );

@@ -32,7 +32,7 @@ export default function ExploreTrailsCard({
   return (
     <div className="w-full grid justify-center py-4 bg-zinc-50 border-b border-zinc-300">
       <div className="flex flex-col gap-4">
-        <h1 className={`text-3xl text-[#1B2432] ${outfit.className}`}>
+        <h1 className={`text-3xl font-semibold text-[#1B2432] ${outfit.className}`}>
           Explorar Trilhas
         </h1>
 
