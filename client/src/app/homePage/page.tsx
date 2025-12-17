@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600"],
 });
 import NavBar from 'components/navBar';
-import UserCardHomepage from 'components/userCardHomepage';
+import UserCardHomepage from 'components/mainCardHomepage';
 import AddMyTrail from 'components/addMyTrail';
 import Footer from "components/footer"
 
@@ -77,70 +77,80 @@ const mockEvents = [
     costType: 'Gratuito',
     name: 'Show de Verão no Parador',
     date: '15 de Dezembro, 20:00',
-    location: 'Recife Antigo'
+    location: 'Recife Antigo',
+    capibas: 80
   },
   {
     type: 'Arte',
     costType: 'Pago',
     name: "Exposição 'Novas Cores'",
     date: '10 a 20 de Dezembro',
-    location: 'Museu Cais do Sertão'
+    location: 'Museu Cais do Sertão',
+    capibas: 120
   },
   {
     type: 'Gastronomia',
     costType: 'Pago',
     name: 'Festival do Hambúrguer',
     date: '12 de Dezembro, 17:00',
-    location: 'Parque Dona Lindu'
+    location: 'Parque Dona Lindu',
+    capibas: 100
   },
   {
     type: 'Esporte',
     costType: 'Gratuito',
     name: "Corrida de Rua 'Recife Corre'",
     date: '22 de Dezembro, 07:00',
-    location: 'Marco Zero'
+    location: 'Marco Zero',
+    capibas: 90
   },
   {
     type: 'Teatro',
     costType: 'Pago',
     name: 'Peça: O Auto da Compadecida',
     date: '18 de Dezembro, 19:30',
-    location: 'Teatro de Santa Isabel'
+    location: 'Teatro de Santa Isabel',
+    capibas: 130
   },
   {
     type: 'Música',
     costType: 'Pago',
     name: 'Festival de Jazz',
     date: '20 de Dezembro, 21:00',
-    location: 'Parque da Jaqueira'
+    location: 'Parque da Jaqueira',
+    capibas: 110
   },
   {
     type: 'Cinema',
     costType: 'Gratuito',
     name: 'Cinema ao Ar Livre',
     date: '14 de Dezembro, 18:00',
-    location: 'Praça do Arsenal'
+    location: 'Praça do Arsenal',
+    capibas: 70
   },
   {
     type: 'Dança',
     costType: 'Gratuito',
     name: 'Apresentação de Frevo',
     date: '16 de Dezembro, 17:00',
-    location: 'Pátio de São Pedro'
+    location: 'Pátio de São Pedro',
+    capibas: 85
   },
   {
     type: 'Literatura',
     costType: 'Gratuito',
     name: 'Feira Literária do Recife',
     date: '19 de Dezembro, 09:00',
-    location: 'Parque 13 de Maio'
+    location: 'Parque 13 de Maio',
+    capibas: 75
   },
   {
     type: 'Artesanato',
     costType: 'Gratuito',
     name: 'Feira de Artesanato',
     date: '21 de Dezembro, 10:00',
-    location: 'Mercado de São José'
+    location: 'Mercado de São José',
+    capibas: 65
   }
 ];
 const mockTrails = [
@@ -305,7 +315,7 @@ export default function HomePage() {
       <div className="p-10">
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp className="h-8 w-8 text-accent text-blue-600"></TrendingUp>
-          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilha em Andamento</h1> 
+          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilhas em Andamento</h1> 
           
           <a 
             href="myTrails" 
@@ -321,7 +331,7 @@ export default function HomePage() {
         </div>
         <div className="flex items-center gap-2 mb-5">
           <Star className="h-8 w-8 text-accent text-yellow-300"></Star>
-          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilha em Destaque</h1>
+          <h1 className={`${outfit.className} text-3xl font-bold`}>Trilhas em Destaque</h1>
         </div>
         <div className="relative flex items-center gap-4">
           <button

@@ -151,6 +151,20 @@ const userResponse = {
       description: 'Erro interno do servidor',
     },
   },
+  delete: {
+    200: {
+      description: 'Usuário deletado com sucesso',
+    },
+    401: {
+      description: 'Não autorizado',
+    },
+    404: {
+      description: 'Usuário não encontrado',
+    },
+    500: {
+      description: 'Erro interno do servidor',
+    },
+  },
 };
 
 export default userResponse;

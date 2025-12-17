@@ -1,14 +1,16 @@
 import React from "react";
 import { Star, Clock } from "lucide-react";
+import NavBar from "components/navBar";
 import ProfileHeader from "components/headerProfilePage";
 import AchievementCard from "components/achievmentsCard";
 import ActivityList from "components/recentActivitiesCard";
+import { outfit, dmSans } from "../../styles/fonts";
 
 const mockUser = {
-  name: "Maria Silva",
-  email: "maria@email.com",
+  name: "Guilherme Silva",
+  email: "guiguizinhosaunders@email.com",
   level: 5,
-  avatarInitials: "MS",
+  avatarInitials: "GS",
   stats: {
     capibas: 450,
     trails: 3,
@@ -60,9 +62,9 @@ const mockActivity = [
 
 export default function ProfilePage() {
   return (
-    <div className="bg-gray-50/50 min-h-screen font-sans pb-12">
+    <div className={`bg-gray-50/50 min-h-screen pb-12 ${dmSans.className}`}>
+      <NavBar />
       
-
       <ProfileHeader user={mockUser} />
 
       <main className="max-w-5xl mx-auto px-6 mt-10 relative z-20 space-y-8">
@@ -70,7 +72,7 @@ export default function ProfilePage() {
         <div>
           <div className="flex items-center gap-2 mb-4 mt-4 px-1">
             <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-            <h2 className="text-gray-900 font-bold text-xl">Conquistas</h2>
+            <h2 className={`text-gray-900 font-bold text-xl ${outfit.className}`}>Conquistas</h2>
           </div>
           
           <div className="flex flex-col gap-3">
@@ -83,7 +85,7 @@ export default function ProfilePage() {
         <div>
             <div className="flex items-center gap-2 pb-4 border-b border-gray-50">
                 <Clock className="w-5 h-5 text-gray-400" />
-                <h2 className="text-gray-900 font-bold text-lg">Atividade Recente</h2>
+                <h2 className={`text-gray-900 font-bold text-lg ${outfit.className}`}>Atividade Recente</h2>
             </div>
           <ActivityList activities={mockActivity} />
         </div>
