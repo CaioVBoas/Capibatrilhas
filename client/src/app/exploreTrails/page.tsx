@@ -13,7 +13,6 @@ export default async function ExploreTrails() {
       fetchError = `Falha ao buscar trilhas: ${res.status}`;
     }
   } catch (err) {
-    // If fetch fails, the API route will return mock data, but catch unexpected errors
     fetchError = 'Erro ao carregar trilhas';
   }
 
