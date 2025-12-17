@@ -3,80 +3,87 @@ import { userResponse } from '../responses';
 const userPath = {
   '/user': {
     post: {
-      tags: ['User'],
-      summary: 'Create a user',
+      tags: ['Usuário'],
+      summary: 'Criar usuário',
+      description: 'Cria um novo usuário no sistema',
       requestBody: {
         required: true,
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/user',
+              $ref: '#/components/schemas/userCreate',
             },
             example: {
-              name: 'Ednaldo Pereira',
-              phone: '99999999',
-              email: 'ednaldopereira@gmail.com',
-              password: 'senha',
+              name: 'João Silva',
+              phone: '11999999999',
+              email: 'joao@email.com',
+              password: 'senha1234',
+              cpf: '12345678901',
+              birthdate: '1990-05-15',
+              zipCode: '01310100',
+              state: 'SP',
+              city: 'São Paulo',
+              district: 'Centro',
+              street: 'Av. Paulista',
+              number: '1000',
             },
           },
         },
       },
-
       responses: userResponse.create,
     },
     get: {
-      tags: ['User'],
-      summary: 'List all users',
-      description: 'Get a list of all users (requires authentication)',
+      tags: ['Usuário'],
+      summary: 'Listar usuários',
+      description: 'Retorna a lista de todos os usuários (requer autenticação)',
       security: [{ bearerAuth: [] }],
       responses: userResponse.list,
     },
   },
-  '/user/{id}': {
+  '/user/{userId}': {
     get: {
-      tags: ['User'],
-      summary: 'Get user information',
-      description: "Get user information from it's id",
-      parameters: [{
-        in: 'path',
-        name: 'id',
-        description: 'User id',
-        required: true,
-        schema: {
-          type: 'string',
+      tags: ['Usuário'],
+      summary: 'Buscar usuário',
+      description: 'Retorna os dados de um usuário pelo ID',
+      parameters: [
+        {
+          in: 'path',
+          name: 'userId',
+          description: 'ID do usuário',
+          required: true,
+          schema: {
+            type: 'integer',
+          },
         },
-      }],
+      ],
       responses: userResponse.get,
     },
     patch: {
-      tags: ['User'],
-      summary: 'Update user profile',
-      description: 'Update user profile information (requires authentication)',
+      tags: ['Usuário'],
+      summary: 'Atualizar usuário',
+      description: 'Atualiza os dados de um usuário',
       security: [{ bearerAuth: [] }],
-      parameters: [{
-        in: 'path',
-        name: 'id',
-        description: 'User id',
-        required: true,
-        schema: {
-          type: 'string',
+      parameters: [
+        {
+          in: 'path',
+          name: 'userId',
+          description: 'ID do usuário',
+          required: true,
+          schema: {
+            type: 'integer',
+          },
         },
-      }],
+      ],
       requestBody: {
         required: true,
         content: {
           'application/json': {
             schema: {
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                phone: { type: 'string' },
-                email: { type: 'string' },
-              },
+              $ref: '#/components/schemas/userUpdate',
             },
             example: {
-              name: 'Ednaldo Pereira Updated',
-              phone: '88888888',
+              name: 'João Silva Atualizado',
+              phone: '11988888888',
             },
           },
         },
@@ -84,37 +91,41 @@ const userPath = {
       responses: userResponse.update,
     },
     delete: {
-      tags: ['User'],
-      summary: 'Delete user',
-      description: 'Delete a user (requires authentication)',
+      tags: ['Usuário'],
+      summary: 'Deletar usuário',
+      description: 'Remove um usuário do sistema',
       security: [{ bearerAuth: [] }],
-      parameters: [{
-        in: 'path',
-        name: 'id',
-        description: 'User id',
-        required: true,
-        schema: {
-          type: 'string',
+      parameters: [
+        {
+          in: 'path',
+          name: 'userId',
+          description: 'ID do usuário',
+          required: true,
+          schema: {
+            type: 'integer',
+          },
         },
-      }],
+      ],
       responses: userResponse.delete,
     },
   },
-  '/user/{id}/progress': {
+  '/user/{userId}/progress': {
     patch: {
-      tags: ['User'],
-      summary: 'Update user game progress',
-      description: 'Update user points and level (admin only)',
+      tags: ['Usuário'],
+      summary: 'Atualizar progresso do usuário',
+      description: 'Atualiza pontos e nível do usuário (somente administradores)',
       security: [{ bearerAuth: [] }],
-      parameters: [{
-        in: 'path',
-        name: 'id',
-        description: 'User id',
-        required: true,
-        schema: {
-          type: 'string',
+      parameters: [
+        {
+          in: 'path',
+          name: 'userId',
+          description: 'ID do usuário',
+          required: true,
+          schema: {
+            type: 'integer',
+          },
         },
-      }],
+      ],
       requestBody: {
         required: true,
         content: {
@@ -122,8 +133,8 @@ const userPath = {
             schema: {
               type: 'object',
               properties: {
-                points: { type: 'number' },
-                level: { type: 'number' },
+                points: { type: 'integer' },
+                level: { type: 'integer' },
               },
             },
             example: {
@@ -136,21 +147,23 @@ const userPath = {
       responses: userResponse.updateProgress,
     },
   },
-  '/user/{id}/password': {
+  '/user/{userId}/password': {
     patch: {
-      tags: ['User'],
-      summary: 'Change user password',
-      description: 'Change user password (requires authentication and current password)',
+      tags: ['Usuário'],
+      summary: 'Alterar senha do usuário',
+      description: 'Altera a senha do usuário (requer autenticação e senha atual)',
       security: [{ bearerAuth: [] }],
-      parameters: [{
-        in: 'path',
-        name: 'id',
-        description: 'User id',
-        required: true,
-        schema: {
-          type: 'string',
+      parameters: [
+        {
+          in: 'path',
+          name: 'userId',
+          description: 'ID do usuário',
+          required: true,
+          schema: {
+            type: 'integer',
+          },
         },
-      }],
+      ],
       requestBody: {
         required: true,
         content: {
@@ -164,8 +177,8 @@ const userPath = {
               },
             },
             example: {
-              currentPassword: 'senha',
-              newPassword: 'novaSenha123',
+              currentPassword: 'senha1234',
+              newPassword: 'novaSenha5678',
             },
           },
         },
