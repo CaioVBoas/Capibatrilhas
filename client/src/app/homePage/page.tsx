@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600"],
 });
 import NavBar from 'components/navBar';
-import UserCardHomepage from 'components/userCardHomepage';
+import UserCardHomepage from 'components/mainCardHomepage';
 import AddMyTrail from 'components/addMyTrail';
 import Footer from "components/footer"
 
