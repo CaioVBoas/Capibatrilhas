@@ -1,5 +1,5 @@
 import React from "react";
-import { MapPin, Clock, Trophy } from "lucide-react";
+import { MapPin, Clock, Trophy, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Outfit, DM_Sans } from "next/font/google";
 
@@ -13,7 +13,12 @@ const dmSans = DM_Sans({
   weight: ["400", "500"],
 });
 
-//Interface de Props do TrailCard
+export interface Member {
+  id: number | string;
+  name: string;
+  avatarUrl: string;
+}
+
 export interface Trails {
   title: string;
   subtitle: string;
@@ -26,6 +31,8 @@ export interface Trails {
   tag: string; 
   buttonText: string;
   id: number;
+  isPersonalized?: boolean;
+  members?: Member[]; 
 }
 
 interface TrailCardProps {
@@ -34,16 +41,19 @@ interface TrailCardProps {
 
 const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
   return (
-    
-    <div className="h-full bg-white rounded-2xl shadow-sm border border-gray-200 outline-2 outline-[#2563EB] p-5 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1"> 
-       
+    <div className="h-full bg-white rounded-2xl shadow-sm border border-gray-200 outline-2 outline-[#2563EB] p-5 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       <div className="flex justify-between items-start mb-1.5">
         <h2 className={`${outfit.className} text-xl font-semibold text-gray-900`}>{trail.title}</h2>
         
         {trail.type === "Destaque" && (
-          <span className={`${outfit.className} px-3 py-1 bg-yellow-400 rounded-full text-sm font-semibold text-gray-900 shadow-sm`}>
-            Destaque
-          </span>
+          <div className="flex items-center gap-3">
+            {trail.isPersonalized && (
+              <Sparkles className="h-5 w-5 text-gray-500" />
+            )}
+            <span className={`${outfit.className} px-3 py-1 bg-yellow-400 rounded-full text-sm font-semibold text-gray-900 shadow-sm`}>
+              Destaque
+            </span>
+          </div> 
         )}
       </div>
 
