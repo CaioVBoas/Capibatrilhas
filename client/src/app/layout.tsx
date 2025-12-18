@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { ThemeProvider } from '../components/theme-provider'; 
 import NextAuthSessionProvider from '../providers/sessionProvider';
+import Footer from '../components/footer';
 import '../styles/globals.css';
 import { outfit } from '../styles/fonts';
 
@@ -25,7 +26,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
+          <NextAuthSessionProvider>
+            {children}
+            <Footer />
+          </NextAuthSessionProvider>
         </ThemeProvider>
       </body>
     </html>

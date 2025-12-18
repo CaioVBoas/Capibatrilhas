@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { MapPin, Clock, Trophy, Sparkles } from "lucide-react";
+import React from "react";
+import { MapPin, Clock, Coins, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { DM_Sans } from "next/font/google";
 import api from "services/api";
@@ -121,7 +121,7 @@ const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
           <span>{trail.time}</span>
         </div>
         <div className="flex items-center text-yellow-600 font-medium">
-          <Trophy className="h-5 w-5 text-yellow-500 fill-yellow-500 mr-1.5" />
+          <Coins className="h-5 w-5 text-yellow-500 mr-1.5" />
           <span>{trail.prize}</span>
         </div>
       </div>

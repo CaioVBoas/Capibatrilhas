@@ -1,7 +1,13 @@
 'use client';
 import React, { use } from "react"; 
 import ChallengeCard from "components/challengeCard";
-import TrailHeader from "components/headerChallengePage"; 
+import TrailHeader from "components/headerChallengePage";
+import { DM_Sans } from "next/font/google";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+}); 
 
 const mockTrails = [
   {
@@ -485,7 +491,7 @@ export default function ChallengePage({ params }: { params: Promise<{ id: string
                 <ChallengeCard key={challenge.id} challenge={challenge} />
              ))
           ) : (
-             <p className="text-gray-500 text-center">Nenhum desafio encontrado.</p>
+             <p className={`text-gray-500 text-center ${dmSans.className}`}>Nenhum desafio encontrado.</p>
           )}
         </div>
       </div>

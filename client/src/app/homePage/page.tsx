@@ -10,7 +10,6 @@ import { outfit } from "styles/fonts";
 import NavBar from 'components/navBar';
 import UserCardHomepage from 'components/mainCardHomepage';
 import AddMyTrail from 'components/addMyTrail';
-import Footer from "components/footer"
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -380,8 +379,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-
-      <Footer/>
     </div>
   );
 }

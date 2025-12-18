@@ -1,9 +1,9 @@
 import React from "react";
-import { Star, Clock } from "lucide-react";
+import { Star } from "lucide-react";
 import NavBar from "components/navBar";
 import ProfileHeader from "components/headerProfilePage";
 import AchievementCard from "components/achievmentsCard";
-import ActivityList from "components/recentActivitiesCard";
+
 import { outfit, dmSans } from "../../styles/fonts";
 
 const mockUser = {
@@ -16,6 +16,7 @@ const mockUser = {
     trails: 3,
     challenges: 28,
     days: 7,
+    weeks: 7,
   },
 };
 
@@ -37,28 +38,7 @@ const mockAchievements = [
   },
 ];
 
-const mockActivity = [
-  {
-    id: 1,
-    title: 'Trilha "Arte Urbana" concluída',
-    time: "Há 2 dias",
-    reward: "+400",
-    isCoin: true,
-  },
-  {
-    id: 2,
-    title: 'Desafio "Quiz Carnavalesco" completado',
-    time: "Há 1 dia",
-    reward: "+60",
-    isCoin: true,
-  },
-  {
-    id: 3,
-    title: "Nova conquista desbloqueada",
-    time: "Hoje",
-    isCoin: false,
-  },
-];
+
 
 export default function ProfilePage() {
   return (
@@ -82,13 +62,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div>
-            <div className="flex items-center gap-2 pb-4 border-b border-gray-50">
-                <Clock className="w-5 h-5 text-gray-400" />
-                <h2 className={`text-gray-900 font-bold text-lg ${outfit.className}`}>Atividade Recente</h2>
-            </div>
-          <ActivityList activities={mockActivity} />
-        </div>
+
 
       </main>
     </div>

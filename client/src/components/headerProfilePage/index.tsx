@@ -17,6 +17,7 @@ interface UserStats {
   trails: number;
   challenges: number;
   days: number;
+  weeks: number;
 }
 
 interface UserProfile {
@@ -90,7 +91,7 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
           <StatBox icon={Coins} value={user.stats.capibas} label="Capibas" />
           <StatBox icon={Trophy} value={user.stats.trails} label="Trilhas" />
           <StatBox icon={CheckCircle2} value={user.stats.challenges} label="Desafios" />
-          <StatBox icon={Flame} value={user.stats.days} label="Dias" />
+          <StatBox icon={Flame} value={user.stats.weeks} label="Semanas" />
         </div>
       </div>
     </header>
