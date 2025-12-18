@@ -12,6 +12,9 @@ import TrailChallengeRouter from './TrailChallengeRoutes';
 import TrailParticipationRouter from './TrailParticipationRoutes';
 import TrailInvitationRouter from './TrailInvitationRoutes';
 import CompletedChallengeRouter from './CompletedChallengeRoutes';
+import WalletTransactionRouter from './WalletTransactionRoutes';
+import AchievementRouter from './AchievementRoutes';
+import UserAchievementRouter from './UserAchievementRoutes';
 
 const router = Router();
 
@@ -27,6 +30,9 @@ router.use('/trail-challenge', TrailChallengeRouter);
 router.use('/trail-participation', TrailParticipationRouter);
 router.use('/trail-invitation', TrailInvitationRouter);
 router.use('/completed-challenge', CompletedChallengeRouter);
+router.use('/wallet-transaction', WalletTransactionRouter);
+router.use('/achievement', AchievementRouter);
+router.use('/user-achievement', UserAchievementRouter);
 
 router.route('/').get((_, res) => {
   res.status(200).send('Capibatrilhas Server is running!');
