@@ -1,47 +1,54 @@
 'use client';
+
 import React from "react";
 import { Clock, Coins, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Trails } from "components/featuredTrailCards"; 
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, Outfit } from "next/font/google";
 import NavBar from "components/navBar";
-import { outfit } from "styles/fonts";
 import Image from "next/image";
 
-type Member = {
-  id: string | number;
-  name: string;
-  avatarUrl: string;
-};
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500"],
 });
 
+export interface TrailHeaderData {
+  title: string;
+  subtitle: string;
+  tag: string;
+  time: string;
+  prize: number;
+  progress: number;
+  challengesCompleted: number; 
+  challengesTotal: number;     
+  type?: string;               
+  members?: { id: string | number; avatarUrl: string; name: string }[];
+}
+
 interface TrailHeaderProps {
-  trail: Trails;
+  trail: TrailHeaderData;
 }
 
 const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
   const router = useRouter();
 
-  const members: Member[] = (trail.isPersonalized && trail.members) ? trail.members : [];
+  const members = trail.members || [];
   const MAX_AVATARS = 4;
   const extraMembersCount = Math.max(members.length - MAX_AVATARS, 0);
-  const completedChallenges = trail.challengesCompleted ?? 0;
-  const totalChallenges = trail.challengesQuantity ?? 0;
 
   return (
-
     <div className="bg-[#2563EB] min-h-fit rounded-b-[3rem] shadow-lg flex flex-col">  
-
       <div className="w-full">
         <NavBar />
       </div>
 
       <div className="p-8 pt-6">
-
+        {/* Botão Voltar */}
         <div className="mb-4">
           <button 
               className={`flex items-center gap-2 text-white/90 hover:text-white hover:bg-white/10 py-2 px-3 rounded-lg transition-all w-fit ${dmSans.className}`}
@@ -53,6 +60,7 @@ const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
           </button>
         </div>
 
+        {/* Título e Badge */}
         <div className="flex justify-between items-start mb-3 gap-4">
           <h1 className={`text-4xl text-white tracking-tight ${outfit.className}`}>
             {trail.title}
@@ -65,33 +73,35 @@ const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
           )}
         </div>
 
+        {/* Descrição / Subtítulo */}
         <p className={`text-blue-100 max-w-2xl mb-8 text-lg leading-relaxed ${dmSans.className}`}>
           {trail.subtitle}
         </p>
 
+        {/* Metadados (Tag, Tempo, Prêmio, Membros) */}
         <div className="flex flex-wrap items-center gap-6 text-blue-50 mb-8">
-
           <div className={`flex items-center gap-5 ${dmSans.className}`}>
-
               <span className="px-4 py-1.5 bg-white/10 border border-white/20 rounded-full text-white text-sm font-medium backdrop-blur-sm">
                 {trail.tag}
               </span>
               
               <div className="flex items-center">
                 <Clock className="h-5 w-5 mr-2 opacity-80" />
-                <span>{trail.time}</span>
+                <span className="font-bold text-white">{trail.time}</span>
               </div>
               
-              <div className="flex items-center font-medium text-[#ffc107]">
+              <div className="flex items-center font-bold text-[#ffc107]">
                 <Coins className="h-5 w-5 mr-2 fill-[#ffc107]" />
                 <span>{trail.prize}</span>
               </div>
           </div>
 
+          {/* Divisor Vertical se houver membros */}
           {members.length > 0 && (
                <div className="h-6 w-px bg-white/20 hidden sm:block"></div>
           )}
 
+          {/* Lista de Membros */}
           {members.length > 0 && (
               <div className={`flex items-center gap-3 ${dmSans.className}`}>
                   <div className="flex -space-x-3 overflow-hidden">
@@ -120,16 +130,16 @@ const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
           )}
         </div>
 
+        {/* Barra de Progresso */}
         <div className="mb-2">
           <div className={`flex justify-between text-sm text-blue-100 mb-2 ${dmSans.className}`}>
-            <span>Progresso da Trilha</span>
-            <span className="font-medium text-white">
-              {completedChallenges}/{totalChallenges} desafios
+            <span className="font-bold text-white">Progresso da Trilha</span>
+            <span className="font-bold text-white">
+              {trail.challengesCompleted}/{trail.challengesTotal} desafios
             </span>
           </div>
 
           <div className="w-full bg-black/20 rounded-full h-3 overflow-hidden backdrop-blur-sm">
-
             <div
               className="bg-[#ffc107] h-3 rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(255,193,7,0.5)]"
               style={{ width: `${trail.progress}%` }}
