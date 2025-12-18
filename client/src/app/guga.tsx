@@ -1,92 +1,140 @@
 'use client';
-
-import React, { useState, useEffect } from 'react';
-import { Search, CalendarDays, ChevronDown, Loader2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, CalendarDays, ChevronDown } from 'lucide-react';
 import CulturalCard from 'components/culturalCard';
 import NavBar from 'components/navBar';
 import { outfit, dmSans } from 'styles/fonts';
-import api from 'services/api'; 
 
-interface CulturalEvent {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  isFree: boolean;
-  date: string;
-  location: string;
-  capibas: number; 
-}
 
-function formatDateToCard(isoString: string): string {
-  if (!isoString) return '--';
+const mockEvents = [
+  {
+    id: 1,
+    title: 'Frevo na Praça',
+    description:
+      'Apresentação de orquestra de frevo com dançarinos profissionais.',
+    category: 'Música',
+    isFree: true,
+    date: '10 OUT',
+    location: 'Praça do Arsenal',
+    capibas: 50
+  },
+  {
+    id: 2,
+    title: 'Festival de Cinema Recifense',
+    description: 'Mostra de filmes produzidos em Pernambuco.',
+    category: 'Cinema',
+    isFree: false,
+    date: '12 OUT',
+    location: 'Cinema São Luiz',
+    capibas: 120
+  },
+  {
+    id: 3,
+    title: 'Feira de Artesanato',
+    description: 'Artesãos locais expõem suas criações únicas.',
+    category: 'Artesanato',
+    isFree: true,
+    date: '15 OUT',
+    location: 'Marco Zero',
+    capibas: 80
+  },
+  {
+    id: 4,
+    title: 'Show de Maracatu',
+    description: 'Apresentação dos principais grupos de maracatu.',
+    category: 'Música',
+    isFree: true,
+    date: '18 OUT',
+    location: 'Pátio de São Pedro',
+    capibas: 90
+  },
+  {
+    id: 5,
+    title: 'Exposição de Arte',
+    description: 'Obras de artistas pernambucanos contemporâneos.',
+    category: 'Arte',
+    isFree: false,
+    date: '20 OUT',
+    location: 'MAMAM',
+    capibas: 110
+  },
+  {
+    id: 6,
+    title: 'Sarau de Poesia',
+    description: 'Noite de poesia e música com artistas locais.',
+    category: 'Literatura',
+    isFree: true,
+    date: '22 OUT',
+    location: 'Casa da Cultura',
+    capibas: 70
+  },
+  {
+    id: 7,
+    title: 'Oficina de Dança Frevo',
+    description: 'Aprenda os passos tradicionais do frevo.',
+    category: 'Cursos e Oficinas',
+    isFree: false,
+    date: '14 OUT',
+    location: 'Paço do Frevo',
+    capibas: 130
+  },
 
-  try {
-
-    const datePart = isoString.split('T')[0];
-    const [year, month, day] = datePart.split('-');
-    const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
-    const monthName = months[parseInt(month) - 1];
-
-    return `${day} ${monthName}`;
-  } catch (error) {
-    console.error("Erro ao formatar data:", isoString);
-    return '--';
+  {
+    id: 8,
+    title: 'Exposição Fotográfica',
+    description: 'Mostra sobre a história do Bairro do Recife.',
+    category: 'Exposição',
+    isFree: true,
+    date: '19 OUT',
+    location: 'Torre Malakoff',
+    capibas: 85
+  },
+  {
+    id: 9,
+    title: 'Festival Gastronômico',
+    description: 'Celebração dos sabores típicos pernambucanos.',
+    category: 'Gastronomia',
+    isFree: true,
+    date: '21 OUT',
+    location: 'Mercado de São José',
+    capibas: 95
+  },
+  {
+    id: 10,
+    title: 'Congresso de Cultura',
+    description: 'Debates sobre preservação patrimonial.',
+    category: 'Congressos e Palestras',
+    isFree: false,
+    date: '23 OUT',
+    location: 'Centro de Convenções',
+    capibas: 140
+  },
+  {
+    id: 11,
+    title: 'Ciclo de Cinema',
+    description: 'Exibição de clássicos nacionais restaurados.',
+    category: 'Cinema',
+    isFree: true,
+    date: '25 OUT',
+    location: 'Cinema da Fundação',
+    capibas: 75
   }
-}
+];
 
 export default function CulturalAgendaPage() {
-  const [events, setEvents] = useState<CulturalEvent[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const [categoryFilter, setCategoryFilter] = useState('Todas');
   const [freeFilter, setFreeFilter] = useState('Todas');
 
-  const mapApiToEvent = (data: any): CulturalEvent => {
-    const price = Number(data.price || 0);
-    const isFree = price === 0;
-    const rawDate = data.eventDate || data.date;
+  // Gera a lista de categorias dinamicamente baseada nos dados
+  const categories = ['Todas', ...new Set(mockEvents.map((e) => e.category))];
 
-    return {
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      category: data.category?.name || data.category || "Geral",
-      isFree: isFree,
-      date: formatDateToCard(rawDate),
-      location: data.location || "Local a confirmar",
-      capibas: price 
-    };
-  };
-
-  useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const response = await api.get('/agenda'); 
-        
-        const rawData = response.data.data || response.data || [];
-        
-        if (Array.isArray(rawData)) {
-          const formattedEvents = rawData.map(mapApiToEvent);
-          setEvents(formattedEvents);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar eventos culturais:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchEvents();
-  }, []);
-
-  const categories = ['Todas', ...Array.from(new Set(events.map(e => e.category).filter(Boolean)))];
-
-
-  const filteredEvents = events.filter((event) => {
+  const filteredEvents = mockEvents.filter((event) => {
     const matchFree =
       freeFilter === 'Todas' ||
-      (freeFilter === 'Gratuito' ? event.isFree === true : event.isFree === false);
+      (freeFilter === 'Gratuito'
+        ? event.isFree === true
+        : event.isFree === false);
 
     const matchCategory =
       categoryFilter === 'Todas' || event.category === categoryFilter;
@@ -94,20 +142,10 @@ export default function CulturalAgendaPage() {
     return matchFree && matchCategory;
   });
 
-  // Renderização de Loading
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
-        <Loader2 className="w-10 h-10 text-blue-600 animate-spin mb-4" />
-        <p className={`text-gray-500 ${dmSans.className}`}>Buscando eventos na cidade...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
       <NavBar />
-      <header className="bg-gradient-to-r from-[#2563EB] to-[#1E40AF] pt-8 pb-12 px-6 shadow-lg">
+      <header className="bg-linear-to-r from-[#2563EB] to-[#1E40AF] pt-8 pb-12 px-6 shadow-lg">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-2">
             <CalendarDays className="w-8 h-8 text-white" />
@@ -124,10 +162,11 @@ export default function CulturalAgendaPage() {
       <main className="max-w-6xl mx-auto px-6 mt-12 relative z-10">
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-10">
           <div className="flex flex-col md:flex-row gap-6">
-            
-            {/* Filtro de Gratuidade */}
             <div className="flex-1">
-              <label htmlFor="gratuidade" className={`block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide ${outfit.className}`}>
+              <label
+                htmlFor="gratuidade"
+                className={`block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide ${outfit.className}`}
+              >
                 Tipo:
               </label>
               <div className="relative group">
@@ -147,9 +186,11 @@ export default function CulturalAgendaPage() {
               </div>
             </div>
 
-            {/* Filtro de Categoria */}
             <div className="flex-1">
-              <label htmlFor="categoria" className={`block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide ${outfit.className}`}>
+              <label
+                htmlFor="categoria"
+                className={`block text-xs font-bold text-gray-600 mb-2 uppercase tracking-wide ${outfit.className}`}
+              >
                 Categoria:
               </label>
               <div className="relative group">
@@ -173,7 +214,6 @@ export default function CulturalAgendaPage() {
           </div>
         </div>
 
-        {/* Lista de Eventos */}
         {filteredEvents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredEvents.map((event) => (
