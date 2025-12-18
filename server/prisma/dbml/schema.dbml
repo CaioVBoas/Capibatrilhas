@@ -148,6 +148,7 @@ Table EventAgenda {
   title String [not null]
   description String [not null]
   location String [not null]
+  rewards Int [not null]
   eventDate DateTime [not null]
   endDate DateTime
   category String [not null]

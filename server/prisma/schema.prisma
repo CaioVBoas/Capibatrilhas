@@ -195,6 +195,7 @@ model EventAgenda {
   title       String
   description String
   location    String
+  rewards    Int // Recompensas por participar do evento
   eventDate   DateTime // Data do evento
   endDate     DateTime? // Data de término (para eventos de múltiplos dias)
   category    String // Categoria do evento (música, teatro, exposição, etc)
