@@ -1,10 +1,5 @@
 import Link from "next/link";
-import { Outfit } from "next/font/google";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
+import { outfit } from "styles/fonts";
 
 export default function AddMyTrail() {
 

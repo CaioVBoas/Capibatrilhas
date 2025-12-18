@@ -5,16 +5,12 @@ import { capibatrilhasAlternateLogo, capibatrilhasAlternateLogo2 } from "assets"
 import Image from "next/image";
 import Link from "next/link";
 import { UserRound } from 'lucide-react';
-import { DM_Sans, Outfit } from "next/font/google";
+import { DM_Sans } from "next/font/google";
+import { outfit } from "styles/fonts";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600", "700"],
 });
 
 export default function NavBar() {

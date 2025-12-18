@@ -3,13 +3,11 @@
 import { Plus, TrendingUp, Sparkles, CircleCheckBig } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Outfit } from 'next/font/google';
 import { useParams } from 'next/navigation';
 import TrailCard from 'components/featuredTrailCards';
 import NavBar from 'components/navBar';
 import api from 'services/api';
-
-const outfit = Outfit({ subsets: ['latin'] });
+import { outfit } from 'styles/fonts';
 
 interface TrailCardData {
   id: number;

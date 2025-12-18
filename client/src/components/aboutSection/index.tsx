@@ -3,12 +3,8 @@
 import Image from "next/image";
 import { aboutRight } from "assets";
 import { motion, Variants } from "framer-motion";
-import { Outfit, DM_Sans } from "next/font/google";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
+import { DM_Sans } from "next/font/google";
+import { outfit } from "styles/fonts";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

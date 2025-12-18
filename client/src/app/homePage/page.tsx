@@ -5,21 +5,17 @@ import TrailCard from "components/featuredTrailCards";
 import { MapPin, TrendingUp, Star, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useRef } from 'react';
 import EventsCard from 'components/eventsCard';
-import { Outfit, DM_Sans } from "next/font/google";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
+import { DM_Sans } from "next/font/google";
+import { outfit } from "styles/fonts";
+import NavBar from 'components/navBar';
+import UserCardHomepage from 'components/mainCardHomepage';
+import AddMyTrail from 'components/addMyTrail';
+import Footer from "components/footer"
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
-import NavBar from 'components/navBar';
-import UserCardHomepage from 'components/mainCardHomepage';
-import AddMyTrail from 'components/addMyTrail';
-import Footer from "components/footer"
 
 const mockUserCard = {
   userName: "Guilherme",

@@ -2,12 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Outfit, DM_Sans } from "next/font/google";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600"],
-});
+import { DM_Sans } from "next/font/google";
+import { outfit } from "styles/fonts";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

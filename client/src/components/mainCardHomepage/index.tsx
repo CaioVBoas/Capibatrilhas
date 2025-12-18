@@ -2,12 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Flame, Coins, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Outfit, DM_Sans } from "next/font/google";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
+import { DM_Sans } from "next/font/google";
+import { outfit } from "styles/fonts";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

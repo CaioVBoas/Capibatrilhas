@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from '../components/theme-provider'; 
 import NextAuthSessionProvider from '../providers/sessionProvider';
 import '../styles/globals.css';
+import { outfit } from '../styles/fonts';
 
 export const metadata: Metadata = {
   title: 'Capibatrilhas',
@@ -17,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
-      <body>
+      <body className={outfit.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
