@@ -8,6 +8,9 @@ import trailChallengeResponse from './trailChallengeResponse';
 import trailParticipationResponse from './trailParticipationResponse';
 import trailInvitationResponse from './trailInvitationResponse';
 import completedChallengeResponse from './completedChallengeResponse';
+import walletTransactionResponse from './walletTransactionResponse';
+import achievementResponse from './achievementResponse';
+import userAchievementResponse from './userAchievementResponse';
 
 export { userResponse };
 export { authResponse };
@@ -19,3 +22,6 @@ export { trailChallengeResponse };
 export { trailParticipationResponse };
 export { trailInvitationResponse };
 export { completedChallengeResponse };
+export { walletTransactionResponse };
+export { achievementResponse };
+export { userAchievementResponse };

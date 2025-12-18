@@ -8,6 +8,9 @@ import trailChallengePath from './trailChallengePath';
 import trailParticipationPath from './trailParticipationPath';
 import trailInvitationPath from './trailInvitationPath';
 import completedChallengePath from './completedChallengePath';
+import walletTransactionPath from './walletTransactionPath';
+import achievementPath from './achievementPath';
+import userAchievementPath from './userAchievementPath';
 
 export { userPath };
 export { authPath };
@@ -19,3 +22,6 @@ export { trailChallengePath };
 export { trailParticipationPath };
 export { trailInvitationPath };
 export { completedChallengePath };
+export { walletTransactionPath };
+export { achievementPath };
+export { userAchievementPath };
