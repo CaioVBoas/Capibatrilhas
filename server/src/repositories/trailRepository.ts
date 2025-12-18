@@ -28,6 +28,19 @@ class TrailRepository {
     return trail;
   }
 
+  async findByUserId(userId: number): Promise<Trail[]> {
+    const trails = await prisma.trail.findMany({
+      where: {
+        participants: {
+          some: {
+            userId: userId,
+          },
+        },
+      },
+    });
+    return trails;
+  }
+
   async update(id: number, data: Prisma.TrailUpdateInput): Promise<Trail> {
     const trail = await prisma.trail.update({
       where: { id },
