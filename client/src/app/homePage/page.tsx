@@ -5,21 +5,16 @@ import TrailCard from "components/featuredTrailCards";
 import { MapPin, TrendingUp, Star, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useRef } from 'react';
 import EventsCard from 'components/eventsCard';
-import { Outfit, DM_Sans } from "next/font/google";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
+import { DM_Sans } from "next/font/google";
+import { outfit } from "styles/fonts";
+import NavBar from 'components/navBar';
+import UserCardHomepage from 'components/mainCardHomepage';
+import AddMyTrail from 'components/addMyTrail';
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
-import NavBar from 'components/navBar';
-import UserCardHomepage from 'components/mainCardHomepage';
-import AddMyTrail from 'components/addMyTrail';
-import Footer from "components/footer"
 
 const mockUserCard = {
   userName: "Guilherme",
@@ -160,10 +155,10 @@ const mockTrails = [
   subtitle: "Explore os melhores blocos e pontos culturais do Carnaval da cidade",
   progress: 42, 
   type: "Destaque",
-  challengesQuantity: "7",
+  challengesQuantity: 7,
   time: "5 dias",
   prize: 500,
-  challengesCompleted: "3",
+  challengesCompleted: 3,
   buttonText: "Continuar",
   tag: "Cultura",
   isPersonalized: true,
@@ -174,10 +169,10 @@ const mockTrails = [
   subtitle: "Descubra os sabores únicos da culinária do Recife com desafios deliciosos",
   progress: 60, 
   type: "Destaque",
-  challengesQuantity: "5",
+  challengesQuantity: 5,
   time: "6 dias",
   prize: 400,
-  challengesCompleted: "3",
+  challengesCompleted: 3,
   buttonText: "Continuar",
   tag: "Gastronomia",
   isPersonalized: false,
@@ -188,10 +183,10 @@ const mockTrails = [
   subtitle: "Descubra o Natal de um novo jeito embalado pelas luzes e decorações natalinas na melhor cidade do Brasil",
   progress: 0, 
   type: "Destaque",
-  challengesQuantity: "8",
+  challengesQuantity: 8,
   time: "10 dias",
   prize: 300,
-  challengesCompleted: "0",
+  challengesCompleted: 0,
   buttonText: "Iniciar Trilha",
   tag: "Natal",
   isPersonalized: false,
@@ -202,10 +197,10 @@ const mockTrails = [
   subtitle: "Desafios diários em praias e pontos turísticos da cidade",
   progress: 0, 
   type: "Destaque",
-  challengesQuantity: "7",
+  challengesQuantity: 7,
   time: "7 dias",
   prize: 350,
-  challengesCompleted: "0",
+  challengesCompleted: 0,
   buttonText: "Iniciar Trilha",
   tag: "Verão",
   isPersonalized: false,
@@ -216,10 +211,10 @@ const mockTrails = [
     subtitle: "Volte no tempo e descubra as raízes do Recife Antigo",
     progress: 0, 
     type: "Destaque",
-    challengesQuantity: "6",
+    challengesQuantity: 6,
     time: "4 dias",
     prize: 250,
-    challengesCompleted: "0",
+    challengesCompleted: 0,
     buttonText: "Iniciar Trilha",
     tag: "História",
     isPersonalized: false,
@@ -230,10 +225,10 @@ const mockTrails = [
     subtitle: "Explore os murais de grafite e galerias de arte da cidade",
     progress: 0, 
     type: "Destaque",
-    challengesQuantity: "5",
+    challengesQuantity: 5,
     time: "3 dias",
     prize: 200,
-    challengesCompleted: "0",
+    challengesCompleted: 0,
     buttonText: "Iniciar Trilha",
     tag: "Arte",
     isPersonalized: false,
@@ -244,10 +239,10 @@ const mockTrails = [
     subtitle: "Uma jornada relaxante pelos principais parques e áreas verdes",
     progress: 0, 
     type: "Destaque",
-    challengesQuantity: "4",
+    challengesQuantity: 4,
     time: "2 dias",
     prize: 150,
-    challengesCompleted: "0",
+    challengesCompleted: 0,
     buttonText: "Iniciar Trilha",
     tag: "Natureza",
     isPersonalized: false,
@@ -384,8 +379,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-
-      <Footer/>
     </div>
   );
 }

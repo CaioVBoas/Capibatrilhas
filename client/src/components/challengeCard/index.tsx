@@ -1,12 +1,12 @@
 'use client';
 
-import React from "react";
+import React, { useState } from "react";
 import { MapPin, Coins, Check, HelpCircle } from "lucide-react";
 import { Outfit, DM_Sans } from "next/font/google";
+import ChallengeValidationModal from "components/challengeValidationModal";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700"] });
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500"] });
-
 
 export interface ChallengeData {
   id: number | string;
@@ -23,6 +23,13 @@ interface ChallengeCardProps {
 
 const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, isCompleted = false }) => {
   const formattedId = String(challenge.id).padStart(2, '0');
+  const [showValidationModal, setShowValidationModal] = useState(false);
+
+  const handleValidateChallenge = async (token: string) => {
+    // Integração futura aqui
+    console.log('Token recebido:', token);
+    setShowValidationModal(false);
+  };
 
   if (isCompleted) {
     return (
@@ -103,11 +110,19 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, isCompleted = 
       </div>
 
       <button 
-        // Adicione aqui a função de click futura (onClick)
+        onClick={() => setShowValidationModal(true)}
         className={`w-full bg-[#2563EB] text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-95 mt-6 flex items-center justify-center gap-2 ${outfit.className}`}
       >
         Completar Desafio
       </button>
+
+      <ChallengeValidationModal
+        isOpen={showValidationModal}
+        challengeTitle={challenge.title}
+        onClose={() => setShowValidationModal(false)}
+        onSubmit={handleValidateChallenge}
+        isLoading={false}
+      />
     </div>
   );
 };

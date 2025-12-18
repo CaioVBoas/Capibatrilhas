@@ -1,11 +1,6 @@
 'use client';
 import { Funnel, Search } from 'lucide-react';
-import { Outfit } from 'next/font/google';
-
-const outfit = Outfit({
-  subsets: ['latin'],
-  weight: ['600', '700']
-});
+import { outfit } from 'styles/fonts';
 
 const trailsTypes = [
   'Todas',

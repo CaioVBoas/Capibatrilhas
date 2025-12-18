@@ -8,6 +8,9 @@ import trailChallengeSchema, { trailChallengeCreateSchema, trailChallengeUpdateS
 import trailParticipationSchema, { trailParticipationCreateSchema, trailParticipationUpdateSchema } from './trailParticipationSchema';
 import trailInvitationSchema, { trailInvitationCreateSchema, trailInvitationUpdateSchema } from './trailInvitationSchema';
 import completedChallengeSchema, { completedChallengeCreateSchema, completedChallengeUpdateSchema } from './completedChallengeSchema';
+import walletTransactionSchema, { walletTransactionCreateSchema, walletTransactionUpdateSchema } from './walletTransactionSchema';
+import achievementSchema, { achievementCreateSchema, achievementUpdateSchema } from './achievementSchema';
+import userAchievementSchema, { userAchievementCreateSchema, userAchievementUpdateSchema } from './userAchievementSchema';
 
 export { userSchema, userCreateSchema, userUpdateSchema };
 export { loginSchema, loginResponseSchema };
@@ -19,3 +22,6 @@ export { trailChallengeSchema, trailChallengeCreateSchema, trailChallengeUpdateS
 export { trailParticipationSchema, trailParticipationCreateSchema, trailParticipationUpdateSchema };
 export { trailInvitationSchema, trailInvitationCreateSchema, trailInvitationUpdateSchema };
 export { completedChallengeSchema, completedChallengeCreateSchema, completedChallengeUpdateSchema };
+export { walletTransactionSchema, walletTransactionCreateSchema, walletTransactionUpdateSchema };
+export { achievementSchema, achievementCreateSchema, achievementUpdateSchema };
+export { userAchievementSchema, userAchievementCreateSchema, userAchievementUpdateSchema };

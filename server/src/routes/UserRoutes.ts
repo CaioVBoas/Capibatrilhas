@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import auth from '../middlewares/auth';
 import admin from '../middlewares/admin';
+import requestHandler from '../middlewares/requestHandler';
 import { UserController } from '../controllers';
 
 const userRouter = Router();
@@ -9,9 +10,9 @@ userRouter.route('/').post(UserController.create);
 
 userRouter.route('/').get([auth], UserController.list);
 
-userRouter.route('/:userId').get(UserController.read);
+userRouter.route('/email').get(UserController.findByEmail, requestHandler);
 
-userRouter.route('/:userEmail').get(UserController.findByEmail);
+userRouter.route('/:userId').get(UserController.read);
 
 // Update user profile - requires authentication
 userRouter.route('/:userId').patch([auth], UserController.updateProfile);

@@ -6,6 +6,12 @@ import { Loader2 } from 'lucide-react';
 import ChallengeCard from "components/challengeCard";
 import TrailHeader, { TrailHeaderData } from "components/headerChallengePage"; 
 import api from "services/api";
+import { DM_Sans } from "next/font/google";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -107,37 +113,26 @@ export default function ChallengePage(){
   }
 
   return (
-  <div className="bg-gray-100 min-h-screen">
-    {/* Mantive headerData, pois é a variável da sua integração atual */}
-    <TrailHeader trail={headerData} />
-
-    {/* Estrutura visual do segundo código (p-8 e centralização) */}
-    <div className="p-8">
-      <div className="flex flex-col gap-6 max-w-4xl mx-auto">
-        {challenges.length > 0 ? (
-          challenges.map((item) => {
-            // Lógica de integração mantida
-            const challengeData = item.challenge || item;
-            
-            return (
-              <ChallengeCard 
-                key={challengeData.id}
-                challenge={challengeData}
-                // Lógica de isCompleted mantida
-                isCompleted={challengeData.isActive === false}
-              />   
-            );
-          })
-        ) : (
-          // Visual do "Nenhum desafio" ajustado para o segundo exemplo (texto simples)
-          // Nota: Removi 'dmSans.className' para evitar erros se você não tiver a fonte importada,
-          // mas a estrutura está idêntica.
-          <p className="text-gray-500 text-center">
-            Nenhum desafio encontrado.
-          </p>
-        )}
+    <div className="bg-gray-100 min-h-screen">
+      <TrailHeader trail={headerData} />
+      <div className="p-8">
+        <div className="flex flex-col gap-6 max-w-4xl mx-auto">
+          {challenges.length > 0 ? (
+            challenges.map((item) => {
+              const challengeData = item.challenge || item;
+              return (
+                <ChallengeCard 
+                  key={challengeData.id}
+                  challenge={challengeData}
+                  isCompleted={challengeData.isActive === false}
+                />   
+              );
+            })
+          ) : (
+            <p className={`text-gray-500 text-center ${dmSans.className}`}>Nenhum desafio encontrado.</p>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

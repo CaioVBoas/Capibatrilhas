@@ -143,9 +143,16 @@ class UserController {
 
   async findByEmail(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userEmail } = req.params;
+      const { email } = req.query;
 
-      const user = await UserRepository.findByEmail(userEmail);
+      if (!email || typeof email !== 'string') {
+        return next({
+          status: 400,
+          message: 'Email é obrigatório',
+        });
+      }
+
+      const user = await UserRepository.findByEmail(email);
 
       if (!user) {
         return next({
@@ -158,7 +165,7 @@ class UserController {
       const {
         password,
         cpf,
-        email,
+        email: userEmail,
         phone,
         zipCode,
         state,
