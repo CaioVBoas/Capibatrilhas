@@ -1,7 +1,14 @@
-import { Prisma, CompletedChallenge } from '@prisma/client';
+import { Prisma, CompletedChallenge, Challenge } from '@prisma/client';
 import prisma from '../database';
 
 class CompletedChallengeRepository {
+  async getChallengeById(challengeId: number): Promise<Challenge | null> {
+    const challenge = await prisma.challenge.findUnique({
+      where: { id: challengeId },
+    });
+    return challenge;
+  }
+  
   async create(
     data: Prisma.CompletedChallengeCreateInput,
   ): Promise<CompletedChallenge> {

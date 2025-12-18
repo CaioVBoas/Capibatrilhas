@@ -38,6 +38,7 @@ Table Challenge {
   description String [not null]
   theme String [not null]
   conclusionCriteria String [not null]
+  conclusionToken String [not null]
   location String [not null]
   rewards Int [not null]
   isActive Boolean [not null, default: true]
@@ -59,8 +60,8 @@ Table Trail {
   isHighlighted Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  ownerId Int [not null]
-  owner User [not null]
+  ownerId Int
+  owner User
   challenges TrailChallenge [not null]
   participants TrailParticipation [not null]
   invites TrailInvitation [not null]

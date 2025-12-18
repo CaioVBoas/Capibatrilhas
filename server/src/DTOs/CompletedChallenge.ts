@@ -71,6 +71,12 @@ export const CreateCompletedChallenge = z.object({
     })
     .int('As recompensas ganhas devem ser um número inteiro')
     .nonnegative('As recompensas ganhas devem ser não-negativas'),
+  conclusionToken: z
+    .string({
+      invalid_type_error: 'O token de conclusão deve ser uma string',
+      required_error: 'O token de conclusão é obrigatório',
+    })
+    .length(6, 'O token de conclusão deve ter exatamente 6 caracteres'),
 });
 
 export const UpdateCompletedChallenge = z.object({

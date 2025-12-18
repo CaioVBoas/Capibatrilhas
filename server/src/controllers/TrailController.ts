@@ -8,13 +8,14 @@ class TrailController {
     try {
       const trailData = Trail.parse(req.body);
 
+      // ownerId is optional - if not provided, creates a public trail
       // TODO: Get ownerId from authenticated user token when auth middleware is updated
-      const ownerId = Number(req.body.ownerId);
+      const ownerId = req.body.ownerId ? Number(req.body.ownerId) : null;
 
-      if (!ownerId || Number.isNaN(ownerId)) {
+      if (ownerId !== null && Number.isNaN(ownerId)) {
         return next({
           status: 400,
-          message: 'ID do proprietário é obrigatório',
+          message: 'ID do proprietário inválido',
         });
       }
 
@@ -25,7 +26,7 @@ class TrailController {
         startDate: trailData.startDate,
         endDate: trailData.endDate,
         totalRewards: trailData.totalRewards,
-        owner: { connect: { id: ownerId } },
+        ...(ownerId && { owner: { connect: { id: ownerId } } }),
         challenges: {
           create: trailData.challenges.map((id, index) => ({
             challenge: { connect: { id } },
