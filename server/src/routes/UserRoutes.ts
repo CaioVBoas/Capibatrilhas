@@ -11,6 +11,8 @@ userRouter.route('/').get([auth], UserController.list);
 
 userRouter.route('/:userId').get(UserController.read);
 
+userRouter.route('/:userEmail').get(UserController.findByEmail);
+
 // Update user profile - requires authentication
 userRouter.route('/:userId').patch([auth], UserController.updateProfile);
 

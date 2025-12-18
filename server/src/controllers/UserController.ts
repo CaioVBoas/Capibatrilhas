@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { hash, compare } from 'bcryptjs';
 import { UserRepository } from '../repositories';
-import { User, UpdateUserProfile, UpdateUserProgress, ChangePassword } from '../DTOs';
+import {
+  User,
+  UpdateUserProfile,
+  UpdateUserProgress,
+  ChangePassword,
+} from '../DTOs';
 
 class UserController {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -36,7 +41,20 @@ class UserController {
       const user = await UserRepository.create(userDataWithHashedPassword);
 
       // Remove sensitive fields from response
-      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+      const {
+        password,
+        cpf,
+        email,
+        phone,
+        zipCode,
+        state,
+        city,
+        district,
+        street,
+        complement,
+        number,
+        ...sanitizedUser
+      } = user;
 
       res.locals = {
         status: 201,
@@ -64,7 +82,20 @@ class UserController {
       }
 
       // Remove sensitive fields from response
-      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+      const {
+        password,
+        cpf,
+        email,
+        phone,
+        zipCode,
+        state,
+        city,
+        district,
+        street,
+        complement,
+        number,
+        ...sanitizedUser
+      } = user;
 
       res.locals = {
         status: 200,
@@ -110,6 +141,46 @@ class UserController {
     }
   }
 
+  async findByEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { userEmail } = req.params;
+
+      const user = await UserRepository.findByEmail(userEmail);
+
+      if (!user) {
+        return next({
+          status: 404,
+          message: 'Usuário não encontrado',
+        });
+      }
+
+      // Remove sensitive fields from response
+      const {
+        password,
+        cpf,
+        email,
+        phone,
+        zipCode,
+        state,
+        city,
+        district,
+        street,
+        complement,
+        number,
+        ...sanitizedUser
+      } = user;
+
+      res.locals = {
+        status: 200,
+        data: sanitizedUser,
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async updateProfile(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = Number(req.params.userId);
@@ -126,7 +197,20 @@ class UserController {
       const user = await UserRepository.update(userId, userData);
 
       // Remove sensitive fields from response
-      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+      const {
+        password,
+        cpf,
+        email,
+        phone,
+        zipCode,
+        state,
+        city,
+        district,
+        street,
+        complement,
+        number,
+        ...sanitizedUser
+      } = user;
 
       res.locals = {
         status: 200,
@@ -156,7 +240,20 @@ class UserController {
       const user = await UserRepository.update(userId, progressData);
 
       // Remove sensitive fields from response
-      const { password, cpf, email, phone, zipCode, state, city, district, street, complement, number, ...sanitizedUser } = user;
+      const {
+        password,
+        cpf,
+        email,
+        phone,
+        zipCode,
+        state,
+        city,
+        district,
+        street,
+        complement,
+        number,
+        ...sanitizedUser
+      } = user;
 
       res.locals = {
         status: 200,
