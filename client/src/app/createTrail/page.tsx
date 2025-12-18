@@ -4,100 +4,83 @@ import TrailDescriptionInput from "components/trailDescriptionInput";
 import TrailInvitationComponent from "components/invitationComponent";
 import SummaryCard from "components/summaryCard";
 import AddChallengeCard from "components/addChallengeCard";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ListTodo, Plus } from "lucide-react";
-// import { ChevronLeft } from "lucide-react";
-
 import { useRouter } from "next/navigation";
 import NavBar from "components/navBar";
 import { outfit, dmSans } from "styles/fonts";
+import api from "services/api";
+import { Challenge } from "types";
+import { useSession } from "next-auth/react";
 
 const mockTags = ["Customizada", "Aventura", "Cultura", "Natureza", "Gastronomia", "História", "Natal", "São João", "Carnaval", "Páscoa"];
 const mockLink = "https://capibatrilhas.com/invite/abc123";
-const mockChallenges = [
-{
-    id: "c1",
-    name: "Visita ao Paço do Frevo",
-    location: "Recife Antigo",
-    score: 900,
-    // Ação: Visitar e validar a presença
-    description: "Visite a área de exposição principal do Paço do Frevo para validar sua presença.",
-  },
-  {
-    id: "c2",
-    name: "Maratona EU AMO RECIFE",
-    location: "Bairro do Recife",
-    score: 150,
-    // Descrição ajustada para refletir uma "maratona" de pontos a serem encontrados
-    description: "Conclua a sequência de três checkpoints turísticos da trilha e confirme a última localização no letreiro 'EU AMO RECIFE'.",
-  },
-  {
-    id: "c3",
-    name: "Um Dia no Recém-Inaugurado Parque da Tamarineira",
-    location: "Tamarineira",
-    score: 100,
-    // Ação: Checar um painel informativo
-    description: "Confirme sua visita checando o painel informativo próximo à entrada principal do Parque da Tamarineira.",
-  },
-  {
-    id: "c4",
-    name: "O Tesouro do Mercado de São José",
-    location: "Mercado de São José",
-    score: 200,
-    // Ação: Compra/Interação com parceiro
-    description: "Realize uma compra em uma das lojas parceiras identificadas dentro do Mercado de São José.",
-  },
-  {
-    id: "c5",
-    name: "Mirante da Boa Vista",
-    location: "Rua da Aurora",
-    score: 75,
-    // Ação: Confirmação de ponto turístico
-    description: "Confirme sua presença no Mirante da Boa Vista, desfrutando da vista panorâmica da Rua da Aurora.",
-  },
-  {
-    id: "c6",
-    name: "Ato de Solidariedade",
-    location: "Hemope",
-    score: 300,
-    // Ação: Ação social (doação)
-    description: "Complete uma doação de sangue em um hemocentro parceiro e valide sua ação.",
-  },
-  {
-    id: "c7",
-    name: "Conhecendo a Cervejaria",
-    location: "Pina",
-    score: 300,
-    // Ação: Interação no local parceiro
-    description: "Visite a Cervejaria X (parceira) e valide sua presença no balcão de atendimento após o consumo de qualquer produto.",
-  },
-];
+
+interface ChallengeCardFormat {
+  id: string;
+  name: string;
+  location: string;
+  score: number;
+  description: string;
+  originalId: number;
+}
 
 const CreateTrailPage: React.FC = () => {
   const router = useRouter();
+  const { data: session } = useSession();
+  const [challenges, setChallenges] = useState<ChallengeCardFormat[]>([]);
+  const [loadingChallenges, setLoadingChallenges] = useState(true);
   const [selectedChallenges, setSelectedChallenges] = useState<string[]>([]);
   const [showCapibaWarning, setShowCapibaWarning] = useState(false);
   const [warningVisible, setWarningVisible] = useState(false);
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedTag, setSelectedTag] = useState("");
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({});
 
+  useEffect(() => {
+    async function fetchChallenges() {
+      try {
+        setLoadingChallenges(true);
+        const response = await api.get('/challenge');
+        const challengesData: Challenge[] = response.data.data || response.data;
+
+        const formattedChallenges: ChallengeCardFormat[] = challengesData
+          .filter(c => c.isActive)
+          .map(c => ({
+            id: `c${c.id}`,
+            name: c.title,
+            location: c.location,
+            score: c.rewards,
+            description: c.description,
+            originalId: c.id,
+          }));
+
+        setChallenges(formattedChallenges);
+      } catch (error) {
+        console.error("Erro ao buscar desafios:", error);
+      } finally {
+        setLoadingChallenges(false);
+      }
+    }
+
+    fetchChallenges();
+  }, []);
+
   const handleToggleChallenge = (id: string, selected: boolean) => {
     if (selected) {
-      const found = mockChallenges.find((c) => c.id === id);
+      const found = challenges.find((c) => c.id === id);
       const challengeScore = found?.score ?? 0;
-      
- 
+
       const currentTotal = selectedChallenges.reduce((sum, cId) => {
-        const c = mockChallenges.find((ch) => ch.id === cId);
+        const c = challenges.find((ch) => ch.id === cId);
         return sum + (c?.score ?? 0);
       }, 0);
-      
+
       const wouldBeRemaining = 1000 - (currentTotal + challengeScore);
-      
-      // Não permite adicionar se ficaria negativo
+
       if (wouldBeRemaining < 0) {
         setShowCapibaWarning(true);
         setWarningVisible(true);
@@ -106,7 +89,7 @@ const CreateTrailPage: React.FC = () => {
         return;
       }
     }
-    
+
     setSelectedChallenges((prev) => {
       if (selected) {
         if (prev.includes(id)) return prev;
@@ -122,39 +105,67 @@ const CreateTrailPage: React.FC = () => {
     }
   };
 
+  const handleTagChange = (tag: string) => {
+    setSelectedTag(tag);
+  };
+
   const selectedCount = selectedChallenges.length;
   const totalRewardValue = selectedChallenges.reduce((sum, id) => {
-    const found = mockChallenges.find((c) => c.id === id);
+    const found = challenges.find((c) => c.id === id);
     return sum + (found?.score ?? 0);
   }, 0);
   const remainingCapibaValue = 1000 - totalRewardValue;
 
-  // Validação: todos os campos preenchidos?
-  const isFormValid = 
-    title.trim() !== "" && 
-    description.trim() !== "" && 
-    dateRange.from && 
-    dateRange.to && 
+  const isFormValid =
+    title.trim() !== "" &&
+    description.trim() !== "" &&
+    selectedTag !== "" &&
+    dateRange.from &&
+    dateRange.to &&
     selectedChallenges.length > 0;
 
+  const handleCreateTrail = async () => {
+    if (!isFormValid || isSubmitting) return;
+
+    try {
+      setIsSubmitting(true);
+
+      const challengeIds = selectedChallenges.map(id => {
+        const challenge = challenges.find(c => c.id === id);
+        return challenge?.originalId;
+      }).filter((id): id is number => id !== undefined);
+
+      const trailData = {
+        title: title.trim(),
+        description: description.trim(),
+        theme: selectedTag,
+        startDate: dateRange.from!.toISOString(),
+        endDate: dateRange.to!.toISOString(),
+        totalRewards: totalRewardValue,
+        challenges: challengeIds,
+        ownerId: session?.user?.id,
+      };
+
+      await api.post('/trail', trailData);
+
+      alert("Trilha criada com sucesso!");
+      router.push("/myTrails");
+    } catch (error) {
+      console.error("Erro ao criar trilha:", error);
+      alert("Erro ao criar trilha. Tente novamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    
-  
     <div className={`${dmSans.className} min-h-screen bg-gray-50`}>
       <NavBar />
-      
-      <div className="bg-linear-to-r from-[#2563EB] to-[#1E40AF] text-white px-6 py-8"> {/*aqui*/}
+
+      <div className="bg-linear-to-r from-[#2563EB] to-[#1E40AF] text-white px-6 py-8">
         <div className="flex items-center gap-3 mb-4">
-          {/* <button 
-            onClick={() => window.history.back()}
-            className="hover:opacity-80 transition-opacity flex items-center gap-2"
-            aria-label="Voltar"
-          >
-            <ChevronLeft className="h-6 w-6" />
-            <span className="text-lg font-medium">Voltar</span>
-          </button> */}
         </div>
-        
+
         <div className="flex items-start gap-3">
           <Plus className="h-8 w-8 mt-1 shrink-0" />
           <div>
@@ -163,13 +174,14 @@ const CreateTrailPage: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 gap-6 p-6">
-        <TrailDescriptionInput 
+        <TrailDescriptionInput
           topic={mockTags}
           onTitleChange={setTitle}
           onDescriptionChange={setDescription}
           onDateRangeChange={handleDateRangeChange}
+          onTagChange={handleTagChange}
         />
       </div>
 
@@ -178,12 +190,12 @@ const CreateTrailPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 p-6">
-        <SummaryCard 
+        <SummaryCard
           challengesSelected={selectedCount}
           totalReward={totalRewardValue}
           remainingCapibas={remainingCapibaValue}
         />
-          <p className="text--400 ml-3 text-red-600 opacity-50">Cada trilha personalizada pode distribuir em seus desafios até 1.000 capibas, conforme sua preferência. O limite máximo de ganhos com trilhas personalizadas é de 5.000 capibas por mês*</p>
+        <p className="text--400 ml-3 text-red-600 opacity-50">Cada trilha personalizada pode distribuir em seus desafios até 1.000 capibas, conforme sua preferência. O limite máximo de ganhos com trilhas personalizadas é de 5.000 capibas por mês*</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 p-6 ml-6">
@@ -195,14 +207,20 @@ const CreateTrailPage: React.FC = () => {
           <p className="text-gray-500 ml-3">Selecione os desafios que você gostaria de incluir na sua trilha</p>
 
           <div className="mt-4 grid grid-cols-1 gap-4">
-            {mockChallenges.map((c) => (
-              <AddChallengeCard
-                key={c.id}
-                challenge={c}
-                selected={selectedChallenges.includes(c.id)}
-                onToggle={handleToggleChallenge}
-              />
-            ))}
+            {loadingChallenges ? (
+              <p className="text-gray-500">Carregando desafios...</p>
+            ) : challenges.length > 0 ? (
+              challenges.map((c) => (
+                <AddChallengeCard
+                  key={c.id}
+                  challenge={c}
+                  selected={selectedChallenges.includes(c.id)}
+                  onToggle={handleToggleChallenge}
+                />
+              ))
+            ) : (
+              <p className="text-gray-500">Nenhum desafio disponível.</p>
+            )}
           </div>
         </div>
       </div>
@@ -217,20 +235,15 @@ const CreateTrailPage: React.FC = () => {
 
       <div className="flex justify-center p-6">
         <button
-          onClick={() => {
-            if (!isFormValid) return;
-            console.log("Trilha criada:", { title, description, dateRange, selectedChallenges });
-            alert("Trilha criada com sucesso!");
-            router.push("/myTrails");
-          }}
-          disabled={!isFormValid}
-          className={`w-1/2 flex justify-center  py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${outfit.className} ${
-            isFormValid
+          onClick={handleCreateTrail}
+          disabled={!isFormValid || isSubmitting}
+          className={`w-1/2 flex justify-center py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${outfit.className} ${
+            isFormValid && !isSubmitting
               ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer justify-center flex items-center gap-2"
               : "bg-gray-300 text-gray-500 cursor-not-allowed justify-center flex items-center gap-2"
           }`}
         >
-          Criar minha Trilha
+          {isSubmitting ? "Criando..." : "Criar minha Trilha"}
         </button>
       </div>
     </div>

@@ -55,47 +55,38 @@ export default function MyTrails() {
   const [loading, setLoading] = useState(true);
 
   const mapApiToTrailCard = (apiData: {
-    trail?: {
-      id: number;
-      title: string;
-      description?: string;
-      theme?: string;
-      startDate?: string;
-      endDate?: string;
-      totalRewards?: number;
-    };
-    id?: number;
-    title?: string;
+    id: number;
+    title: string;
     description?: string;
     theme?: string;
     startDate?: string;
     endDate?: string;
     totalRewards?: number;
-    progress?: number;
-  }[]): TrailCardData[] => {
+    ownerId?: number | null;
+    participants?: { progress: number; isCompleted: boolean }[];
+  }[], currentUserId: number): TrailCardData[] => {
     if (!Array.isArray(apiData)) return [];
 
     return apiData.map((item) => {
-      const trailInfo = item.trail || item;
-      const progress = item.progress || 0;
+      const participation = item.participants?.[0];
+      const progress = participation?.progress || 0;
+      const isPersonalized = item.ownerId === currentUserId;
 
       let btnText = "Começar";
       if (progress > 0 && progress < 100) btnText = "Continuar";
       if (progress === 100) btnText = "Ver Certificado";
 
       return {
-        id: trailInfo.id || 0,
-        title: trailInfo.title || '',
-        subtitle: trailInfo.description || "Sem descrição",
+        id: item.id || 0,
+        title: item.title || '',
+        subtitle: item.description || "Sem descrição",
         progress: progress,
-        type: trailInfo.theme || "Geral",
-
-        time: calculateDuration(trailInfo.startDate || '', trailInfo.endDate || ''),
-
-        prize: trailInfo.totalRewards || 0,
-        tag: trailInfo.theme?.toUpperCase() || "GERAL",
+        type: item.theme || "Geral",
+        time: calculateDuration(item.startDate || '', item.endDate || ''),
+        prize: item.totalRewards || 0,
+        tag: item.theme || "GERAL",
         buttonText: btnText,
-        isPersonalized: false
+        isPersonalized: isPersonalized,
       };
     });
   };
@@ -107,7 +98,7 @@ export default function MyTrails() {
       try {
         const response = await api.get(`/trail/relations/user/${userId}`);
         const rawData = response.data.data || response.data;
-        const formattedTrails = mapApiToTrailCard(rawData);
+        const formattedTrails = mapApiToTrailCard(rawData, userId);
 
         setTrails(formattedTrails);
       } catch (error) {
@@ -127,8 +118,8 @@ export default function MyTrails() {
 
   const filteredTrails = trails.filter((trail) => {
     if (trailType === 'Andamento')
-      return trail.progress > 0 && trail.progress < 100;
-    if (trailType === 'Personalizadas') return trail.progress === 0;
+      return trail.progress > 0 && trail.progress < 100 && !trail.isPersonalized;
+    if (trailType === 'Personalizadas') return trail.isPersonalized;
     if (trailType === 'Concluidas') return trail.progress === 100;
     return true;
   });

@@ -3,7 +3,7 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["api.qrserver.com"],
+    domains: ["api.qrserver.com", "i.pravatar.cc"],
   },
   webpack(config) {
     config.resolve.alias = {

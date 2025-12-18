@@ -14,17 +14,17 @@ interface TrailDescriptionProps {
   onTitleChange?: (title: string) => void;
   onDescriptionChange?: (description: string) => void;
   onDateRangeChange?: (range: DateRange | undefined) => void;
+  onTagChange?: (tag: string) => void;
 }
 
-const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange }) => {
-  // Estado para gerenciar o tema selecionado. 
-  // Inicializamos com o primeiro tópico da lista, se houver, para replicar a imagem.
-  const [selectedTopic, setSelectedTopic] = useState<string>(topic[0] || "");
+const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange, onTagChange }) => {
+  const [selectedTopic, setSelectedTopic] = useState<string>("");
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
 
   const handleTopicSelect = (t: string) => {
     setSelectedTopic(t);
+    onTagChange?.(t);
   };
 
   // Estado para range de datas (início / fim)
@@ -110,7 +110,7 @@ const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitle
 
       {/* Tema */}
       <div className="flex flex-col gap-2">
-        <label className="font-medium">Tema</label>
+        <label className="font-medium">Tema <span className="text-red-500">*</span></label>
         <div className="flex flex-wrap gap-3">
           {topic.map((t) => {
             const isSelected = t === selectedTopic;

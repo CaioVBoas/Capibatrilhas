@@ -31,12 +31,28 @@ class TrailRepository {
   async findByUserId(userId: number): Promise<Trail[]> {
     const trails = await prisma.trail.findMany({
       where: {
-        participants: {
-          some: {
-            userId: userId,
+        OR: [
+          {
+            participants: {
+              some: {
+                userId: userId,
+              },
+            },
           },
+          {
+            ownerId: userId,
+          },
+        ],
+      },
+      include: {
+        challenges: { include: { challenge: true }, orderBy: { challengeOrder: 'asc' } },
+        owner: { select: { id: true, name: true, urlImage: true } },
+        participants: {
+          where: { userId: userId },
+          select: { progress: true, isCompleted: true },
         },
       },
+      orderBy: { createdAt: 'desc' },
     });
     return trails;
   }
