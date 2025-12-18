@@ -103,6 +103,8 @@ const CreateTrailPage: React.FC = () => {
   const [topic, setTopic] = useState<string>("");
 
 
+
+
   useEffect(() => {
 
     const fetchChallenges = async () => {
@@ -129,6 +131,10 @@ const CreateTrailPage: React.FC = () => {
 
     fetchChallenges();
   }, []);
+
+
+
+
 
   const handleToggleChallenge = (id: number, selected: boolean) => {
     if (selected) {
@@ -160,6 +166,37 @@ const CreateTrailPage: React.FC = () => {
       }
       return prev.filter((x) => x !== id);
     });
+  };
+
+  const handleCreateTrail = async () => {
+
+    if (!isFormValid) return;
+
+    try {
+      // Montando o objeto conforme o seu Schema Prisma
+      const payload = {
+        title: title,
+        description: description,
+        theme: topic, 
+        startDate: dateRange.from?.toISOString(),
+        endDate: dateRange.to?.toISOString(),
+        totalRewards: totalRewardValue,
+        ownerId: 1, // por equanto vou passar um id fixo
+        challenges: selectedChallenges, 
+      };
+
+      console.log("Enviando Trilha:", payload);
+
+      const response = await api.post("/trail", payload);
+
+      if (response.status === 201 || response.status === 200) {
+        alert("Trilha criada com sucesso!");
+        router.push("/myTrails");
+      }
+    } catch (error) {
+      console.error("Erro ao salvar trilha:", error);
+      alert("Ocorreu um erro ao criar sua trilha. Verifique os dados e tente novamente.");
+    }
   };
 
   const handleDateRangeChange = (range: { from?: Date; to?: Date } | undefined) => {
@@ -274,10 +311,7 @@ const CreateTrailPage: React.FC = () => {
       <div className="flex justify-center p-6">
         <button
           onClick={() => {
-            if (!isFormValid) return;
-            console.log("Trilha criada:", { title, description, dateRange, selectedChallenges });
-            alert("Trilha criada com sucesso!");
-            router.push("/myTrails");
+            handleCreateTrail();
           }}
           disabled={!isFormValid}
           className={`w-1/2 flex justify-center  py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${outfit.className} ${isFormValid

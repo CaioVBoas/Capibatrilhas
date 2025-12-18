@@ -17,7 +17,7 @@ interface TrailDescriptionProps {
   onTopicChange?: (topic: string) => void;
 }
 
-const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange }) => {
+const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange, onTopicChange }) => {
   // Estado para gerenciar o tema selecionado. 
   // Inicializamos com o primeiro tópico da lista, se houver, para replicar a imagem.
   const [selectedTopic, setSelectedTopic] = useState<string>(topic[0] || "");

@@ -8,14 +8,14 @@ const userRouter = Router();
 
 userRouter.route('/').post(UserController.create);
 
-userRouter.route('/').get([auth], UserController.list);
+userRouter.route('/').get(UserController.list);
 
 userRouter.route('/email').get(UserController.findByEmail, requestHandler);
 
 userRouter.route('/:userId').get(UserController.read);
 
 // Update user profile - requires authentication
-userRouter.route('/:userId').patch([auth], UserController.updateProfile);
+userRouter.route('/:userId').patch( UserController.updateProfile);
 
 // Update user game progress (points, level) - ADMIN ONLY
 userRouter
