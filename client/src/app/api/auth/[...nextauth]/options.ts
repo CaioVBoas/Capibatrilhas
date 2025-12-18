@@ -1,7 +1,7 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import api from 'services/api';
+import { serverApi } from 'services/api';
 import { AuthResponse, User } from 'types';
 
 export const nextAuthOptions: NextAuthOptions = {
@@ -15,7 +15,7 @@ export const nextAuthOptions: NextAuthOptions = {
 
       async authorize(credentials) {
         try {
-          const response = await api.post<AuthResponse>('/sessions', {
+          const response = await serverApi.post<AuthResponse>('/sessions', {
             email: credentials?.email,
             password: credentials?.password
           });
@@ -30,7 +30,8 @@ export const nextAuthOptions: NextAuthOptions = {
           }
 
           return null;
-        } catch {
+        } catch (error) {
+          console.error('Auth error:', error);
           return null;
         }
       }
