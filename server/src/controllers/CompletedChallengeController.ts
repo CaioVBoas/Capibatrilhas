@@ -8,8 +8,25 @@ import completeChallengeRepository from '../repositories/completedChallengeRepos
 class CompletedChallengeController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId, challengeId, trailId, rewardsEarned } =
+      const { userId, challengeId, trailId, rewardsEarned, conclusionToken } =
         CreateCompletedChallenge.parse(req.body);
+
+      // Validate the conclusion token
+      const challenge = await completeChallengeRepository.getChallengeById(challengeId);
+      
+      if (!challenge) {
+        return next({
+          status: 404,
+          message: 'Desafio não encontrado',
+        });
+      }
+
+      if (challenge.conclusionToken !== conclusionToken) {
+        return next({
+          status: 400,
+          message: 'Token de conclusão inválido',
+        });
+      }
 
       const completedChallenge = await completeChallengeRepository.create({
         user: { connect: { id: userId } },

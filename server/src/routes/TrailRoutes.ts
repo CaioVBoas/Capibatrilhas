@@ -11,4 +11,7 @@ trailRouter.route('/:id')
   .patch(TrailController.update)
   .delete(TrailController.delete);
 
+trailRouter.route('/relations/user/:userId')
+  .get(TrailController.getTrailsByUser);
+
 export default trailRouter;

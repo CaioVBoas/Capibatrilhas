@@ -40,6 +40,8 @@ export const Challenge = z.object({
   }),
 
   isActive: z.boolean().default(true),
+
+  conclusionToken: z.string().optional(),
 });
 
 export const UpdateChallenge = Challenge.partial();

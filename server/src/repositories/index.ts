@@ -10,6 +10,9 @@ import TrailChallengeRepository from './trailChallengeRepository';
 import TrailParticipationRepository from './trailParticipationRepository';
 import trailInvitationRepository from './trailInvitationRepository';
 import CompletedChallengeRepository from './completedChallengeRepository';
+import WalletTransactionRepository from './walletTransactionRepository';
+import AchievementRepository from './achievementRepository';
+import UserAchievementRepository from './userAchievementRepository';
 
 export { UserRepository, TokenRepository, CookieRepository, FileRepository };
 export { DistrictRepository };
@@ -20,3 +23,6 @@ export { TrailChallengeRepository };
 export { TrailParticipationRepository };
 export { trailInvitationRepository };
 export { CompletedChallengeRepository };
+export { WalletTransactionRepository };
+export { AchievementRepository };
+export { UserAchievementRepository };

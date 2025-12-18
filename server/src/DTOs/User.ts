@@ -96,6 +96,47 @@ export const User = z.object({
     .optional(),
 });
 
+// DTO for updating user profile (excludes password, points, level, isAdmin)
+export const UpdateUserProfile = User.pick({
+  name: true,
+  phone: true,
+  urlImage: true,
+  birthDate: true,
+  zipCode: true,
+  state: true,
+  city: true,
+  district: true,
+  street: true,
+  number: true,
+  complement: true,
+}).partial();
+
+// DTO for updating game progress (admin/system only)
+export const UpdateUserProgress = z.object({
+  points: z.number({
+    invalid_type_error: 'Os pontos devem ser um número',
+  }).int({ message: 'Os pontos devem ser um número inteiro' }).min(0, { message: 'Os pontos não podem ser negativos' }).optional(),
+  
+  level: z.number({
+    invalid_type_error: 'O nível deve ser um número',
+  }).int({ message: 'O nível deve ser um número inteiro' }).min(1, { message: 'O nível deve ser no mínimo 1' }).optional(),
+});
+
+// DTO for changing password (requires current password verification)
+export const ChangePassword = z.object({
+  currentPassword: z.string({
+    invalid_type_error: 'A senha atual deve ser uma string',
+    required_error: 'A senha atual é obrigatória',
+  }),
+  newPassword: z.string({
+    invalid_type_error: 'A nova senha deve ser uma string',
+    required_error: 'A nova senha é obrigatória',
+  }).min(8, { message: 'A nova senha deve ter no mínimo 8 caracteres' }),
+});
+
 export const UpdateUser = User.partial();
 export type IUser = z.infer<typeof User>;
 export type IUpdateUser = z.infer<typeof UpdateUser>;
+export type IUpdateUserProfile = z.infer<typeof UpdateUserProfile>;
+export type IUpdateUserProgress = z.infer<typeof UpdateUserProgress>;
+export type IChangePassword = z.infer<typeof ChangePassword>;

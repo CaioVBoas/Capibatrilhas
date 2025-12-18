@@ -32,6 +32,13 @@ const userPath = {
       },
       responses: userResponse.create,
     },
+    get: {
+      tags: ['Usuário'],
+      summary: 'Listar usuários',
+      description: 'Retorna a lista de todos os usuários (requer autenticação)',
+      security: [{ bearerAuth: [] }],
+      responses: userResponse.list,
+    },
   },
   '/user/{userId}': {
     get: {
@@ -100,6 +107,83 @@ const userPath = {
         },
       ],
       responses: userResponse.delete,
+    },
+  },
+  '/user/{userId}/progress': {
+    patch: {
+      tags: ['Usuário'],
+      summary: 'Atualizar progresso do usuário',
+      description: 'Atualiza pontos e nível do usuário (somente administradores)',
+      security: [{ bearerAuth: [] }],
+      parameters: [
+        {
+          in: 'path',
+          name: 'userId',
+          description: 'ID do usuário',
+          required: true,
+          schema: {
+            type: 'integer',
+          },
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                points: { type: 'integer' },
+                level: { type: 'integer' },
+              },
+            },
+            example: {
+              points: 1000,
+              level: 5,
+            },
+          },
+        },
+      },
+      responses: userResponse.updateProgress,
+    },
+  },
+  '/user/{userId}/password': {
+    patch: {
+      tags: ['Usuário'],
+      summary: 'Alterar senha do usuário',
+      description: 'Altera a senha do usuário (requer autenticação e senha atual)',
+      security: [{ bearerAuth: [] }],
+      parameters: [
+        {
+          in: 'path',
+          name: 'userId',
+          description: 'ID do usuário',
+          required: true,
+          schema: {
+            type: 'integer',
+          },
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              required: ['currentPassword', 'newPassword'],
+              properties: {
+                currentPassword: { type: 'string' },
+                newPassword: { type: 'string' },
+              },
+            },
+            example: {
+              currentPassword: 'senha1234',
+              newPassword: 'novaSenha5678',
+            },
+          },
+        },
+      },
+      responses: userResponse.changePassword,
     },
   },
 };

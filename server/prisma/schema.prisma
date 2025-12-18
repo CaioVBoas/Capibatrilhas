@@ -19,6 +19,7 @@ model User {
   email      String   @unique
   password   String
   level      Int      @default(1)
+  points     Int      @default(0)
   cpf        String   @unique
   urlImage   String?
   birthdate  String?
@@ -39,6 +40,8 @@ model User {
   completedChallenges CompletedChallenge[]
   sentInvitations     TrailInvitation[]    @relation("Inviter")
   receivedInvitations TrailInvitation[]    @relation("Invitee")
+  walletTransactions  WalletTransaction[]
+  userAchievements    UserAchievement[]
 
   @@index([email])
   @@index([cpf])
@@ -50,6 +53,7 @@ model Challenge {
   description        String
   theme              String
   conclusionCriteria String
+  conclusionToken    String
   location           String
   rewards            Int
   isActive           Boolean  @default(true)
@@ -77,9 +81,9 @@ model Trail {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  // Criador da trilha
-  ownerId Int
-  owner   User   @relation("TrailOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  // Criador da trilha (opcional - null para trilhas públicas)
+  ownerId Int?
+  owner   User?  @relation("TrailOwner", fields: [ownerId], references: [id], onDelete: Cascade)
 
   // Relacionamentos
   challenges          TrailChallenge[]
@@ -210,4 +214,47 @@ model EventAgenda {
   @@index([category])
   @@index([isActive])
   @@index([isFeatured])
+}
+
+model WalletTransaction {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  amount      Int // Valor da transação (positivo para créditos, negativo para débitos)
+  description String
+  transactionDate DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([transactionDate])
+}
+
+model Achievement {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  criteria    String // Critérios para desbloquear a conquista
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userAchievements UserAchievement[]
+
+  @@index([isActive])
+}
+
+model UserAchievement {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  achievementId Int
+  unlockedAt    DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+  @@index([achievementId])
 }

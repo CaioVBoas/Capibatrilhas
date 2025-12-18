@@ -4,10 +4,11 @@ import { ThemeProvider } from '../components/theme-provider';
 import NextAuthSessionProvider from '../providers/sessionProvider';
 import Footer from '../components/footer';
 import '../styles/globals.css';
+import { outfit } from '../styles/fonts';
 
 export const metadata: Metadata = {
-  title: 'Next.js Boilerplate',
-  description: 'A simple boilerplate for next.js',
+  title: 'Capibatrilhas',
+  description: 'Um sistema de gamificação cidadã para a cidade do Recife.',
   manifest: '/manifest.json'
 };
 
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
-      <body>
+      <body className={outfit.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
