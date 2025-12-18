@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { MapPin, Clock, Coins, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { DM_Sans } from "next/font/google";
