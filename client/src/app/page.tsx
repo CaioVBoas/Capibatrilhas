@@ -1,29 +1,27 @@
-'use client';
+// app/landingPage/page.tsx
+import { LandingHeader } from 'components/landingPageHeader';
+import { HeroSection } from 'components/heroSection';
+import { AboutSection } from 'components/aboutSection';
+import { TutorialSection } from 'components/tutorialSection';
+import { FaqSection } from 'components/faqSection';
+import { ContactSection } from 'components/contactSection';
+import { EndingSection } from 'components/endingSection';
+import { LandingFooter } from 'components/landingPageFooter';
+import { RiverLayer } from 'components/riverLayer';
 
-import Image from 'next/image';
-import { Logo } from '../assets';
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
 
-export default function Home() {
-  const session = useSession();
-
-  if (session.status === 'unauthenticated') {
-    redirect('/login');
-  }
-
+export default function LandingPage() {
   return (
-    <div className="flex flex-1 flex-col min-h-screen justify-around items-center bg-black">
-      <div>
-        <Image src={Logo} alt="Logo" />
-      </div>
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-white text-4xl font-bold">NextJS Boilerplate</h1>
-        <p className="text-white text-xl">
-          Made with <strong>&lt; &#x0002F; &gt;</strong> and{' '}
-          <strong>&hearts;</strong> by CIn-UFPE
-        </p>
-      </div>
-    </div>
+    <main className="overflow-x-hidden">
+      <RiverLayer />
+      <LandingHeader />
+      <HeroSection />
+      <AboutSection />
+      <TutorialSection />
+      <FaqSection />
+      <ContactSection />
+      <EndingSection />
+      <LandingFooter />
+    </main>
   );
 }

@@ -5,8 +5,8 @@ import NextAuthSessionProvider from '../providers/sessionProvider';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
-  title: 'Next.js Boilerplate',
-  description: 'A simple boilerplate for next.js',
+  title: 'Capibatrilhas',
+  description: 'Um sistema de gamificação cidadã para a cidade do Recife.',
   manifest: '/manifest.json'
 };
 
