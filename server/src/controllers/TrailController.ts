@@ -47,6 +47,21 @@ class TrailController {
     }
   }
 
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const trails = await TrailRepository.findAll();
+
+      res.locals = {
+        status: 200,
+        data: trails,
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async read(req: Request, res: Response, next: NextFunction) {
     try {
       const trailId = Number(req.params.id);
