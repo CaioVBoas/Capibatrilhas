@@ -1,78 +1,111 @@
+'use client';
+
 import React from "react";
 import { MapPin, Coins, Check, HelpCircle } from "lucide-react";
+import { Outfit, DM_Sans } from "next/font/google";
 
-interface Challenges {
-  id: string;
+const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700"] });
+const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500"] });
+
+
+export interface ChallengeData {
+  id: number | string;
   title: string;
   description: string;
-  place: string;
-  prize: string;
-  completed: boolean;
+  location?: string; 
+  rewards: number;    
 }
 
-interface ChallengesCardsPropos {
-  challenge: Challenges;
+interface ChallengeCardProps {
+  challenge: ChallengeData;
+  isCompleted?: boolean; 
 }
 
-const ChallengeCard: React.FC<ChallengesCardsPropos> = ({ challenge }) => {
-  const isCompleted = challenge.completed;
+const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, isCompleted = false }) => {
+  const formattedId = String(challenge.id).padStart(2, '0');
 
-  return isCompleted === true ? (
-    <div className="bg-green-50 p-5 rounded-2xl border border-green-200 flex flex-col h-full">
-
-      <div className="grow">
-        <div className="flex justify-between items-start gap-4">
-          <div className="flex items-start gap-3">
-            <div className="bg-green-100 rounded-full p-1.5 shrink-0">
-              <Check className="h-6 w-6 text-green-500" />
+  if (isCompleted) {
+    return (
+      <div className="bg-green-50 p-5 rounded-2xl border border-green-200 flex flex-col h-full transition-all hover:shadow-md">
+        <div className="grow">
+          <div className="flex justify-between items-start gap-4">
+            <div className="flex items-start gap-3">
+              <div className="bg-green-100 rounded-full p-1.5 shrink-0 mt-0.5">
+                <Check className="h-5 w-5 text-green-600" strokeWidth={3} />
+              </div>
+              <h2 className={`${outfit.className} text-lg font-semibold text-gray-900`}>
+                {formattedId}. {challenge.title}
+              </h2>
             </div>
-            <h2 className="text-lg font-semibold text-gray-900 mt-1">
-              {challenge.id}. {challenge.title}
-            </h2>
+
+            <div className={`flex items-center gap-1.5 shrink-0 bg-white/60 px-2 py-1 rounded-lg border border-green-100 ${outfit.className}`}>
+              <Coins className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+              <span className="text-sm font-bold text-yellow-600">
+                +{challenge.rewards}
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-1 shrink-0 mt-1">
-            <Coins className="h-5 w-5 text-yellow-500" />
-            <span className="text-base font-medium text-yellow-600">
-              {challenge.prize}
-            </span>
-          </div>
-        </div>
-        <div>
-          <p className="ml-12 text-gray-600 text-sm mt-2">{challenge.description}</p>
-          <div className="ml-11 flex items-center text-gray-600 text-sm mt-2">
-            <MapPin className="h-4 w-4 text-gray-500 mr-1.5" />
-            <span>{challenge.place}</span>
+          <div className="pl-11">
+            <p className={`${dmSans.className} text-gray-600 text-sm mt-2 leading-relaxed`}>
+              {challenge.description}
+            </p>
+            
+            {challenge.location && (
+              <div className={`flex items-center text-gray-500 text-sm mt-3 ${dmSans.className}`}>
+                <MapPin className="h-4 w-4 mr-1.5" />
+                <span>{challenge.location}</span>
+              </div>
+            )}
+            
+            <div className={`mt-4 inline-flex items-center text-xs font-semibold text-green-700 bg-green-100 px-3 py-1 rounded-full ${outfit.className}`}>
+              Desafio Concluído
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex flex-col h-full">
+    );
+  }
+
+  return (
+    <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex flex-col h-full transition-all hover:shadow-lg hover:-translate-y-1">
       <div className="grow">
         <div className="flex justify-between items-start gap-4">
           <div className="flex items-start gap-3">
-            <HelpCircle className="h-9 w-9 text-gray-400 shrink-0" />
-            <h2 className="text-lg font-semibold text-gray-900 mt-1">
-              {challenge.id}. {challenge.title}
+            <div className="bg-gray-100 rounded-full p-1.5 shrink-0 mt-0.5">
+              <HelpCircle className="h-6 w-6 text-gray-400" />
+            </div>
+            <h2 className={`${outfit.className} text-lg font-semibold text-gray-900`}>
+              {formattedId}. {challenge.title}
             </h2>
           </div>
-          <div className="flex items-center gap-1 shrink-0 mt-1">
-            <Coins className="h-5 w-5 text-yellow-500" />
-            <span className="text-base font-medium text-yellow-600">
-              {challenge.prize}
+          
+          <div className={`flex items-center gap-1.5 shrink-0 bg-gray-50 px-2 py-1 rounded-lg border border-gray-100 ${outfit.className}`}>
+            <Coins className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+            <span className="text-sm font-bold text-yellow-600">
+              +{challenge.rewards}
             </span>
           </div>
         </div>
-        <div>
-          <p className="text-gray-600 text-sm mt-2 ml-12">{challenge.description}</p>
-          <div className="flex items-center text-gray-600 text-sm mt-2 ml-11">
-            <MapPin className="h-4 w-4 text-gray-500 mr-1.5" />
-            <span>{challenge.place}</span>
-          </div>
+
+        <div className="pl-11">
+          <p className={`${dmSans.className} text-gray-600 text-sm mt-2 leading-relaxed`}>
+            {challenge.description}
+          </p>
+          
+          {challenge.location && (
+            <div className={`flex items-center text-gray-500 text-sm mt-3 ${dmSans.className}`}>
+              <MapPin className="h-4 w-4 mr-1.5" />
+              <span>{challenge.location}</span>
+            </div>
+          )}
         </div>
       </div>
-      <button className="w-full bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200 hover:bg-blue-700 mt-7">
+
+      <button 
+        // Adicione aqui a função de click futura (onClick)
+        className={`w-full bg-[#2563EB] text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-95 mt-6 flex items-center justify-center gap-2 ${outfit.className}`}
+      >
         Completar Desafio
       </button>
     </div>
