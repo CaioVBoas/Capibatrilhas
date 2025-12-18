@@ -36,6 +36,7 @@ Table Challenge {
   description String [not null]
   theme String [not null]
   conclusionCriteria String [not null]
+  conclusionToken String [not null, default: '000000']
   location String [not null]
   rewards Int [not null]
   isActive Boolean [not null, default: true]

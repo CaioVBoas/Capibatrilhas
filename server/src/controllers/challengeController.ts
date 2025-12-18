@@ -7,7 +7,13 @@ class ChallengeController {
     try {
       const challengeData = Challenge.parse(req.body);
 
-      const challenge = await ChallengeRepository.create(challengeData);
+      // Generate a 6-digit random conclusion token
+      const conclusionToken = Math.floor(100000 + Math.random() * 900000).toString();
+
+      const challenge = await ChallengeRepository.create({
+        ...challengeData,
+        conclusionToken,
+      });
 
       res.locals = {
         status: 201,
