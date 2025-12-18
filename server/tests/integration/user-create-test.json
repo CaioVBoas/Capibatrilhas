@@ -1,0 +1,15 @@
+{
+  "name": "João Silva",
+  "email": "joao.silva@email.com",
+  "password": "senhaSegura123",
+  "cpf": "12345678901",
+  "phone": "81987654321",
+  "birthDate": "1995-06-15",
+  "zipCode": "50010-000",
+  "state": "PE",
+  "city": "Recife",
+  "district": "Boa Viagem",
+  "street": "Rua das Flores",
+  "number": "123",
+  "complement": "Apto 201"
+}

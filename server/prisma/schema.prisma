@@ -81,9 +81,9 @@ model Trail {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  // Criador da trilha
-  ownerId Int
-  owner   User   @relation("TrailOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  // Criador da trilha (opcional - null para trilhas públicas)
+  ownerId Int?
+  owner   User?  @relation("TrailOwner", fields: [ownerId], references: [id], onDelete: Cascade)
 
   // Relacionamentos
   challenges          TrailChallenge[]

@@ -1,0 +1,10 @@
+{
+  "title": "Trilha Personalizada do João",
+  "description": "Uma trilha criada por um usuário específico com desafios selecionados por ele para explorar sua vizinhança.",
+  "theme": "Personalizada",
+  "startDate": "2025-01-20T08:00:00.000Z",
+  "endDate": "2025-03-20T18:00:00.000Z",
+  "totalRewards": 150,
+  "ownerId": 1,
+  "challenges": [1]
+}
