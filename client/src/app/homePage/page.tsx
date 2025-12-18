@@ -19,7 +19,6 @@ const dmSans = DM_Sans({
 import NavBar from 'components/navBar';
 import UserCardHomepage from 'components/mainCardHomepage';
 import AddMyTrail from 'components/addMyTrail';
-import Footer from "components/footer"
 
 const mockUserCard = {
   userName: "Guilherme",
@@ -384,8 +383,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-
-      <Footer/>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import { Clock, Trophy, ChevronLeft } from "lucide-react";
+import { Clock, Coins, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Trails } from "components/featuredTrailCards"; 
 import { DM_Sans, Outfit } from "next/font/google";
@@ -79,7 +79,7 @@ const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
               </div>
               
               <div className="flex items-center font-medium text-[#ffc107]">
-                <Trophy className="h-5 w-5 mr-2 fill-[#ffc107]" />
+                <Coins className="h-5 w-5 mr-2 fill-[#ffc107]" />
                 <span>{trail.prize}</span>
               </div>
           </div>

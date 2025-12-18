@@ -79,7 +79,7 @@ export default function NavBar() {
                     <NavLink href="/wallet" text="Carteira" />
                     
                     <Link 
-                        href="profilePage" 
+                        href="/profilePage" 
                         className="bg-white/10 text-white hover:bg-white hover:text-blue-700 border-2 border-transparent hover:border-blue-200 transition-all rounded-full p-2.5 shadow-sm"
                     >
                         <UserRound size={20} />
