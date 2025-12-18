@@ -77,6 +77,30 @@ class TrailController {
     }
   }
 
+  async getTrailsByUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = Number(req.params.userId);
+
+      if (Number.isNaN(userId)) {
+        return next({
+          status: 400,
+          message: 'ID do usuário inválido',
+        });
+      }
+
+      const trails = await TrailRepository.findByUserId(userId);
+
+      res.locals = {
+        status: 200,
+        data: trails,
+      };
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const trailId = Number(req.params.id);
