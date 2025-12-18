@@ -1,0 +1,26 @@
+ID: CT-WB-001  
+Título: Validação da lógica de atribuição de Capibas ao completar trilha temática  
+Tipo: White Box / Teste Automatizado  
+Funcionalidade: Completar trilhas temáticas  
+
+Descrição:  
+Verificar se a lógica interna responsável pela atribuição de Capibas é executada corretamente ao final da conclusão de uma trilha temática.
+
+Pré-condições:  
+- Usuário autenticado  
+- Trilha temática válida cadastrada  
+
+Entradas:  
+- ID do usuário  
+- ID da trilha temática  
+- Status da trilha: concluída  
+
+Passos:  
+1. Executar a função de finalização de trilha  
+2. Avaliar os ramos condicionais de cálculo de Capibas  
+3. Persistir o resultado no banco de dados  
+
+Resultado Esperado:  
+- O cálculo de Capibas segue corretamente as regras definidas  
+- O saldo de Capibas do usuário é atualizado corretamente  
+- Todas as ramificações condicionais da função são exercitadas  
