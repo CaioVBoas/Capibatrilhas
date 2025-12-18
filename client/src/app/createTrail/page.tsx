@@ -4,17 +4,19 @@ import TrailDescriptionInput from "components/trailDescriptionInput";
 import TrailInvitationComponent from "components/invitationComponent";
 import SummaryCard from "components/summaryCard";
 import AddChallengeCard from "components/addChallengeCard";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ListTodo, Plus } from "lucide-react";
-// import { ChevronLeft } from "lucide-react";
-
+import api from "services/api";
 import { useRouter } from "next/navigation";
 import NavBar from "components/navBar";
 import { outfit, dmSans } from "styles/fonts";
 
+// Mocks
 const mockTags = ["Customizada", "Aventura", "Cultura", "Natureza", "Gastronomia", "História", "Natal", "São João", "Carnaval", "Páscoa"];
+
 const mockLink = "https://capibatrilhas.com/invite/abc123";
-const mockChallenges = [
+
+/*const mockChallenges = [
 {
     id: "c1",
     name: "Visita ao Paço do Frevo",
@@ -71,32 +73,76 @@ const mockChallenges = [
     // Ação: Interação no local parceiro
     description: "Visite a Cervejaria X (parceira) e valide sua presença no balcão de atendimento após o consumo de qualquer produto.",
   },
-];
+];*/
+
+
+// Interface de acordo com o shema.prisma do backend
+
+interface Challenge {
+  id: number;
+  title: string;
+  description: string;
+  theme: string;
+  location: string;
+  rewards: number;
+}
+
 
 const CreateTrailPage: React.FC = () => {
+
   const router = useRouter();
-  const [selectedChallenges, setSelectedChallenges] = useState<string[]>([]);
+
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedChallenges, setSelectedChallenges] = useState<number[]>([]);
   const [showCapibaWarning, setShowCapibaWarning] = useState(false);
   const [warningVisible, setWarningVisible] = useState(false);
-  
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({});
+  const [topic, setTopic] = useState<string>("");
 
-  const handleToggleChallenge = (id: string, selected: boolean) => {
+
+  useEffect(() => {
+
+    const fetchChallenges = async () => {
+
+      setIsLoading(true);
+
+
+      try {
+
+        const response = await api.get("/challenge");
+        console.log("Resposta da API:", response.data);
+        setChallenges(response.data.data);
+
+      } catch (error) {
+
+        console.error("Erro ao buscar desafios:", error);
+
+      } finally {
+
+        setIsLoading(false);
+
+      }
+    }
+
+    fetchChallenges();
+  }, []);
+
+  const handleToggleChallenge = (id: number, selected: boolean) => {
     if (selected) {
-      const found = mockChallenges.find((c) => c.id === id);
-      const challengeScore = found?.score ?? 0;
-      
- 
+      const found = challenges.find((c) => c.id === id);
+      const challengeScore = found?.rewards ?? 0;
+
+
       const currentTotal = selectedChallenges.reduce((sum, cId) => {
-        const c = mockChallenges.find((ch) => ch.id === cId);
-        return sum + (c?.score ?? 0);
+        const c = challenges.find((ch) => ch.id === cId);
+        return sum + (c?.rewards ?? 0);
       }, 0);
-      
+
       const wouldBeRemaining = 1000 - (currentTotal + challengeScore);
-      
+
       // Não permite adicionar se ficaria negativo
       if (wouldBeRemaining < 0) {
         setShowCapibaWarning(true);
@@ -106,7 +152,7 @@ const CreateTrailPage: React.FC = () => {
         return;
       }
     }
-    
+
     setSelectedChallenges((prev) => {
       if (selected) {
         if (prev.includes(id)) return prev;
@@ -124,25 +170,29 @@ const CreateTrailPage: React.FC = () => {
 
   const selectedCount = selectedChallenges.length;
   const totalRewardValue = selectedChallenges.reduce((sum, id) => {
-    const found = mockChallenges.find((c) => c.id === id);
-    return sum + (found?.score ?? 0);
+    const found = challenges.find((c) => c.id === id);
+    return sum + (found?.rewards ?? 0);
   }, 0);
   const remainingCapibaValue = 1000 - totalRewardValue;
 
   // Validação: todos os campos preenchidos?
-  const isFormValid = 
-    title.trim() !== "" && 
-    description.trim() !== "" && 
-    dateRange.from && 
-    dateRange.to && 
+  const isFormValid =
+    title.trim() !== "" &&
+    description.trim() !== "" &&
+    dateRange.from &&
+    dateRange.to &&
     selectedChallenges.length > 0;
 
-  return (
-    
+
   
+  
+
+  return (
+
+
     <div className={`${dmSans.className} min-h-screen bg-gray-50`}>
       <NavBar />
-      
+
       <div className="bg-linear-to-r from-[#2563EB] to-[#1E40AF] text-white px-6 py-8"> {/*aqui*/}
         <div className="flex items-center gap-3 mb-4">
           {/* <button 
@@ -154,7 +204,7 @@ const CreateTrailPage: React.FC = () => {
             <span className="text-lg font-medium">Voltar</span>
           </button> */}
         </div>
-        
+
         <div className="flex items-start gap-3">
           <Plus className="h-8 w-8 mt-1 shrink-0" />
           <div>
@@ -163,13 +213,14 @@ const CreateTrailPage: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 gap-6 p-6">
-        <TrailDescriptionInput 
+        <TrailDescriptionInput
           topic={mockTags}
           onTitleChange={setTitle}
           onDescriptionChange={setDescription}
           onDateRangeChange={handleDateRangeChange}
+          onTopicChange={setTopic}
         />
       </div>
 
@@ -178,12 +229,12 @@ const CreateTrailPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 p-6">
-        <SummaryCard 
+        <SummaryCard
           challengesSelected={selectedCount}
           totalReward={totalRewardValue}
           remainingCapibas={remainingCapibaValue}
         />
-          <p className="text--400 ml-3 text-red-600 opacity-50">Cada trilha personalizada pode distribuir em seus desafios até 1.000 capibas, conforme sua preferência. O limite máximo de ganhos com trilhas personalizadas é de 5.000 capibas por mês*</p>
+        <p className="text--400 ml-3 text-red-600 opacity-50">Cada trilha personalizada pode distribuir em seus desafios até 1.000 capibas, conforme sua preferência. O limite máximo de ganhos com trilhas personalizadas é de 5.000 capibas por mês*</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 p-6 ml-6">
@@ -195,22 +246,27 @@ const CreateTrailPage: React.FC = () => {
           <p className="text-gray-500 ml-3">Selecione os desafios que você gostaria de incluir na sua trilha</p>
 
           <div className="mt-4 grid grid-cols-1 gap-4">
-            {mockChallenges.map((c) => (
-              <AddChallengeCard
-                key={c.id}
-                challenge={c}
-                selected={selectedChallenges.includes(c.id)}
-                onToggle={handleToggleChallenge}
-              />
-            ))}
+            {isLoading ? (
+              <p className="text-center py-10 text-gray-500 italic">Buscando desafios disponíveis...</p>
+            ) : challenges.length > 0 ? (
+              challenges.map((c) => (
+                <AddChallengeCard
+                  key={c.id}
+                  challenge={c}
+                  selected={selectedChallenges.includes(c.id)}
+                  onToggle={handleToggleChallenge}
+                />
+              ))
+            ) : (
+              <p className="text-center py-10 text-red-400">Nenhum desafio encontrado.</p>
+            )}
           </div>
         </div>
       </div>
 
       {showCapibaWarning && (
-        <div className={`fixed bottom-6 right-6 bg-red-500 text-white rounded-lg p-4 shadow-lg flex items-center gap-2 transition-all duration-300 ease-in-out ${
-          warningVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        }`}>
+        <div className={`fixed bottom-6 right-6 bg-red-500 text-white rounded-lg p-4 shadow-lg flex items-center gap-2 transition-all duration-300 ease-in-out ${warningVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}>
           <span className="text-sm font-medium">Quantidade máxima por Trilha atingida! Não há capibas disponíveis para adicionar este desafio.</span>
         </div>
       )}
@@ -224,11 +280,10 @@ const CreateTrailPage: React.FC = () => {
             router.push("/myTrails");
           }}
           disabled={!isFormValid}
-          className={`w-1/2 flex justify-center  py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${outfit.className} ${
-            isFormValid
+          className={`w-1/2 flex justify-center  py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${outfit.className} ${isFormValid
               ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer justify-center flex items-center gap-2"
               : "bg-gray-300 text-gray-500 cursor-not-allowed justify-center flex items-center gap-2"
-          }`}
+            }`}
         >
           Criar minha Trilha
         </button>

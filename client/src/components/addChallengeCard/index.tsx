@@ -5,17 +5,17 @@ import { CheckCircle, Circle, MapPin, Camera, Coins } from "lucide-react";
 import { dmSans, outfit } from "styles/fonts";
 
 interface Challenge {
-  id: string;
-  name: string;
+  id: number;
+  title: string;
   location: string;
-  score: number;
+  rewards: number;
   description: string;
 }
 
 interface ChallengeCardProps {
   challenge: Challenge;
   selected?: boolean;
-  onToggle?: (id: string, selected: boolean) => void;
+  onToggle?: (id: number, selected: boolean) => void;
 }
 
 const AddChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: selectedProp, onToggle }) => {
@@ -54,7 +54,7 @@ const AddChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: s
           </div>
 
           <div>
-            <h3 className={`text-lg font-semibold text-gray-900 ${outfit.className}`}>{challenge.name}</h3>
+            <h3 className={`text-lg font-semibold text-gray-900 ${outfit.className}`}>{challenge.title}</h3>
             {challenge.description && (
               <p className="text-gray-500 mt-1">{challenge.description}</p>
             )}
@@ -82,7 +82,7 @@ const AddChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, selected: s
         <div className="flex flex-col items-end">
           <div className="text-yellow-500 inline-flex items-center gap-1 font-bold text-lg">
             <Coins className="h-5 w-5" />
-            <span>+{challenge.score ?? 0}</span>
+            <span>+{challenge.rewards ?? 0}</span>
           </div>
         </div>
       </div>

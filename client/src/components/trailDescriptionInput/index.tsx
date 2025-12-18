@@ -14,6 +14,7 @@ interface TrailDescriptionProps {
   onTitleChange?: (title: string) => void;
   onDescriptionChange?: (description: string) => void;
   onDateRangeChange?: (range: DateRange | undefined) => void;
+  onTopicChange?: (topic: string) => void;
 }
 
 const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitleChange, onDescriptionChange, onDateRangeChange }) => {
@@ -25,6 +26,7 @@ const TrailDescriptionInput: React.FC<TrailDescriptionProps> = ({ topic, onTitle
 
   const handleTopicSelect = (t: string) => {
     setSelectedTopic(t);
+    onTopicChange?.(t);
   };
 
   // Estado para range de datas (início / fim)
