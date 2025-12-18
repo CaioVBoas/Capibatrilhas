@@ -9,6 +9,9 @@ import TrailChallengeController from './trailChallengeController';
 import TrailParticipationController from './TrailParticipationController';
 import TrailInvitationController from './TrailInvitationController';
 import CompletedChallengeController from './CompletedChallengeController';
+import WalletTransactionController from './WalletTransactionController';
+import AchievementController from './AchievementController';
+import UserAchievementController from './UserAchievementController';
 
 export { UserController, LoginController, FileController };
 export { DistrictController };
@@ -19,3 +22,6 @@ export { TrailChallengeController };
 export { TrailParticipationController };
 export { TrailInvitationController };
 export { CompletedChallengeController };
+export { WalletTransactionController };
+export { AchievementController };
+export { UserAchievementController };
