@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { MapPin, Clock, Trophy, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { Outfit, DM_Sans } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import api from "services/api";
-
-const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700"] });
+import { outfit } from "styles/fonts";
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500"] });
+
+export interface Member {
+  id: string | number;
+  name: string;
+  avatarUrl: string;
+}
+
+type ChallengeItem = {
+  challenge?: {
+    isActive?: boolean;
+  };
+};
 
 export interface Trails {
   id: number;
@@ -18,6 +29,9 @@ export interface Trails {
   tag: string;
   buttonText: string;
   isPersonalized?: boolean;
+  members?: Member[];
+  challengesCompleted?: number;
+  challengesQuantity?: number;
 }
 
 interface TrailCardProps {
@@ -40,8 +54,8 @@ const TrailCard: React.FC<TrailCardProps> = ({ trail }) => {
 
         if (Array.isArray(apiData)) {
           const total = apiData.length;
-          const completed = apiData.filter(
-            (item: any) => item.challenge && item.challenge.isActive === false
+          const completed = (apiData as ChallengeItem[]).filter(
+            (item) => item.challenge?.isActive === false
           ).length;
 
           setStats({ total, completed, loading: false });

@@ -3,14 +3,16 @@ import React from "react";
 import { Clock, Trophy, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Trails } from "components/featuredTrailCards"; 
-import { DM_Sans, Outfit } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import NavBar from "components/navBar";
+import { outfit } from "styles/fonts";
+import Image from "next/image";
 
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
+type Member = {
+  id: string | number;
+  name: string;
+  avatarUrl: string;
+};
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -24,9 +26,11 @@ interface TrailHeaderProps {
 const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
   const router = useRouter();
 
-  const members = (trail.isPersonalized && trail.members) ? trail.members : [];
+  const members: Member[] = (trail.isPersonalized && trail.members) ? trail.members : [];
   const MAX_AVATARS = 4;
-  const extraMembersCount = members.length - MAX_AVATARS;
+  const extraMembersCount = Math.max(members.length - MAX_AVATARS, 0);
+  const completedChallenges = trail.challengesCompleted ?? 0;
+  const totalChallenges = trail.challengesQuantity ?? 0;
 
   return (
 
@@ -91,15 +95,17 @@ const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
           {members.length > 0 && (
               <div className={`flex items-center gap-3 ${dmSans.className}`}>
                   <div className="flex -space-x-3 overflow-hidden">
-                      {members.slice(0, MAX_AVATARS).map((member) => (
-                          <img 
-                              key={member.id}
-                              className="inline-block h-9 w-9 rounded-full ring-2 ring-[#2563EB] object-cover bg-blue-800"
-                              src={member.avatarUrl} 
-                              alt={member.name}
-                              title={member.name}
+                        {members.slice(0, MAX_AVATARS).map((member) => (
+                          <Image
+                            key={member.id}
+                            className="inline-block h-9 w-9 rounded-full ring-2 ring-[#2563EB] object-cover bg-blue-800"
+                            src={member.avatarUrl}
+                            alt={member.name}
+                            title={member.name}
+                            width={36}
+                            height={36}
                           />
-                      ))}
+                        ))}
                       
                       {extraMembersCount > 0 && (
                           <div className="flex h-9 w-9 items-center justify-center rounded-full ring-2 ring-[#2563EB] bg-[#1E40AF] text-xs font-bold text-white">
@@ -118,7 +124,7 @@ const TrailHeader: React.FC<TrailHeaderProps> = ({ trail }) => {
           <div className={`flex justify-between text-sm text-blue-100 mb-2 ${dmSans.className}`}>
             <span>Progresso da Trilha</span>
             <span className="font-medium text-white">
-              {trail.challengesCompleted}/{trail.challengesQuantity} desafios
+              {completedChallenges}/{totalChallenges} desafios
             </span>
           </div>
 
