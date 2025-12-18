@@ -9,6 +9,7 @@ Table User {
   email String [unique, not null]
   password String [not null]
   level Int [not null, default: 1]
+  points Int [not null, default: 0]
   cpf String [unique, not null]
   urlImage String
   birthdate String
