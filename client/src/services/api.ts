@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getSession } from 'next-auth/react';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const SERVER_API_URL = 'http://server:3001';
 
 const api = axios.create({
   baseURL: API_URL
@@ -21,7 +22,7 @@ api.interceptors.request.use(async (config) => {
 
 
 export const serverApi = axios.create({
-  baseURL: API_URL
+  baseURL: SERVER_API_URL
 });
 
 export default api;
