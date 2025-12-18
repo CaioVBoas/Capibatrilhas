@@ -1,4 +1,4 @@
-import { User, UpdateUser } from './User';
+import { User, UpdateUser, UpdateUserProfile, UpdateUserProgress, ChangePassword } from './User';
 import { Challenge, UpdateChallenge } from './Challenge';
 import { District, UpdateDistrict } from './district';
 import { Trail, UpdateTrail } from './Trail';
@@ -8,7 +8,7 @@ import { TrailParticipation, UpdateTrailParticipation } from './TrailParticipati
 import { TrailInvitation, CreateTrailInvitation, UpdateTrailInvitation } from './TrailInvitation';
 import { CompletedChallenge, CreateCompletedChallenge, UpdateCompletedChallenge } from './CompletedChallenge';
 
-export { User, UpdateUser };
+export { User, UpdateUser, UpdateUserProfile, UpdateUserProgress, ChangePassword };
 export { Challenge, UpdateChallenge };
 export { District, UpdateDistrict };
 export { Trail, UpdateTrail };
