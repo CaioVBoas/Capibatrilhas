@@ -22,7 +22,7 @@ api.interceptors.request.use(async (config) => {
 
 
 export const serverApi = axios.create({
-  baseURL: SERVER_API_URL
+  baseURL: API_URL
 });
 
 export default api;
