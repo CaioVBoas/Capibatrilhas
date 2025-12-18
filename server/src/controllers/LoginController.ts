@@ -41,7 +41,7 @@ class LoginController {
         status: 200,
         message: 'User logged',
         data: {
-          loggedUser,
+          user: loggedUser,
           accessToken,
         },
       };
