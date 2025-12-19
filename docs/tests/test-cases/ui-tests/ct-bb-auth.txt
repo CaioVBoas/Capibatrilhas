@@ -111,7 +111,7 @@ Status: Aprovado
 
 
 
-ID: CT-BB-005
+ID: CT-BB-004
 
 Título: Validação de login com campos vazios
 
@@ -143,7 +143,7 @@ Status: Aprovado
 
 
 
-ID: CT-BB-004
+ID: CT-BB-005
 
 Título: Tentativa de login com e-mail não cadastrado
 
