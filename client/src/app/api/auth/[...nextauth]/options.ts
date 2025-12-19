@@ -2,7 +2,16 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { serverApi } from 'services/api';
-import { AuthResponse, User } from 'types';
+import { User } from 'types';
+
+interface LoginResponse {
+  data: {
+    user?: User;
+    loggedUser?: User;
+    accessToken: string;
+  };
+  message: string;
+}
 
 export const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -15,12 +24,14 @@ export const nextAuthOptions: NextAuthOptions = {
 
       async authorize(credentials) {
         try {
-          const response = await serverApi.post<AuthResponse>('/sessions', {
+          const response = await serverApi.post<LoginResponse>('/sessions', {
             email: credentials?.email,
             password: credentials?.password
           });
 
-          const { user, accessToken } = response.data.data;
+          const data = response.data.data;
+          const user = data.user || data.loggedUser;
+          const accessToken = data.accessToken;
 
           if (user && accessToken) {
             return {
@@ -30,8 +41,7 @@ export const nextAuthOptions: NextAuthOptions = {
           }
 
           return null;
-        } catch (error) {
-          console.error('Auth error:', error);
+        } catch {
           return null;
         }
       }
@@ -42,7 +52,7 @@ export const nextAuthOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 5 * 24 * 60 * 60, // 5 days (match refresh token)
+    maxAge: 5 * 24 * 60 * 60,
   },
   callbacks: {
     async jwt({ token, user }) {
