@@ -1,0 +1,248 @@
+ID: CT-BB-001
+
+Título: Validação de campos obrigatórios no cadastro
+
+Tipo: Black Box / Teste UI
+
+Interface (página do sistema): Login
+
+Funcionalidade: Modal de cadastro do usuário
+
+Descrição: Garantir que o sistema não permita a criação de usuários com espaços em branco.
+
+Pré-condições: Estar com o modal de cadastro aberto.
+
+Entradas: Nenhuma (campos vazios).
+
+Passos: 
+
+1. Acessar o modal de cadastro.
+2. Clicar no botão de envio sem preencher nenhum campo.
+
+Resultado Esperado: 
+
+- O sistema deve impedir o envio.
+- Deve exibir mensagens ("Por favor, preencha todos os campos.").
+
+Status: Aprovado
+
+
+
+
+ID: CT-BB-002
+
+Título: Validação de formatos de dados inadequados no cadastro
+
+Tipo: Black Box / Teste UI 
+
+Interface (página do sistema): Login
+
+Funcionalidade: Modal de cadastro do usuário
+
+Descrição: Garantir que o sistema barre dados que não seguem as máscaras e regras de integridade.
+
+Pré-condições: Estar com o modal de cadastro aberto.
+
+Entradas: 
+
+- Nome com números.
+- CPF com menos ou mais de 11 dígitos.
+- Email sem "@" ou sem domínio.
+- Senha com menos de 8 dígitos.
+
+Passos: 
+
+1. Tentar cadastrar usuário com número no espaço de nome.
+2. Tentar cadastrar CPF inválido (tamanho incorreto).
+3. Tentar cadastrar Email fora do padrão.
+4. Tentar cadastrar Senha curta.
+* Observação: todos esses passos devem ser executados individualmente e sendo os únicos espaços de dados no formato inválido.
+
+Resultado Esperado: 
+
+-O sistema deve informar os possíveis campos que estão com formatos inadequados.
+-O cadastro não deve ser processado enquanto os formatos não forem corrigidos.
+
+Status: Aprovado
+
+
+
+
+
+ID: CT-BB-003
+
+Título: Cadastro de usuário com dados válidos (Happy Path)
+
+Tipo: Black Box / Teste Funcional
+
+Interface (página do sistema): Login
+
+Funcionalidade: Modal de cadastro do usuário
+
+Descrição: Validar se o sistema permite a criação de uma nova conta quando todos os dados são fornecidos corretamente e dentro dos padrões exigidos.
+
+Pré-condições:
+
+- O e-mail e o CPF utilizados não devem estar previamente cadastrados no sistema.
+- O modal de cadastro deve estar aberto.
+
+Entradas: 
+
+- Nome: Usuário Teste 
+- CPF:  12345678901
+- Email: usuario.teste@exemplo.com
+- Senha: Senha@1234 (Atendendo ao critério de mais de 8 dígitos)
+
+Passos: 
+
+1. Acessar o modal de cadastro.
+2. Preencher todos os campos (Nome, CPF, Email e Senha) com os dados válidos mencionados nas Entradas.
+3. Clicar no botão "Finalizar Cadastro" (ou o botão equivalente do seu sistema).
+
+Resultado Esperado: 
+
+- O sistema deve processar as informações sem erros.
+- O modal de login deve ser aberto automaticamente.
+- Os dados devem ser persistidos corretamente no banco de dados (permitindo o teste de login subsequente).
+
+Status: Aprovado
+
+
+
+
+
+ID: CT-BB-005
+
+Título: Validação de login com campos vazios
+
+Tipo: Black Box / Teste UI
+
+Interface (página do sistema): Login
+
+Funcionalidade: Modal de login
+
+Descrição: Verificar se o sistema impede a submissão do formulário de login sem dados.
+
+Pré-condições: Estar com o modal de login aberto.
+
+Entradas: Campos de E-mail e Senha vazios.
+
+Passos: 
+
+1. Acessar a página de login.
+2. Sem preencher nada, clicar no botão de "Entrar".
+
+Resultado Esperado: 
+
+- O sistema deve exibir mensagens de campos obrigatórios ("Por favor, preencha todos os campos.").
+- O acesso não deve ser permitido.
+
+Status: Aprovado
+
+
+
+
+
+ID: CT-BB-004
+
+Título: Tentativa de login com e-mail não cadastrado
+
+Tipo: Black Box / Teste de Segurança
+
+Interface (página do sistema): Login
+
+Funcionalidade: Validação de credenciais
+
+Descrição: Verificar se o sistema impede o acesso de um e-mail que não consta na base de dados.
+
+Pré-condições: Estar na página de login. O e-mail utilizado não deve ter sido cadastrado anteriormente.
+
+Entradas: - Email: email_inexistente@teste.com
+
+Senha: Senha@1234
+
+Passos: 
+
+1. Inserir o e-mail não cadastrado.
+2. Inserir uma senha qualquer.
+3. Clicar no botão "Entrar".
+
+Resultado Esperado: 
+
+- O sistema deve exibir uma mensagem de erro (Ex: "Usuário ou senha inválidos").
+- O acesso ao sistema deve ser negado.
+
+Status: Aprovado
+
+
+
+
+
+ID: CT-BB-006
+
+Título: Tentativa de login com senha inválida
+
+Tipo: Black Box / Teste de Segurança
+
+Interface (página do sistema): Login
+
+Funcionalidade: Validação de credenciais
+
+Descrição: Garantir que o sistema impeça o acesso caso a senha informada esteja incorreta para um e-mail existente.
+
+Pré-condições: O e-mail utilizado deve ser um usuário já cadastrado (sucesso no CT-BB-003).
+
+Entradas: 
+
+- Email: usuario.teste@exemplo.com (E-mail válido)
+- Senha: SenhaErrada123 (Senha incorreta)
+
+Passos: 
+
+1. Inserir o e-mail de um usuário válido.
+2. Inserir uma senha incorreta.
+3. Clicar no botão "Entrar".
+
+Resultado Esperado: 
+
+- O sistema deve exibir uma mensagem de erro (Ex: "Usuário ou senha inválidos").
+- O acesso ao sistema deve ser negado.
+
+Status: Aprovado
+
+
+
+
+
+ID: CT-BB-007
+
+Título: Login com sucesso (Happy Path)
+
+Tipo: Black Box / Teste Funcional
+
+Interface (página do sistema): Login
+
+Funcionalidade: Autenticação de usuário
+
+Descrição: Validar se um usuário cadastrado consegue acessar a área interna do sistema ao fornecer os dados corretos.
+
+Pré-condições: Usuário já cadastrado com sucesso (CT-BB-003).
+
+Entradas: 
+
+- Email: usuario.teste@exemplo.com
+- Senha: Senha@1234
+
+Passos: 
+
+1. Acessar a página de login.
+2. Inserir o e-mail e a senha corretos.
+3. Clicar no botão "Entrar".
+
+Resultado Esperado: 
+
+- O sistema deve autenticar o usuário sem erros.
+- O usuário deve ser redirecionado para a página principal (Home/Dashboard).
+- A sessão do usuário deve ser iniciada corretamente.
+
+Status: Aprovado
