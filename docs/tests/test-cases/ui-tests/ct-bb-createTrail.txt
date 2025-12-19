@@ -1,0 +1,102 @@
+ID: CT-BB-001
+
+Título: Validação de campos obrigatórios na criação de trilha
+
+Tipo: Black Box / Teste UI
+
+Interface (página do sistema): createTrail
+
+Funcionalidade: Formulário de criação de trilha
+
+Descrição: Garantir que o sistema não permita a criação de trilhas com campos essenciais em branco.
+
+Pré-condições: Usuário deve estar autenticado e na página de criação de trilha.
+
+Entradas: Nenhuma (campos em branco).
+
+Passos: 
+
+1. Acessar a página de criação de trilha.
+2. Deixar os campos Título, Descrição, Tema e Datas vazios.
+3. Clicar no botão "Criar Trilha" ou "Salvar".
+
+Resultado Esperado: 
+
+- O sistema deve impedir o salvamento da trilha.
+- Deve ser exibida uma mensagem de texto orientando o usuário do preenchimento dos espaços e da selação de desafios.
+
+Status: Aprovado
+
+
+
+
+
+ID: CT-BB-002
+
+Título: Validação da regra de negócio de recompensa máxima (Limite 1000 moedas)
+
+Tipo: Black Box / Teste Funcional
+
+Interface (página do sistema): createTrail
+
+Funcionalidade: Somatório de recompensas de desafios
+
+Descrição: Validar se o sistema impede a criação de uma trilha quando o somatório das recompensas dos desafios selecionados ultrapassa o limite de 1000 moedas.
+
+Pré-condições: Estar na página de criação de trilha.
+
+Entradas: 
+
+- Dados dos espaços na área de Informaçãoda Trilha válidos.
+- tentativa de seleção de desafios cujos valores somados totalizem 1050 moedas (ex: Desafio A = 500, Desafio B = 550).
+
+Passos: 
+
+1. Preencher os dados básicos da trilha.
+2. Selecionar os desafios na lista até que o contador de moedas ultrapasse 1000.
+3. Tentar finalizar a criação da trilha.
+
+Resultado Esperado: 
+
+- O sistema deve barrar a seleção de desafios que façam comque o limite seja ultrapassado.
+
+Status: Aprovado
+
+
+
+
+
+ID: CT-BB-003
+
+Título: Criação de trilha com sucesso (Happy Path)
+
+Tipo: Black Box / Teste Funcional
+
+Interface (página do sistema): createTrail
+
+Funcionalidade: Fluxo completo de persistência de trilha
+
+Descrição: Validar se o sistema permite a criação de uma trilha quando todos os critérios (campos, datas e limite de moedas) são atendidos.
+
+Pré-condições: Usuário autenticado.
+
+Entradas: 
+
+- Título: "Trilha de UI Testing"
+- Descrição: "Aprenda a documentar testes de interface."
+- Tema: "Tecnologia" (selecionado via opção).
+- Data Início: 01/02/2026 | Data Fim: 10/02/2026.
+- Desafios: Selecionar desafios que somem exatamente 950 moedas.
+
+Passos: 
+
+1. Preencher todos os campos conforme as entradas acima.
+2. Clicar no botão "Criar Trilha".
+
+Resultado Esperado: 
+
+- O sistema deve exibir mensagem de confirmação de sucesso.
+- O usuário deve ser capaz devisualizar a trilha criada na página homePage.
+- Os dados devem ser gravados corretamente no banco de dados.
+
+Status: Aprovado
