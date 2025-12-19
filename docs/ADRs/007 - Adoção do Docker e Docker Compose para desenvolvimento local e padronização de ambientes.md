@@ -10,7 +10,7 @@ Adotar Docker para containerizar os serviços e Docker Compose para orquestrar o
 
 ## Status
 
-Aceita em 19/12/2025.
+Aceita em 14/12/2025.
 
 ## Consequências
 

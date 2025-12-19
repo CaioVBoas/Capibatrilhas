@@ -10,7 +10,7 @@ Padronizar qualidade de código com ESLint (plugins para TypeScript/React/Import
 
 ## Status
 
-Aceita em 19/12/2025.
+Aceita em 14/12/2025.
 
 ## Consequências
 

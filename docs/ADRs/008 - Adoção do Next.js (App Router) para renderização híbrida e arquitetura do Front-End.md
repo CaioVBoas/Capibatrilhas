@@ -10,7 +10,7 @@ Adotar Next.js com App Router como framework para o front-end, utilizando Server
 
 ## Status
 
-Aceita em 19/12/2025.
+Aceita em 14/12/2025.
 
 ## Consequências
 
