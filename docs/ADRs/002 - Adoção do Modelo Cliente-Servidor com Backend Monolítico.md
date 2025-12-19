@@ -1,4 +1,4 @@
-# Adoção do Modelo Cliente-Servidor com Backend Monolítico
+# Adoção da Arquitetura Cliente-Servidor com Backend Monolítico
 
 ## Contexto
 
@@ -22,6 +22,8 @@ Nesse contexto, foram avaliadas as seguintes alternativas arquiteturais apresent
 
 Considerando o contexto acadêmico, o tamanho da equipe e o horizonte de entrega, a combinação de um **back-end monolítico** organizado dentro de um **modelo cliente-servidor** apresenta o melhor equilíbrio entre simplicidade, clareza arquitetural e capacidade de evolução futura.
 
+Além disso, esta decisão se articula com as demais escolhas tecnológicas já registradas: **back-end em TypeScript com Express** (ADR 004), **front-end em React/Next.js** (ADR 005) e **PostgreSQL** como SGBD relacional (ADR 003), compondo um stack coerente e bem delimitado.
+
 ## Decisão
 
 Optou-se pela adoção do **modelo cliente-servidor**, no qual o sistema é dividido em front-end e back-end, aliado a uma **arquitetura monolítica no back-end**, responsável por centralizar as regras de negócio, o acesso aos dados e o processamento das requisições.
@@ -35,6 +37,8 @@ Aceita em 11/12/2025.
 A separação entre cliente e servidor possibilita desenvolvimento paralelo entre front-end e back-end, bem como deploys independentes por camada. O front-end pode ser distribuído como uma SPA, enquanto o back-end monolítico expõe uma API responsável pelo processamento das requisições e pela persistência dos dados.
 
 O contrato de API estabelece uma fronteira clara entre as camadas, facilitando testes de integração, documentação e versionamento, além de permitir o consumo futuro por outros clientes, como aplicações mobile.
+
+Pretende-se **documentar os contratos HTTP via OpenAPI/Swagger**, reforçando o alinhamento entre cliente e servidor, simplificando testes automatizados, versionamento de endpoints e integração com múltiplos consumidores.
 
 Sob a perspectiva de segurança, os pontos sensíveis do sistema concentram-se no servidor, onde são aplicados mecanismos como autenticação, autorização e controle de acesso. Do ponto de vista da qualidade, a arquitetura favorece a testabilidade e a manutenção, uma vez que o back-end permanece centralizado e modularizado.
 
