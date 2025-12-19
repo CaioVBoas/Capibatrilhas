@@ -66,7 +66,7 @@ Status: Aprovado
 
 
 
-ID: CT-BB-004
+ID: CT-BB-003
 
 Título: Criação de trilha com sucesso (Happy Path)
 
