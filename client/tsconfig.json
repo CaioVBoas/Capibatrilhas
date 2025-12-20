@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "downlevelIteration": true,
     "baseUrl": "./src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -26,7 +27,11 @@
       "lib/utils": ["./lib/utils"],
       "/lib/utils": ["./lib/utils"],
       "utils": ["./lib/utils"],
-      "utils/*": ["./utils/*"]
+      "utils/*": ["./utils/*"],
+      "hooks": ["./hooks/index.ts"],
+      "hooks/*": ["./hooks/*"],
+      "types": ["./types/index.ts"],
+      "types/*": ["./types/*"]
     },
     "plugins": [
       {

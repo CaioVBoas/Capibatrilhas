@@ -3,9 +3,232 @@
 //// ------------------------------------------------------
 
 Table User {
-  id String [pk]
+  id Int [pk, increment]
   name String [not null]
   phone String
   email String [unique, not null]
   password String [not null]
+  level Int [not null, default: 1]
+  points Int [not null, default: 0]
+  cpf String [unique, not null]
+  urlImage String
+  birthdate String
+  zipCode String
+  state String
+  city String
+  district String
+  street String
+  complement String
+  number String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  isAdmin Boolean [not null, default: false]
+  createdTrails Trail [not null]
+  participations TrailParticipation [not null]
+  completedChallenges CompletedChallenge [not null]
+  sentInvitations TrailInvitation [not null]
+  receivedInvitations TrailInvitation [not null]
+  walletTransactions WalletTransaction [not null]
+  userAchievements UserAchievement [not null]
 }
+
+Table Challenge {
+  id Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  theme String [not null]
+  conclusionCriteria String [not null]
+  conclusionToken String [not null]
+  location String [not null]
+  rewards Int [not null]
+  isActive Boolean [not null, default: true]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  TrailChallenges TrailChallenge [not null]
+  completedChallenges CompletedChallenge [not null]
+}
+
+Table Trail {
+  id Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  theme String [not null]
+  startDate DateTime [not null]
+  endDate DateTime [not null]
+  totalRewards Int [not null]
+  isActive Boolean [not null, default: true]
+  isHighlighted Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  ownerId Int
+  owner User
+  challenges TrailChallenge [not null]
+  participants TrailParticipation [not null]
+  invites TrailInvitation [not null]
+  completedChallenges CompletedChallenge [not null]
+}
+
+Table TrailChallenge {
+  id Int [pk, increment]
+  trailId Int [not null]
+  challengeId Int [not null]
+  challengeOrder Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  trail Trail [not null]
+  challenge Challenge [not null]
+
+  indexes {
+    (trailId, challengeId) [unique]
+  }
+}
+
+Table TrailParticipation {
+  id Int [pk, increment]
+  userId Int [not null]
+  trailId Int [not null]
+  progress Float [not null, default: 0]
+  isCompleted Boolean [not null, default: false]
+  joinedAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user User [not null]
+  trail Trail [not null]
+
+  indexes {
+    (userId, trailId) [unique]
+  }
+}
+
+Table CompletedChallenge {
+  id Int [pk, increment]
+  userId Int [not null]
+  challengeId Int [not null]
+  trailId Int [not null]
+  completedAt DateTime [default: `now()`, not null]
+  rewardsEarned Int [not null]
+  user User [not null]
+  challenge Challenge [not null]
+  trail Trail [not null]
+
+  indexes {
+    (userId, challengeId, trailId) [unique]
+  }
+}
+
+Table TrailInvitation {
+  id Int [pk, increment]
+  trailId Int [not null]
+  senderId Int [not null]
+  inviteeId Int [not null]
+  status InvitationStatus [not null, default: 'PENDENTE']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  trail Trail [not null]
+  sender User [not null]
+  invitee User [not null]
+
+  indexes {
+    (trailId, inviteeId) [unique]
+  }
+}
+
+Table HighlightedDistrict {
+  id Int [pk, increment]
+  name String [not null]
+  location String [not null]
+  bonusScore Int [not null]
+  description String [not null]
+  tags String[] [not null]
+  isActive Boolean [not null, default: true]
+  urlImage String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table EventAgenda {
+  id Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  location String [not null]
+  eventDate DateTime [not null]
+  endDate DateTime
+  category String [not null]
+  urlImage String
+  urlExternal String
+  isActive Boolean [not null, default: true]
+  isFeatured Boolean [not null, default: false]
+  tags String[] [not null]
+  organizer String
+  value String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table WalletTransaction {
+  id Int [pk, increment]
+  userId Int [not null]
+  amount Int [not null]
+  description String [not null]
+  transactionDate DateTime [default: `now()`, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user User [not null]
+}
+
+Table Achievement {
+  id Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  criteria String [not null]
+  isActive Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  userAchievements UserAchievement [not null]
+}
+
+Table UserAchievement {
+  id Int [pk, increment]
+  userId Int [not null]
+  achievementId Int [not null]
+  unlockedAt DateTime [default: `now()`, not null]
+  user User [not null]
+  achievement Achievement [not null]
+
+  indexes {
+    (userId, achievementId) [unique]
+  }
+}
+
+Enum InvitationStatus {
+  PENDENTE
+  ACEITO
+  RECUSADO
+}
+
+Ref: Trail.ownerId > User.id [delete: Cascade]
+
+Ref: TrailChallenge.trailId > Trail.id [delete: Cascade]
+
+Ref: TrailChallenge.challengeId > Challenge.id [delete: Cascade]
+
+Ref: TrailParticipation.userId > User.id [delete: Cascade]
+
+Ref: TrailParticipation.trailId > Trail.id [delete: Cascade]
+
+Ref: CompletedChallenge.userId > User.id [delete: Cascade]
+
+Ref: CompletedChallenge.challengeId > Challenge.id [delete: Cascade]
+
+Ref: CompletedChallenge.trailId > Trail.id [delete: Cascade]
+
+Ref: TrailInvitation.trailId > Trail.id [delete: Cascade]
+
+Ref: TrailInvitation.senderId > User.id [delete: Cascade]
+
+Ref: TrailInvitation.inviteeId > User.id [delete: Cascade]
+
+Ref: WalletTransaction.userId > User.id [delete: Cascade]
+
+Ref: UserAchievement.userId > User.id [delete: Cascade]
+
+Ref: UserAchievement.achievementId > Achievement.id [delete: Cascade]

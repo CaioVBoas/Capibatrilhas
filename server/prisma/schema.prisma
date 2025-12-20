@@ -13,9 +13,248 @@ generator dbml {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  phone    String?
-  email    String  @unique
-  password String
+  id         Int   @id @default(autoincrement())
+  name       String
+  phone      String?
+  email      String   @unique
+  password   String
+  level      Int      @default(1)
+  points     Int      @default(0)
+  cpf        String   @unique
+  urlImage   String?
+  birthdate  String?
+  zipCode    String?
+  state      String?
+  city       String?
+  district   String?
+  street     String?
+  complement String?
+  number     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isAdmin    Boolean  @default(false)
+
+  // Relacionamentos
+  createdTrails       Trail[]              @relation("TrailOwner")
+  participations      TrailParticipation[]
+  completedChallenges CompletedChallenge[]
+  sentInvitations     TrailInvitation[]    @relation("Inviter")
+  receivedInvitations TrailInvitation[]    @relation("Invitee")
+  walletTransactions  WalletTransaction[]
+  userAchievements    UserAchievement[]
+
+  @@index([email])
+  @@index([cpf])
+}
+
+model Challenge {
+  id                 Int      @id @default(autoincrement())
+  title              String
+  description        String
+  theme              String
+  conclusionCriteria String
+  conclusionToken    String
+  location           String
+  rewards            Int
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Relacionamentos
+  TrailChallenges     TrailChallenge[]
+  completedChallenges CompletedChallenge[]
+
+  @@index([theme])
+  @@index([isActive])
+}
+
+model Trail {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  theme         String
+  startDate     DateTime
+  endDate       DateTime
+  totalRewards  Int
+  isActive      Boolean  @default(true)
+  isHighlighted Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Criador da trilha (opcional - null para trilhas públicas)
+  ownerId Int?
+  owner   User?  @relation("TrailOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+
+  // Relacionamentos
+  challenges          TrailChallenge[]
+  participants        TrailParticipation[]
+  invites             TrailInvitation[]
+  completedChallenges CompletedChallenge[]
+
+  @@index([ownerId])
+  @@index([theme])
+  @@index([isActive])
+  @@index([isHighlighted])
+}
+
+// Tabela intermediária para desafios na trilha
+model TrailChallenge {
+  id             Int      @id @default(autoincrement())
+  trailId        Int
+  challengeId    Int
+  challengeOrder Int // Ordem do desafio na trilha
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  trail     Trail     @relation(fields: [trailId], references: [id], onDelete: Cascade)
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([trailId, challengeId])
+  @@index([trailId])
+  @@index([challengeId])
+}
+
+// Participação de usuários em trilhas
+model TrailParticipation {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  trailId     Int
+  progress    Float    @default(0) // Progresso do usuário na trilha (%)
+  isCompleted Boolean  @default(false)
+  joinedAt    DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trail Trail @relation(fields: [trailId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, trailId])
+  @@index([userId])
+  @@index([trailId])
+}
+
+// Desafios concluídos por usuários
+model CompletedChallenge {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  challengeId   Int
+  trailId       Int
+  completedAt   DateTime @default(now())
+  rewardsEarned Int // Recompensas ganhas ao completar
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  trail     Trail     @relation(fields: [trailId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, challengeId, trailId])
+  @@index([userId])
+  @@index([challengeId])
+  @@index([trailId])
+}
+
+// Sistema de convites para trilhas
+model TrailInvitation {
+  id        Int              @id @default(autoincrement())
+  trailId   Int
+  senderId  Int
+  inviteeId Int
+  status    InvitationStatus @default(PENDENTE)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  trail   Trail @relation(fields: [trailId], references: [id], onDelete: Cascade)
+  sender  User  @relation("Inviter", fields: [senderId], references: [id], onDelete: Cascade)
+  invitee User  @relation("Invitee", fields: [inviteeId], references: [id], onDelete: Cascade)
+
+  @@unique([trailId, inviteeId])
+  @@index([inviteeId, status])
+  @@index([trailId])
+}
+
+enum InvitationStatus {
+  PENDENTE
+  ACEITO
+  RECUSADO
+}
+
+model HighlightedDistrict {
+  id          Int      @id @default(autoincrement())
+  name        String
+  location    String
+  bonusScore  Int // Mudado de String para Int (pontuação de bônus)
+  description String
+  tags        String[]
+  isActive    Boolean  @default(true)
+  urlImage    String? // Imagem do bairro
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive])
+  @@index([name])
+}
+
+model EventAgenda {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  location    String
+  eventDate   DateTime // Data do evento
+  endDate     DateTime? // Data de término (para eventos de múltiplos dias)
+  category    String // Categoria do evento (música, teatro, exposição, etc)
+  urlImage    String? // Imagem do evento
+  urlExternal String? // Link externo para mais informações
+  isActive    Boolean   @default(true)
+  isFeatured  Boolean   @default(false) // Evento em destaque
+  tags        String[] // Tags para facilitar busca
+  organizer   String? // Nome do organizador
+  value       String? // Informação sobre preço (gratuito, valor, etc)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([eventDate])
+  @@index([category])
+  @@index([isActive])
+  @@index([isFeatured])
+}
+
+model WalletTransaction {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  amount      Int // Valor da transação (positivo para créditos, negativo para débitos)
+  description String
+  transactionDate DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([transactionDate])
+}
+
+model Achievement {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  criteria    String // Critérios para desbloquear a conquista
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userAchievements UserAchievement[]
+
+  @@index([isActive])
+}
+
+model UserAchievement {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  achievementId Int
+  unlockedAt    DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+  @@index([achievementId])
 }

@@ -1,0 +1,24 @@
+ID: CT-EXP-001  
+Título: Exploração de convites e visualização de Capibas em trilhas personalizadas  
+Tipo: Teste Exploratório  
+Funcionalidade: Convite de amigos e consulta de Capibas  
+
+Objetivo:  
+Explorar o comportamento do sistema ao convidar amigos para trilhas personalizadas e acompanhar a atualização da quantidade de Capibas do usuário.
+
+Abordagem:  
+O testador irá navegar livremente pelo sistema, criando trilhas personalizadas, convidando amigos em diferentes momentos e observando a atualização do saldo de Capibas.
+
+Atividades:  
+- Convidar amigos antes e após a criação da trilha  
+- Cancelar convites e reenviar  
+- Completar trilhas personalizadas com múltiplos participantes  
+- Verificar a atualização do saldo de Capibas em diferentes telas  
+
+Resultado Esperado:  
+- Convites funcionam corretamente em diferentes cenários  
+- A quantidade de Capibas é atualizada de forma consistente  
+- Não ocorrem falhas de navegação ou inconsistências visuais  
+
+Timebox:  
+90 minutos  

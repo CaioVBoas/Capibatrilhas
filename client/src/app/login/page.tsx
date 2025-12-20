@@ -1,58 +1,62 @@
-'use client';
+"use client";
 
-import { Logo } from 'assets';
-import { useSession } from 'next-auth/react';
+import { useState } from "react";
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
-import { Button } from '../../components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '../../components/ui/card';
-import { Input } from '../../components/ui/input';
-import { Label } from '../../components/ui/label';
+import { loginBackground, logo_slogan } from 'assets';
+import { Card, CardContent, CardHeader, CardTitle } from 'components/ui/card';
+import { Tabs, TabsContent } from "components/ui/tabs";
 
-export default function Login() {
-  const session = useSession();
+// import dos formulários criados no diretório auth 
+import { LoginForm } from "components/auth/login-form";
+import { RegisterForm } from "components/auth/register-form";
 
-  if (session.status === 'authenticated') {
-    redirect('/');
-  }
+export default function LoginPage() {
+  const [activeTab, setActiveTab] = useState("login");
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen justify-around items-center">
-      <Card className="w-full max-w-sm">
+    <div
+    className="relative min-h-dvh w-full flex justify-center items-center bg-no-repeat bg-cover bg-center overflow-hidden"
+    style={{ 
+      backgroundImage: `url(${loginBackground.src})`,
+      backgroundAttachment: 'fixed' 
+  }}
+>
+
+      <Card className="w-full max-w-lg bg-white backdrop-blur-sm rounded-2xl">
         <CardHeader>
-          <div>
-            <Image src={Logo} alt="Logo" />
+          <div className='flex justify-center py-4'>
+            <Image src={logo_slogan} alt="Logo" className='w-auto h-auto' />
           </div>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account.
-          </CardDescription>
+          <CardTitle className="text-2xl text-center font-bold">
+            {activeTab === "login" ? "Login" : "Cadastro"}
+          </CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required />
-          </div>
+
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            
+
+            <TabsContent value="login">
+              <LoginForm />
+              <button 
+                onClick={() => setActiveTab("register")}
+                className="w-full text-center text-sm text-blue-600 mt-4 hover:underline"
+              >
+                Não tem conta? Cadastre-se
+              </button>
+            </TabsContent>
+
+            <TabsContent value="register">
+              <RegisterForm onSuccess = {() => setActiveTab("login")}/>
+              <button 
+                onClick={() => setActiveTab("login")}
+                className="w-full text-center text-sm text-blue-600 mt-4 hover:underline"
+              >
+                Já tem conta? Faça login
+              </button>
+            </TabsContent>
+          </Tabs>
         </CardContent>
-        <CardFooter>
-          <Button className="w-full">Sign in</Button>
-        </CardFooter>
       </Card>
     </div>
   );

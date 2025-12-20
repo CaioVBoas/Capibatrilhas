@@ -1,5 +1,27 @@
 import UserController from './UserController';
 import LoginController from './LoginController';
 import FileController from './fileController';
+import DistrictController from './DistrictController';
+import TrailController from './TrailController';
+import AgendaController from './AgendaController';
+import ChallengeController from './challengeController';
+import TrailChallengeController from './trailChallengeController';
+import TrailParticipationController from './TrailParticipationController';
+import TrailInvitationController from './TrailInvitationController';
+import CompletedChallengeController from './CompletedChallengeController';
+import WalletTransactionController from './WalletTransactionController';
+import AchievementController from './AchievementController';
+import UserAchievementController from './UserAchievementController';
 
 export { UserController, LoginController, FileController };
+export { DistrictController };
+export { TrailController };
+export { AgendaController };
+export { ChallengeController };
+export { TrailChallengeController };
+export { TrailParticipationController };
+export { TrailInvitationController };
+export { CompletedChallengeController };
+export { WalletTransactionController };
+export { AchievementController };
+export { UserAchievementController };

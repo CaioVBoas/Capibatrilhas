@@ -1,0 +1,26 @@
+ID: CT-BB-002  
+Título: Atualização de dados da conta do usuário  
+Tipo: Black Box / Teste Funcional  
+Funcionalidade: CRUD de conta  
+
+Descrição:  
+Validar a atualização das informações da conta do usuário sem analisar a implementação interna.
+
+Pré-condições:  
+- Usuário autenticado  
+- Conta previamente cadastrada  
+
+Entradas:  
+- Nome  
+- E-mail  
+- Foto de perfil  
+
+Passos:  
+1. Acessar a página de perfil  
+2. Alterar os dados do usuário  
+3. Salvar as alterações  
+
+Resultado Esperado:  
+- Dados atualizados corretamente  
+- Informações persistidas  
+- Retorno visual de sucesso ao usuário  

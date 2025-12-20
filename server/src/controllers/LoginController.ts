@@ -5,7 +5,7 @@ import {
   UserRepository,
   TokenRepository,
   CookieRepository,
-} from '@repositories';
+} from '../repositories';
 
 class LoginController {
   async login(req: Request, res: Response, next: NextFunction) {
@@ -41,7 +41,7 @@ class LoginController {
         status: 200,
         message: 'User logged',
         data: {
-          loggedUser,
+          user: loggedUser,
           accessToken,
         },
       };
