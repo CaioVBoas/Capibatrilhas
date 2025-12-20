@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { capibatrilhasAlternateLogo, capibatrilhasAlternateLogo2 } from "assets";
 import Image from "next/image";
 import Link from "next/link";
-import { UserRound } from 'lucide-react';
+import { UserRound, LogOut } from 'lucide-react';
+import { useAuth } from 'hooks/useAuth';
 import { DM_Sans } from "next/font/google";
 import { outfit } from "styles/fonts";
 
@@ -15,6 +16,7 @@ const dmSans = DM_Sans({
 
 export default function NavBar() {
     const [isFlipped, setIsFlipped] = useState(false);
+    const { logout } = useAuth();
 
     const handleLogoClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -74,12 +76,20 @@ export default function NavBar() {
                     <NavLink href="/schedulePage" text="Agenda" />
                     <NavLink href="/wallet" text="Carteira" />
                     
-                    <Link 
-                        href="/profilePage" 
+                    <Link
+                        href="/profilePage"
                         className="bg-white/10 text-white hover:bg-white hover:text-blue-700 border-2 border-transparent hover:border-blue-200 transition-all rounded-full p-2.5 shadow-sm"
                     >
                         <UserRound size={20} />
                     </Link>
+
+                    <button
+                        onClick={logout}
+                        className="bg-white/10 text-white hover:bg-red-500 hover:text-white border-2 border-transparent hover:border-red-300 transition-all rounded-full p-2.5 shadow-sm"
+                        title="Sair"
+                    >
+                        <LogOut size={20} />
+                    </button>
                 </nav>
             </div>
         </header>

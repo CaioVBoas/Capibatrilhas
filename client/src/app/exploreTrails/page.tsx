@@ -1,111 +1,82 @@
 'use client';
 import ExploreTrailsCard from 'components/exploreTrailsCard';
 import TrailCard from 'components/featuredTrailCards';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from 'components/navBar';
+import api from 'services/api';
 
-const mockTrails = [
-  {
-    id: 1,
-    title: 'Capibatrilha de Carnaval',
-    subtitle:
-      'Explore os melhores blocos e pontos culturais do Carnaval da cidade',
-    progress: 42,
-    type: 'Destaque',
-    challengesQuantity: '7',
-    time: '5 dias',
-    prize: 500,
-    challengesCompleted: '3',
-    buttonText: 'Continuar',
-    tag: 'Cultura'
-  },
-  {
-    id: 2,
-    title: 'Capibatrilha Gastronômica',
-    subtitle:
-      'Descubra os sabores únicos da culinária do Recife com desafios deliciosos',
-    progress: 60,
-    type: 'Destaque',
-    challengesQuantity: '5',
-    time: '6 dias',
-    prize: 400,
-    challengesCompleted: '3',
-    buttonText: 'Continuar',
-    tag: 'Gastronomia'
-  },
-  {
-    id: 3,
-    title: 'Capibatrilha de Natal',
-    subtitle:
-      'Descubra o Natal de um novo jeito embalado pelas luzes e decorações natalinas na melhor cidade do Brasil',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '8',
-    time: '10 dias',
-    prize: 300,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Cultura'
-  },
-  {
-    id: 4,
-    title: '7 Dias de Verão',
-    subtitle: 'Desafios diários em praias e pontos turísticos da cidade',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '7',
-    time: '7 dias',
-    prize: 350,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Natureza'
-  },
-  {
-    id: 5,
-    title: 'Capibatrilha Histórica',
-    subtitle: 'Volte no tempo e descubra as raízes do Recife Antigo',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '6',
-    time: '4 dias',
-    prize: 250,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'História'
-  },
-  {
-    id: 6,
-    title: 'Circuito de Arte Urbana',
-    subtitle: 'Explore os murais de grafite e galerias de arte da cidade',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '5',
-    time: '3 dias',
-    prize: 200,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Arte'
-  },
-  {
-    id: 7,
-    title: 'Recife Verde: Parques',
-    subtitle: 'Uma jornada relaxante pelos principais parques e áreas verdes',
-    progress: 0,
-    type: 'Destaque',
-    challengesQuantity: '4',
-    time: '2 dias',
-    prize: 150,
-    challengesCompleted: '0',
-    buttonText: 'Iniciar Trilha',
-    tag: 'Natureza'
-  }
-];
+interface Trail {
+  id: number;
+  title: string;
+  subtitle: string;
+  progress: number;
+  type: string;
+  challengesQuantity: number;
+  time: string;
+  prize: number;
+  challengesCompleted: number;
+  buttonText: string;
+  tag: string;
+  isPersonalized: boolean;
+}
 
 export default function ExploreTrails() {
   const [selectedType, setSelectedType] = useState('Todas');
   const [searchTerm, setSearchTerm] = useState('');
+  const [trails, setTrails] = useState<Trail[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredTrails = mockTrails.filter((trail) => {
+  useEffect(() => {
+    async function fetchTrails() {
+      try {
+        const response = await api.get('/trail');
+        const apiTrails = response.data.data || response.data;
+
+        if (Array.isArray(apiTrails)) {
+          const formattedTrails: Trail[] = apiTrails.map((trail: {
+            id: number;
+            title: string;
+            description: string;
+            theme: string;
+            totalRewards: number;
+            isHighlighted: boolean;
+            startDate: string;
+            endDate: string;
+          }) => ({
+            id: trail.id,
+            title: trail.title,
+            subtitle: trail.description,
+            progress: 0,
+            type: trail.isHighlighted ? "Destaque" : "Normal",
+            challengesQuantity: 0,
+            time: calculateDays(trail.startDate, trail.endDate),
+            prize: trail.totalRewards,
+            challengesCompleted: 0,
+            buttonText: "Iniciar Trilha",
+            tag: trail.theme,
+            isPersonalized: false,
+          }));
+          setTrails(formattedTrails);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar trilhas:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTrails();
+  }, []);
+
+  function calculateDays(startDate: string, endDate: string): string {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return `${diffDays} dias`;
+  }
+
+  const filteredTrails = trails.filter((trail) => {
     const matchesType = selectedType === 'Todas' || trail.tag === selectedType;
 
     const matchesSearch = trail.title
@@ -126,13 +97,17 @@ export default function ExploreTrails() {
       />
       <div className="p-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto">
-          {filteredTrails.length > 0 ? (
+          {loading ? (
+            <div className="col-span-2 flex justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+          ) : filteredTrails.length > 0 ? (
             filteredTrails.map((trail) => (
               <TrailCard key={trail.id} trail={trail} />
             ))
           ) : (
             <p className="text-gray-600 text-center col-span-2">
-              Nenhuma trilha encontrada para {selectedType}.
+              Nenhuma trilha encontrada{selectedType !== 'Todas' ? ` para ${selectedType}` : ''}.
             </p>
           )}
         </div>

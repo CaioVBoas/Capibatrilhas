@@ -1,48 +1,72 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import api from 'services/api';
+import { serverApi } from 'services/api';
+import { User } from 'types';
+
+interface LoginResponse {
+  data: {
+    user?: User;
+    loggedUser?: User;
+    accessToken: string;
+  };
+  message: string;
+}
 
 export const nextAuthOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' }
       },
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      async authorize(credentials, req) {
-        const response = await api.post('/sessions', {
-          username: credentials?.username,
-          password: credentials?.password
-        });
+      async authorize(credentials) {
+        try {
+          const response = await serverApi.post<LoginResponse>('/sessions', {
+            email: credentials?.email,
+            password: credentials?.password
+          });
 
-        const { user } = response.data.data;
+          const data = response.data.data;
+          const user = data.user || data.loggedUser;
+          const accessToken = data.accessToken;
 
-        if (user) {
-          return user;
+          if (user && accessToken) {
+            return {
+              ...user,
+              accessToken
+            } as User & { accessToken: string };
+          }
+
+          return null;
+        } catch {
+          return null;
         }
-
-        return null;
       }
     })
   ],
   pages: {
     signIn: '/'
   },
+  session: {
+    strategy: 'jwt',
+    maxAge: 5 * 24 * 60 * 60,
+  },
   callbacks: {
     async jwt({ token, user }) {
-        if (user) {
-          token.user = user;
-        }
-        return token;
+      if (user) {
+        const { accessToken, ...userData } = user as User & { accessToken: string };
+        token.user = userData;
+        token.accessToken = accessToken;
+      }
+      return token;
     },
 
     async session({ session, token }) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      session.user = token.user as any;
+      session.user = token.user as User;
+      session.accessToken = token.accessToken as string;
       return session;
     }
   }
